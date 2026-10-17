@@ -13,6 +13,7 @@ import { MobxUtilsMain } from '../mobx-utils'
 import { NetworkMain } from '../network'
 import { SettingFactoryMain } from '../setting-factory'
 import type { SetterSettingService } from '../setting-factory/setter-setting-service'
+import type { ChampionDataLoadOptions } from './context'
 import {
   CHAMPION_DATA_MAIN_NAMESPACE,
   CHAMPION_DATA_OPGG_FEATURE_GATE,
@@ -120,9 +121,10 @@ export class ChampionDataMain implements IAkariShardInitDispose {
 
   loadDetails(
     query: Parameters<ChampionDataServiceController['loadDetails']>[0],
-    championId: number
+    championId: number,
+    options?: ChampionDataLoadOptions
   ) {
-    return this._service.loadDetails(query, championId)
+    return this._service.loadDetails(query, championId, options)
   }
 
   private _createHttpClient(headers?: Record<string, string>) {

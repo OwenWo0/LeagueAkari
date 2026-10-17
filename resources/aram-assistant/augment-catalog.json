@@ -1,0 +1,4986 @@
+{
+  "schemaVersion": 1,
+  "sourceSchemaVersion": 1,
+  "mode": "aram-mayhem",
+  "sourceName": "HexARAM Mayhem catalog",
+  "sourceUrl": "https://hexaram.lol/data/mayhem/augment-catalog.json",
+  "sourcePageUrl": "https://hexaram.lol/",
+  "fetchedAt": "2026-10-17T08:14:23Z",
+  "sourcePatch": "26.20",
+  "patchVerified": false,
+  "rawSha256": "aac125ef54cf23e47967a5884b9ca710590287f3117587adaa64cdf3d0984987",
+  "sourceBatchSize": 48,
+  "licenseStatus": "unverified",
+  "remoteIconsOmitted": true,
+  "cardCount": 216,
+  "entries": [
+    {
+      "id": "adapt",
+      "slug": "adapt",
+      "name": {
+        "zh": "物理转魔法",
+        "en": "ADAPt"
+      },
+      "effect": {
+        "zh": "将额外攻击力转化为法术强度，并获得15% 法术强度。\n\n每点攻击力转化为1.6667法术强度。",
+        "en": "Convert Bonus Attack Damage to Ability Power, and gain 15% Ability Power.\n\nConverts at a rate of 1.6667 Ability Power per point of Attack Damage."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "all-for-you",
+      "slug": "all-for-you",
+      "name": {
+        "zh": "全心为你",
+        "en": "All For You"
+      },
+      "effect": {
+        "zh": "你的治疗和护盾在用在一个友军身上时会变强30%。",
+        "en": "Your Heals and Shields are 30% stronger when used on an ally."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience", "ally"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "apex-inventor",
+      "slug": "apex-inventor",
+      "name": {
+        "zh": "尖端发明家",
+        "en": "Apex Inventor"
+      },
+      "effect": {
+        "zh": "获得100装备急速(相当于50%装备冷却缩减)。\n\n装备急速可缩减所有装备技能的冷却时间。",
+        "en": "Gain 100 Item Haste (equivalent to 50% Item CDR).\n\nItem Haste reduces the cooldown of all Item Abilities."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "archmage",
+      "slug": "archmage",
+      "name": {
+        "zh": "大法师",
+        "en": "Archmage"
+      },
+      "effect": {
+        "zh": "施放一个技能会返还另一个随机技能的花费，数额相当于30%原技能冷却时间。",
+        "en": "Casting a spell refunds another random spell's cost by 30% of the original spell's Cooldown."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "backto-basics",
+      "slug": "backto-basics",
+      "name": {
+        "zh": "回归基本功",
+        "en": "Back To Basics"
+      },
+      "effect": {
+        "zh": "你的终极技能已被封印。获得35%技能伤害、治疗效果、护盾和70技能急速。",
+        "en": "Your Ultimate Ability is sealed. Gain 35% Ability Damage, Healing, Shielding, and 70 Ability Haste."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "bang-bang",
+      "slug": "bang-bang",
+      "name": {
+        "zh": "狙神飞星",
+        "en": "From Downtown"
+      },
+      "effect": {
+        "zh": "任务：用技能狙击15个敌方英雄。\n\n狙击 - 从600码外对敌人造成伤害\n\n奖励：一颗流星会飞向你狙击的那个敌方英雄，在其周围的一个区域内造成75-200（基于英雄等级） (+50% 额外攻击力) (+20% 法术强度)伤害。伤害和区域规模会基于敌人远离你的程度而提升。\n\n任务进度：当前进度 / 15\n\n砰！砰！噢，这枪打得好啊！\n\n砰！砰！噢，这枪打得好啊！",
+        "en": "QUEST: Snipe 15 enemy champions with abilities.\n\nSnipe - Damage enemies over 600 distance away.\n\nREWARD: A meteor flies at enemy champions you Snipe, dealing 75-200 (based on champion level) (+50% bonus Attack Damage) (+20% Ability Power) damage in an area around them. The damage and size of the area increase the further the target is away from you.\n\nQuest Progress: current progress / 15\n\nBang! Bang! Oh, what a shot!\n\nBang! Bang! Oh, what a shot!"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "quest",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "big-brain",
+      "slug": "big-brain",
+      "name": {
+        "zh": "超强大脑",
+        "en": "Big Brain"
+      },
+      "effect": {
+        "zh": "获得300% 法术强度护盾值。阵亡时或耗尽后70秒重置。",
+        "en": "Gain a 300% Ability Power Shield. Resets on death or 70 seconds after depletion."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "blade-waltz",
+      "slug": "blade-waltz",
+      "name": {
+        "zh": "利刃华尔兹",
+        "en": "Blade Waltz"
+      },
+      "effect": {
+        "zh": "让你进入不可被选取状态，在此期间对敌人进行突进并造成30-150（基于英雄等级） (+10% 额外攻击力) (+6% 法术强度)伤害8次(造成50%附带伤害)。",
+        "en": "Makes you untargetable while you dash at and deal 30-150 (based on champion level) (+10% bonus Attack Damage) (+6% Ability Power) damage to enemies 8 times (deals 50% On-Hit damage)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "blunt-force",
+      "slug": "blunt-force",
+      "name": {
+        "zh": "大力",
+        "en": "Blunt Force"
+      },
+      "effect": {
+        "zh": "获得20%攻击力。",
+        "en": "Gain 20% Attack Damage."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "bread-and-butter",
+      "slug": "bread-and-butter",
+      "name": {
+        "zh": "面包和黄油",
+        "en": "Bread And Butter"
+      },
+      "effect": {
+        "zh": "你的【Q】技能获得100技能急速。",
+        "en": "Your Q gains 100 Ability Haste."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "bread-and-cheese",
+      "slug": "bread-and-cheese",
+      "name": {
+        "zh": "面包和奶酪",
+        "en": "Bread and Cheese"
+      },
+      "effect": {
+        "zh": "你的【E】技能获得100技能急速。",
+        "en": "Your E gains 100 Ability Haste."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "bread-and-jam",
+      "slug": "bread-and-jam",
+      "name": {
+        "zh": "面包和果酱",
+        "en": "Bread And Jam"
+      },
+      "effect": {
+        "zh": "你的【W】技能获得100技能急速。",
+        "en": "Your W gains 100 Ability Haste."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "cant-touch-this",
+      "slug": "cant-touch-this",
+      "name": {
+        "zh": "你摸不到",
+        "en": "Can't Touch This"
+      },
+      "effect": {
+        "zh": "施放你的终极技能会使你进入持续2秒的的免疫伤害状态(8秒冷却时间)。",
+        "en": "Casting your Ultimate makes you Invulnerable for 2 seconds (8s Cooldown)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "celestial-body",
+      "slug": "celestial-body",
+      "name": {
+        "zh": "星界躯体",
+        "en": "Celestial Body"
+      },
+      "effect": {
+        "zh": "获得1500生命值，但你造成的伤害降低10%。",
+        "en": "Gain 1500 Health, but you deal 10% less damage."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "circleof-death",
+      "slug": "circleof-death",
+      "name": {
+        "zh": "死亡之环",
+        "en": "Circle of Death"
+      },
+      "effect": {
+        "zh": "你的治疗效果和生命回复效果会对相距最近的那个敌方英雄造成70%该数额的魔法伤害。",
+        "en": "Your healing and Health Regen deal 70% of the value magic damage to the nearest enemy champion."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "clown-college",
+      "slug": "clown-college",
+      "name": {
+        "zh": "小丑学院",
+        "en": "Clown College"
+      },
+      "effect": {
+        "zh": "背刺：你从背后袭击敌人时，会造成20-35（基于英雄等级） (+35% 法术强度) (+50% 额外攻击力)额外物理伤害。\n\n欺诈魔术：你传送并变为隐形，持续3秒。你在隐形状态下的第一次攻击将造成额外的100 (+150% 额外攻击力) (+55% 法术强度)物理伤害。如果从背后进行打击，那么这个攻击会暴击，造成155% (+100% 额外暴击伤害)伤害。\n\n幻像：阵亡：在阵亡时，在你周围造成25%最大生命值的真实伤害以及1秒恐惧。",
+        "en": "Backstab: You deal 20-35 (based on champion level) (+35% Ability Power) (+50% bonus Attack Damage) bonus physical damage when striking from behind.\n\nDeceive: You teleport and become Invisible for 3 seconds. Your next Attack while Invisible deals an additional 100 (+150% bonus Attack Damage) (+55% Ability Power) physical damage. If striking from behind, this Attack critically strikes for 155% (+100% bonus Critical Strike Damage) damage.\n\nHallucinate: Death: On death, deal 25% maximum Health true damage and fear for 1s around you."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "courageofthe-colossus",
+      "slug": "courageofthe-colossus",
+      "name": {
+        "zh": "巨像的勇气",
+        "en": "Courage of the Colossus"
+      },
+      "effect": {
+        "zh": "定身或缚地一个敌方英雄后获得150-450（基于英雄等级） (+4% 生命值)护盾值。",
+        "en": "Gain 150-450 (based on champion level) (+4% Health) Shield after Immobilizing or Grounding an enemy champion."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "critical-healing",
+      "slug": "critical-healing",
+      "name": {
+        "zh": "会心治疗",
+        "en": "Critical Healing"
+      },
+      "effect": {
+        "zh": "你的治疗和护盾可以暴击，造成40%额外数额的效果。获得 25%暴击几率。",
+        "en": "Your healing and Shields can Critically Strike for 40% bonus amount. Gain 25% Crit Chance."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "cruelty",
+      "slug": "cruelty",
+      "name": {
+        "zh": "残忍",
+        "en": "Cruelty"
+      },
+      "effect": {
+        "zh": "定身或缚地一个敌方英雄时，召唤一颗彗星至敌人上方。彗星会在1秒后着陆，对附近的敌人们造成50-150（基于英雄等级） (+40% 法术强度) (+4% 生命值)魔法伤害。\n这个效果对每次技能施放和每个目标都有6秒冷却时间。",
+        "en": "On Immobilizing or Grounding an enemy champion, summon a comet above them. The comet lands after 1 second, dealing 50-150 (based on champion level) (+40% Ability Power) (+4% Health) magic damage to nearby enemies.\nThis effect has a 6 seconds Cooldown per target per spell cast."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dashing",
+      "slug": "dashing",
+      "name": {
+        "zh": "全凭身法",
+        "en": "Dashing"
+      },
+      "effect": {
+        "zh": "你的冲刺、跳跃、闪烁或传送类技能获得175技能急速。",
+        "en": "Your dash, leap, blink, or teleport Abilities gain 175 Ability Haste."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dawnbringers-resolve",
+      "slug": "dawnbringers-resolve",
+      "name": {
+        "zh": "黎明使者的坚决",
+        "en": "Dawnbringer's Resolve"
+      },
+      "effect": {
+        "zh": "在跌到50%生命值以下时，在3秒里持续回复共30%最大生命值。\n阵亡时或每45秒重置。",
+        "en": "When dropping below 50% Health, heal for 30% max Health over 3 seconds.\nResets on death or every 45 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "deft",
+      "slug": "deft",
+      "name": {
+        "zh": "灵巧",
+        "en": "Deft"
+      },
+      "effect": {
+        "zh": "获得 60%攻击速度。",
+        "en": "Gain 60% Attack Speed."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dive-bomber",
+      "slug": "dive-bomber",
+      "name": {
+        "zh": "俯冲轰炸",
+        "en": "Dive Bomber"
+      },
+      "effect": {
+        "zh": "在你阵亡时爆炸，对附近的敌人们造成目标20%最大生命值的真实伤害。",
+        "en": "Explodes when you die, dealing 20% of the target's max Health as true damage to nearby enemies."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "ally"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "divine-domain",
+      "slug": "divine-domain",
+      "name": {
+        "zh": "飞升仪式",
+        "en": "Rite of Ascension"
+      },
+      "effect": {
+        "zh": "参与击杀你在过去3秒内造成过伤害的英雄，会使其留下其精华，持续8秒。攻击一个精华会消耗它。\n\n消耗一个精华会使你闪烁至它的位置、让你变为不可被选取和不可阻挡、提供在2秒里持续衰减的100%移动速度、治疗你75-300（基于英雄等级） (+50% 额外攻击力) (+25% 法术强度)到150-600（基于英雄等级） (+100% 额外攻击力) (+50% 法术强度)生命值(基于已损失生命值)、并重置你的基础技能冷却时间。\n\n今天，你们将一睹飞升之威能！——沙漠皇帝 阿兹尔",
+        "en": "Champion takedowns within 3 seconds of damaging them causes them to leave behind their Essence for 8 seconds. Attacking an Essence consumes it.\n\nConsuming an Essence blinks you to its location, makes you Untargetable and Unstoppable, grants 100% Move Speed decaying over 2 seconds, heals you 75-300 (based on champion level) (+50% bonus Attack Damage) (+25% Ability Power) to 150-600 (based on champion level) (+100% bonus Attack Damage) (+50% Ability Power) based on your Missing Health, and resets your basic Ability cooldowns.\n\nToday, you will see the power of Ascension! — Azir, the Emperor of the Sands"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "divine-intervention",
+      "slug": "divine-intervention",
+      "name": {
+        "zh": "神圣干预",
+        "en": "Divine Intervention"
+      },
+      "effect": {
+        "zh": "每35秒，自动施放一颗护体星星缓慢降临在你身上。在它着陆时，你和附近的友军们进入持续2.5秒的免疫伤害状态。",
+        "en": "Every 35 seconds, Autocast a protective star that slowly descends upon you. When it lands, you and nearby allies become Invulnerable for 2.5 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dont-blink",
+      "slug": "dont-blink",
+      "name": {
+        "zh": "唯快不破",
+        "en": "Don't Blink"
+      },
+      "effect": {
+        "zh": "你每比目标多10移动速度，就会获得1%额外伤害。",
+        "en": "Gain 1% bonus damage per 10 Movement Speed more you have than the target."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "double-tap",
+      "slug": "double-tap",
+      "name": {
+        "zh": "双发快射",
+        "en": "Double Tap"
+      },
+      "effect": {
+        "zh": "你的暴击施加一次额外的攻击特效。\n\n获得 25%暴击几率。",
+        "en": "Your Critical Strikes apply On-Hit effects an additional time.\n\nGain 25% Crit chance."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "draw-your-sword",
+      "slug": "draw-your-sword",
+      "name": {
+        "zh": "亮出你的剑",
+        "en": "Draw Your Sword"
+      },
+      "effect": {
+        "zh": "你现在是近战状态。获得24%攻击力、24%生命值、20%攻击速度、20%生命偷取和20%移动速度 (每个属性都已基于攻击距离的损失而进一步提升)。",
+        "en": "You are now melee. Gain 24% Attack Damage, 24% Health, 20% Attack Speed, 20% Lifesteal, and 20% Move Speed (each further increased based on Attack Range lost)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "drop-bear",
+      "slug": "drop-bear",
+      "name": {
+        "zh": "空投熊",
+        "en": "DropBear"
+      },
+      "effect": {
+        "zh": "阵亡时，召唤提伯斯，从而对你周围的敌人们造成250-750（基于英雄等级） (+100% 法术强度) (+200% 固定法术穿透) (+500% 百分比法术穿透)魔法伤害和0.5秒晕眩。提伯斯随后会追击你的击杀者。\n\n提伯斯还会拥有你的所有强化符文。",
+        "en": "On Death, summon Tibbers, dealing 250-750 (based on champion level) (+100% Ability Power) (+200% flat Magic Penetration) (+500% percent Magic Penetration) Magic Damage to all enemies around you, Stunning them for 0.5 seconds. Tibbers then chases your Killer.\n\nTibbers also has all of your Augments."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dropkick",
+      "slug": "dropkick",
+      "name": {
+        "zh": "飞身踢",
+        "en": "Dropkick"
+      },
+      "effect": {
+        "zh": "你的攻击和技能会处决低于4% (+0.001% 额外生命值) (+0.055% 基础攻击力)最大生命值的敌方英雄, 回复你100-300（基于英雄等级） (+25% 额外生命值)生命值并击退该目标。\n\n在与一个敌人或地形产生碰撞、或达到其终点时，这个被击退的敌人将爆炸，对附近的敌人们造成150-500（基于英雄等级） (+100% 额外护甲) (+100% 额外魔法抗性)魔法伤害。\n\n这些爆炸可以连锁。",
+        "en": "Your Attacks and Abilities execute enemy champions below 4% (+0.001% bonus Health) (+0.055% base Attack Damage) max Health, restoring 100-300 (based on champion level) (+25% bonus Health) Health and Knocking Back the target.\n\nUpon colliding with an enemy or terrain or reaching their terminus, Knocked Back enemies will explode dealing 150-500 (based on champion level) (+100% bonus Armor) (+100% bonus Magic Resistance) magic damage to nearby enemies.\n\nThese explosions can chain."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dual-wield",
+      "slug": "dual-wield",
+      "name": {
+        "zh": "双刀流",
+        "en": "Dual Wield"
+      },
+      "effect": {
+        "zh": "在你攻击时，发射一个弩箭，它造成40%伤害并以40%效能施加你的攻击特效。\n\n获得10% 总攻击速度。",
+        "en": "When you Attack, fire a bolt that deals 40% damage and applies your On-Hit effects at 40% effectiveness.\n\nGain 10% total Attack Speed."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "earthwake",
+      "slug": "earthwake",
+      "name": {
+        "zh": "大地苏醒",
+        "en": "Earthwake"
+      },
+      "effect": {
+        "zh": "你的冲刺、跳跃、闪烁或传送类技能会留下一条在1秒后爆炸的轨迹，造成90-250（基于英雄等级） (+60% 法术强度) (+125% 额外攻击力)物理伤害。",
+        "en": "Your dash, leap, blink, or teleport Abilities leave behind a trail that detonates after 1 second, dealing 90-250 (based on champion level) (+60% Ability Power) (+125% bonus Attack Damage) physical damage."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "empowered-by-the-faithful",
+      "slug": "empowered-by-the-faithful",
+      "name": {
+        "zh": "信念者的强化",
+        "en": "Empowered By The Faithful"
+      },
+      "effect": {
+        "zh": "为友军提供治疗或护盾会赐福他们8秒。当被赐福的友军对敌方英雄造成伤害时，你获得虔诚层数。在50虔诚时，释放一道冲击波来造成50-300（基于英雄等级） (+750% 治疗和护盾强度)魔法伤害并处决低于25% 治疗和护盾强度生命值的敌人们。",
+        "en": "Healing or Shielding an ally blesses them for 8 seconds. When blessed allies deal damage to enemy champions, gain stacks of Devotion. At 50 Devotion, unleash a shockwave that deals 50-300 (based on champion level) (+750% Heal and Shield Power) magic damage and executes enemies below 25% Heal and Shield Power Health."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "endless-hunt",
+      "slug": "endless-hunt",
+      "name": {
+        "zh": "吃过路兵",
+        "en": "En Passant"
+      },
+      "effect": {
+        "zh": "周期性地识别出敌方英雄身上的破绽。 用攻击或技能命中破绽时，会造成额外的6% + 每层1.5%最大生命值真实伤害、回复50-200（基于英雄等级） + 5%已损失生命值，并提供在2秒里持续衰减的50%+每层5%额外移动速度。",
+        "en": "Periodically identify Vitals on enemy champions. Hitting Vitals with Attacks or Abilities deals an additional 6% + 1.5% per stack max Health true damage, restores 50-200 (based on champion level) + 5% Missing Health, and grants 50% + 5% per stack Bonus Movement Speed, decaying over 2 seconds."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "erosion",
+      "slug": "erosion",
+      "name": {
+        "zh": "侵蚀",
+        "en": "Erosion"
+      },
+      "effect": {
+        "zh": "对敌人造成伤害时会施加一层持续4秒的1.5%护甲和魔法抗性击碎效果，至多在20层时击碎30%。",
+        "en": "Damaging enemies shreds 1.5% Armor and Magic Resist for 4s, up to 30% at 20 stacks."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ethereal-weapon",
+      "slug": "ethereal-weapon",
+      "name": {
+        "zh": "虚幻武器",
+        "en": "Ethereal Weapon"
+      },
+      "effect": {
+        "zh": "你的技能可施加攻击特效。每个目标有1秒冷却时间。",
+        "en": "Your Abilities apply On-Hit effects. 1 second Cooldown per target."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "eureka",
+      "slug": "eureka",
+      "name": {
+        "zh": "尤里卡",
+        "en": "Eureka"
+      },
+      "effect": {
+        "zh": "获得30% 法术强度技能急速。",
+        "en": "Gain 30% Ability Power Ability Haste."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "fan-the-hammer",
+      "slug": "fan-the-hammer",
+      "name": {
+        "zh": "连拨击锤",
+        "en": "Fan The Hammer"
+      },
+      "effect": {
+        "zh": "在你攻击敌方英雄时，发射5个飞弹，每个造成8-50.5（基于英雄等级） (+14% 额外攻击力)物理伤害，基于移动的距离至多提升至50%。每个基本方向都有单独的8秒冷却时间。\n\n每个弩箭都能暴击并且附带20%效能的攻击特效。",
+        "en": "When you Attack enemy champions, fire 5 missiles that each deal 8-50.5 (based on champion level) (+14% bonus Attack Damage) physical damage, increased up to 50% with distance traveled. Each cardinal direction has a 8 second Cooldown.\n\nEach bolt can Critically Strike and applies On-Hits at 20% effectiveness."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "fey-magic",
+      "slug": "fey-magic",
+      "name": {
+        "zh": "精怪魔法",
+        "en": "Fey Magic"
+      },
+      "effect": {
+        "zh": "你的终极技能的伤害会对敌人造成2秒变形效果(15秒冷却时间)。",
+        "en": "Damaging with your Ultimate Polymorphs enemies for 2 seconds (15 second Cooldown)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "firebrand",
+      "slug": "firebrand",
+      "name": {
+        "zh": "火上浇油",
+        "en": "Firebrand"
+      },
+      "effect": {
+        "zh": "你的攻击还会灼烧敌人，在5秒的持续时间里每秒持续造成0.4%最大生命值的魔法伤害。这个灼烧可无限叠加。",
+        "en": "Your Attacks also Burn enemies, dealing 0.4% max Health magic damage damage per second over 5 seconds. This Burn stacks infinitely."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "firefox",
+      "slug": "firefox",
+      "name": {
+        "zh": "火狐",
+        "en": "FireFox"
+      },
+      "effect": {
+        "zh": "自动施放：每7秒，获得25%移动速度并召唤3道烈焰环绕于你，瞄准距离内相距最近的那个可见英雄并造成35-160（基于英雄等级） (+25% 法术强度) (+25% 额外攻击力)自适应伤害。后续命中造成30%伤害。",
+        "en": "Autocast: Gain 25% movement speed and conjure three flames that orbit you every 7 seconds, targetting the closest visible enemy in range and dealing 35-160 (based on champion level) (+25% Ability Power) (+25% bonus Attack Damage) adaptive damage. Subsequent hits do 30% damage."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "first-aid-kit",
+      "slug": "first-aid-kit",
+      "name": {
+        "zh": "急救用具",
+        "en": "First-Aid Kit"
+      },
+      "effect": {
+        "zh": "获得20%治疗和护盾强度。",
+        "en": "Gain 20% Heal and Shield Power."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "flashbang",
+      "slug": "flashbang",
+      "name": {
+        "zh": "闪光弹",
+        "en": "Flashbang"
+      },
+      "effect": {
+        "zh": "你的【闪现】会引发一次爆炸，造成70-240（基于英雄等级） (+60% 法术强度) (+70% 额外攻击力)伤害和减速（阵亡时重置）。",
+        "en": "Your Flash causes an explosion that deals 70-240 (based on champion level) (+60% Ability Power) (+70% bonus Attack Damage) damage and Slows (resets on death)."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "flashy",
+      "slug": "flashy",
+      "name": {
+        "zh": "闪现向前",
+        "en": "Flashy"
+      },
+      "effect": {
+        "zh": "你的闪现有3层充能。在120秒后，再次获得所有充能。",
+        "en": "Your Flash has 3 charges. After 120 seconds, regain all charges."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "from-beginning-to-end",
+      "slug": "from-beginning-to-end",
+      "name": {
+        "zh": "有始有终",
+        "en": "From Beginning To End"
+      },
+      "effect": {
+        "zh": "获得先攻和黑暗收割基石符文。\n\n先攻：当你率先进入英雄战斗后，在3秒内可以造成10%额外伤害，并且基于造成的伤害获得金币。\n\n黑暗收割：伤害一名低生命值的英雄时会造成自适应伤害并从该猎物身上收割灵魂。",
+        "en": "Gain the First Strike and Dark Harvest Keystone Runes.\n\nFirst Strike: When you initiate champion combat, deal 10% extra damage for 3 seconds and gain Gold based on damage dealt.\n\nDark Harvest: Damaging a low Health champion inflicts adaptive damage and harvests a soul from the victim."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "get-excited",
+      "slug": "get-excited",
+      "name": {
+        "zh": "罪恶快感",
+        "en": "Get Excited!"
+      },
+      "effect": {
+        "zh": "参与击杀后，获得持续4秒的100%移动速度和15%攻击速度。",
+        "en": "Gain 100% Movement Speed and 15% Attack Speed for 4 seconds on takedown."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "giant-slayer",
+      "slug": "giant-slayer",
+      "name": {
+        "zh": "巨人杀手",
+        "en": "Giant Slayer"
+      },
+      "effect": {
+        "zh": "体型变小，获得20%移动速度，并基于敌方英雄体型大于你的程度造成10%到30%额外伤害。",
+        "en": "Become tiny, gain 20% Movement Speed, and deal between 10% and 30% bonus damage to champions based on how much larger they are than you."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "goliath",
+      "slug": "goliath",
+      "name": {
+        "zh": "歌利亚巨人",
+        "en": "Goliath"
+      },
+      "effect": {
+        "zh": "体型变大，获得35%生命值和15%适应之力。",
+        "en": "Become large, gaining 35% Health and 15% Adaptive Force."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "goredrink",
+      "slug": "goredrink",
+      "name": {
+        "zh": "渴血",
+        "en": "Goredrink"
+      },
+      "effect": {
+        "zh": "获得15%全能吸血。",
+        "en": "Gain 15% Omnivamp."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "heavy-hitter",
+      "slug": "heavy-hitter",
+      "name": {
+        "zh": "重量级打击手",
+        "en": "Heavy Hitter"
+      },
+      "effect": {
+        "zh": "你的攻击造成额外3.5% 生命值物理伤害。",
+        "en": "Your Attacks deal additional 3.5% Health physical damage."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "hellbent",
+      "slug": "hellbent",
+      "name": {
+        "zh": "濒死悟道",
+        "en": "Hellbent"
+      },
+      "effect": {
+        "zh": "用攻击或技能打击敌方英雄时会提供给你一层持续6秒的复活限度(最大层数：10)。在满层时变为濒死悟道。\n\n濒死悟道：在濒临死亡时，在4秒里复活至35-75%（基于英雄等级）最大生命值。在此之后，你获25-200（基于英雄等级）适应之力、朝着敌方英雄时的20-40%（基于英雄等级）移动速度、以及15-30%（基于英雄等级）全能吸血，持续15秒。\n\n这个效果有90秒冷却时间。",
+        "en": "Striking enemy champions with Attacks or Abilities grants you a stack of Revivemaxxing for 6 seconds (max: 10). At max stacks become Hellbent.\n\nHellbent: Upon dying, revive over the course of 4 seconds at 35-75% (based on champion level) max Health. Afterwards, you gain 25-200 (based on champion level) Adaptive Force, 20-40% (based on champion level) Move Speed towards enemy champions, and 15-30% (based on champion level) Omnivamp for 15 seconds.\n\nThis has a 90 second cooldown."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "high-roller",
+      "slug": "high-roller",
+      "name": {
+        "zh": "掷骰狂人",
+        "en": "High Roller"
+      },
+      "effect": {
+        "zh": "附近敌人在阵亡时有几率掉落【属性锻造器】。",
+        "en": "Nearby enemies have a chance to drop Stat Anvils on death."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["economy"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "homeguard",
+      "slug": "homeguard",
+      "name": {
+        "zh": "家园卫士",
+        "en": "Homeguard"
+      },
+      "effect": {
+        "zh": "获得100%移动速度，在受到伤害后失效6秒。",
+        "en": "Gain 100% Movement Speed, disabled for 6 seconds after taking damage."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ice-cold",
+      "slug": "ice-cold",
+      "name": {
+        "zh": "冰寒",
+        "en": "Ice Cold"
+      },
+      "effect": {
+        "zh": "你的减速效果可使移动速度降低额外的75。",
+        "en": "Your Slowing effects reduce Movement Speed by an extra 75."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "im-the-juggernaut",
+      "slug": "im-the-juggernaut",
+      "name": {
+        "zh": "泰坦的坚决",
+        "en": "Titan's Resolve"
+      },
+      "effect": {
+        "zh": "在造成或承受英雄伤害时为你提供1层持续6秒的战神附体。每10层战神附体，你获得25-75（基于英雄等级）适应之力、5-10（基于英雄等级）护甲、5-10（基于英雄等级）魔法抗性、10%体型和8%韧性。\n\n你拥有的层数越多，层数就衰减得越快。",
+        "en": "Dealing and receiving champion damage grants you 1 stack of Juggernauting for 6 seconds. For every 10 stacks of Juggernauting you gain 25-75 (based on champion level) Adaptive Force, 5-10 (based on champion level) Armor, 5-10 (based on champion level) Magic Resist, 10% Size, and 8% Tenacity.\n\nStacks fall off faster the more you have."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "impassable",
+      "slug": "impassable",
+      "name": {
+        "zh": "不动如山",
+        "en": "Impassable"
+      },
+      "effect": {
+        "zh": "获得余震和冰川增幅基石符文。\n\n余震：在你定身一个敌方英雄后提供防御属性，稍后会在你的周围造成爆发性的魔法伤害。\n冰川增幅：定身一名敌方英雄时会生成3道冰川射线来减速附近的敌人们并降低他们对你的队友们的伤害。",
+        "en": "Gain the Aftershock and Glacial Augment Keystone Runes.\n\nAftershock: After Immobilizing an enemy champion, gain defenses and later deal a burst of magic damage around you.\nGlacial Augment: Immobilizing an enemy champion will spawn 3 glacial rays that Slow nearby enemies and reduce their damage to your allies."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "infernal-conduit",
+      "slug": "infernal-conduit",
+      "name": {
+        "zh": "炼狱导管",
+        "en": "Infernal Conduit"
+      },
+      "effect": {
+        "zh": "你的技能会施加一层可无限叠加的灼烧，在3秒的持续时间里每秒造成2-20（基于英雄等级） (+1.2% 法术强度) (+2.8% 额外攻击力)魔法伤害。\n\n你的所有灼烧效果会在对敌方英雄造成伤害时使你的各基础技能的冷却时间缩短0.08秒。",
+        "en": "Your Abilities apply an infinitely stacking Burn, dealing 2-20 (based on champion level) (+1.2% Ability Power) (+2.8% bonus Attack Damage) magic damage per second for 3 seconds.\n\nAll your Burn effects lower your basic Ability Cooldowns by 0.08 seconds when they damage enemy champions."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "infernal-soul",
+      "slug": "infernal-soul",
+      "name": {
+        "zh": "炼狱龙魂",
+        "en": "Infernal Soul"
+      },
+      "effect": {
+        "zh": "你获得炼狱龙魂，使用技能或攻击命中敌人时造成额外伤害。",
+        "en": "You gain the Infernal Soul, dealing bonus damage when you hit enemies with Abilities or Attacks."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "inferno-triggered",
+      "slug": "inferno-triggered",
+      "name": {
+        "zh": "扳机炼狱",
+        "en": "Triggered Inferno"
+      },
+      "effect": {
+        "zh": "使用与前一个不同的技能或攻击对敌人造成伤害时，会获得评价等级 (从F到S)。\n\n从每评价等级中获得4.25-5%（基于英雄等级）移动速度。\n\n在S评价等级时，消耗你的评价等级来倾泻出大量的子弹，在2秒里持续对周围的所有敌人进行10次射击。每颗子弹造成20-40（基于英雄等级） (+40% 额外攻击力) (+25% 法术强度)物理伤害。低于30%生命值的敌人们会被暴击，受到40-80（基于英雄等级） (+80% 额外攻击力) (+50% 法术强度)物理伤害。这个效果有5秒冷却时间。\n\n子弹会施加生命偷取并对小兵造成25%伤害。",
+        "en": "Damaging enemy champions with Attacks or Abilities different from the previous one grants Style (from F to S).\n\nGain 4.25-5% (based on champion level) Movement Speed per Style rank.\n\nAt S Style consume your Style to unleash a torrent of gunshots at all nearby enemies 10 times over 2 seconds. Each shot deals 20-40 (based on champion level) (+40% bonus Attack Damage) (+25% Ability Power) physical damage. Enemies below 30% Health are struck Critically for 40-80 (based on champion level) (+80% bonus Attack Damage) (+50% Ability Power) physical damage.This has a 5 second Cooldown.\n\nShots apply Lifesteal and deal 25% damage to minions."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "its-critical",
+      "slug": "its-critical",
+      "name": {
+        "zh": "关键暴击",
+        "en": "It's Critical"
+      },
+      "effect": {
+        "zh": "获得50%暴击几率。",
+        "en": "Gain 50% Crit chance."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "its-killing-time",
+      "slug": "its-killing-time",
+      "name": {
+        "zh": "杀戮时间到了",
+        "en": "It's Killing Time"
+      },
+      "effect": {
+        "zh": "在施放你的终极技能后，标记所有敌人并存储你对他们的40%造成伤害。在5秒之后，引爆储量伤害(8秒冷却时间)。",
+        "en": "After casting your Ultimate, mark all enemies and store 40% of damage you deal to them. After 5 seconds, detonate the stored damage (8 second Cooldown)."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "jeweled-gauntlet",
+      "slug": "jeweled-gauntlet",
+      "name": {
+        "zh": "珠光护手",
+        "en": "Jeweled Gauntlet"
+      },
+      "effect": {
+        "zh": "你的技能可以造成暴击，造成145%总伤害。\n\n获得 25% (+0.045% 法术强度)暴击几率。",
+        "en": "Your Abilities can Critically Strike for 145% total damage.\n\nGain 25% (+0.045% Ability Power) Crit Chance."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "juiced",
+      "slug": "juiced",
+      "name": {
+        "zh": "注魔",
+        "en": "Juiced"
+      },
+      "effect": {
+        "zh": "攻击特效造成7%魔法伤害，这个伤害可以暴击。",
+        "en": "On-Hit deal 7% magic damage, this damage can Critically Strike."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "changed",
+      "sourceUrl": null
+    },
+    {
+      "id": "leg-day",
+      "slug": "leg-day",
+      "name": {
+        "zh": "练腿日",
+        "en": "Leg Day"
+      },
+      "effect": {
+        "zh": "获得50移动速度和50%减速抗性。",
+        "en": "Gain 50 Movement Speed and 50% Slow Resist."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "lightem-up",
+      "slug": "lightem-up",
+      "name": {
+        "zh": "点亮他们！",
+        "en": "Light 'Em Up!"
+      },
+      "effect": {
+        "zh": "每第4次攻击发射4个飞弹以造成44-320（基于英雄等级） (+140% 额外攻击力) (+76% 法术强度)魔法伤害。",
+        "en": "Every 4th Attack shoots 4 missiles dealing 44-320 (based on champion level) (+140% bonus Attack Damage) (+76% Ability Power) magic damage."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "mad-scientist",
+      "slug": "mad-scientist",
+      "name": {
+        "zh": "科学狂人",
+        "en": "Mad Scientist"
+      },
+      "effect": {
+        "zh": "每次重生时，你的体型要么变大(获得30%适应之力和20%生命值)，要么变小(获得70技能急速和40%移动速度)。",
+        "en": "On each Revive, you grow large (gaining 30% Adaptive Force and 20% Health) or tiny (gaining 70 Ability Haste and 40% Movement Speed)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "magic-missile",
+      "slug": "magic-missile",
+      "name": {
+        "zh": "魔法飞弹",
+        "en": "Magic Missile"
+      },
+      "effect": {
+        "zh": "造成技能伤害会对命中的每个敌人发射3个飞弹，基于飞行距离，每个造成至多1%最大生命值的真实伤害。",
+        "en": "Dealing Ability damage fires 3 missiles at each enemy hit, each dealing up to 1% max Health true damage based on distance traveled."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "changed",
+      "sourceUrl": null
+    },
+    {
+      "id": "marksmage",
+      "slug": "marksmage",
+      "name": {
+        "zh": "神射法师",
+        "en": "Marksmage"
+      },
+      "effect": {
+        "zh": "你的攻击造成额外75% 法术强度物理伤害。",
+        "en": "Your Attacks deal an additional 75% Ability Power physical damage."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "masterof-duality",
+      "slug": "masterof-duality",
+      "name": {
+        "zh": "物法皆修",
+        "en": "Master of Duality"
+      },
+      "effect": {
+        "zh": "你的每次攻击为你提供可叠加的6-18（基于英雄等级）法术强度，并且你的每次技能在伤害敌人时为你提供可叠加的3-9（基于英雄等级）攻击力，\n\n这个增益可无限叠加并刷新，但有5秒的持续时间。",
+        "en": "Your Attacks grant you 6-18 (based on champion level) Ability Power and your Abilities that damage enemies grant you 3-9 (based on champion level) Attack Damage.\n\nThis buff stacks and refreshes infinitely but lasts 5 seconds."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "mindto-matter",
+      "slug": "mindto-matter",
+      "name": {
+        "zh": "由心及物",
+        "en": "Mind to Matter"
+      },
+      "effect": {
+        "zh": "获得50% 最大法力值生命值。",
+        "en": "Gain 50% maximum Mana Health."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "minionmancer",
+      "slug": "minionmancer",
+      "name": {
+        "zh": "仆从大师",
+        "en": "Minionmancer"
+      },
+      "effect": {
+        "zh": "你的召唤物获得40%体型提升、生命值和伤害。",
+        "en": "Your summons gain 40% increased size, health, and damage."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "mountain-soul",
+      "slug": "mountain-soul",
+      "name": {
+        "zh": "山脉龙魂",
+        "en": "Mountain Soul"
+      },
+      "effect": {
+        "zh": "你获得【山脉龙魂】，在脱离战斗之后获得持续一小段时间的护盾值。",
+        "en": "You gain the Mountain Soul, gaining Shield after being out of combat for a short time."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "multishot",
+      "slug": "multishot",
+      "name": {
+        "zh": "多重射击",
+        "en": "Multishot"
+      },
+      "effect": {
+        "zh": "任务：用【指定技能】技能命中敌方英雄50次。\n\n奖励：发射数量基于任务等级的额外飞弹。",
+        "en": "QUEST: Hit enemy Champions with selected spell 50 times.\n\nREWARD: Fire additional missiles per Quest Level."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "mystic-punch",
+      "slug": "mystic-punch",
+      "name": {
+        "zh": "秘术冲拳",
+        "en": "Mystic Punch"
+      },
+      "effect": {
+        "zh": "攻击特效使你的各个技能的冷却时间缩减1.25秒。",
+        "en": "On-Hit reduce the cooldown of your abilities by 1.25 seconds ."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ocean-soul",
+      "slug": "ocean-soul",
+      "name": {
+        "zh": "海洋龙魂",
+        "en": "Ocean Soul"
+      },
+      "effect": {
+        "zh": "获得【海洋龙魂】，在对敌方英雄造成伤害后提供高额的生命和法力回复。",
+        "en": "Gain the Ocean Soul, granting high Health and Mana Regen after damaging enemies."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ok-boomerang",
+      "slug": "ok-boomerang",
+      "name": {
+        "zh": "回力OK镖",
+        "en": "Ok Boomerang"
+      },
+      "effect": {
+        "zh": "每7秒朝着一个附近的敌人自动施放投掷一个回力镖，对命中的敌人们造成40-200（基于英雄等级） (+30% 额外攻击力) (+20% 法术强度)自适应伤害。",
+        "en": "Autocast a boomerang at a nearby enemy every 7 seconds, dealing 40-200 (based on champion level) (+30% bonus Attack Damage) (+20% Ability Power) adaptive damage to enemies hit."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "omni-soul",
+      "slug": "omni-soul",
+      "name": {
+        "zh": "全能龙魂",
+        "en": "Omni Soul"
+      },
+      "effect": {
+        "zh": "获得3个随机龙魂。",
+        "en": "Gain 3 random Dragon Souls."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "outlaws-grit",
+      "slug": "outlaws-grit",
+      "name": {
+        "zh": "狂徒豪气",
+        "en": "Outlaw's Grit"
+      },
+      "effect": {
+        "zh": "在使用一次冲刺、闪烁或传送之后，你获得12护甲和魔法抗性，这个效果至多可在5层时叠加至60。\n每15秒重置。",
+        "en": "After using a Dash, Blink, or Teleport Ability you gain 12 Armor and Magic Resist up to 60 at 5 stacks.\nResets every 15 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "overflow",
+      "slug": "overflow",
+      "name": {
+        "zh": "溢流",
+        "en": "Overflow"
+      },
+      "effect": {
+        "zh": "你的法力值消耗翻倍。你的技能的治疗效果、护盾效果和伤害的效能提升10% (+0.005% 最大法力值)。",
+        "en": "Your Mana costs double. Your Ability Heals, Shields, and damage are 10% (+0.005% maximum Mana) more effective."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "pandoras-box",
+      "slug": "pandoras-box",
+      "name": {
+        "zh": "潘朵拉的盒子",
+        "en": "Pandora's Box"
+      },
+      "effect": {
+        "zh": "将你的所有强化符文变为随机的棱彩阶强化符文。",
+        "en": "Transmute all of your augments into random Prismatic Augments."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "special",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "phenomenal-evil",
+      "slug": "phenomenal-evil",
+      "name": {
+        "zh": "超凡邪恶",
+        "en": "Phenomenal Evil"
+      },
+      "effect": {
+        "zh": "在你用技能对敌人造成伤害时永久获得1法术强度。\n\n如果是作为你的第二个强化符文，则自带40法术强度。",
+        "en": "Permanently gain 1 Ability Power when you damage enemy champions with Abilities.\n\nIf taken as your second Augment, starts with 40 Ability Power."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "protein-shake",
+      "slug": "protein-shake",
+      "name": {
+        "zh": "蛋白粉奶昔",
+        "en": "Protein Shake"
+      },
+      "effect": {
+        "zh": "获得25 (+35% 额外护甲) (+35% 额外魔法抗性)%治疗和护盾强度，基于额外护甲和魔抗。",
+        "en": "Gain 25 (+35% bonus Armor) (+35% bonus Magic Resistance)% Heal and Shield Power based on bonus Armor and Magic Resist."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "purist-caster",
+      "slug": "purist-caster",
+      "name": {
+        "zh": "纯粹主义者 - 术师",
+        "en": "Purist - Caster"
+      },
+      "effect": {
+        "zh": "转化率：0.65技能急速每1%攻击速度",
+        "en": "Conversion Rate: 0.65 Ability Haste per 1% Attack Speed"
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "quest-steel-your-heart",
+      "slug": "quest-steel-your-heart",
+      "name": {
+        "zh": "钢化你心",
+        "en": "Steel Your Heart"
+      },
+      "effect": {
+        "zh": "任务：需求：持有【心之钢】且层数在300层或以上。\n\n奖励：将你的心之钢层数乘以3。",
+        "en": "QUEST: Possess Heartsteel with 300+ stacks.\n\nREWARD: Multiply your Heartsteel stacks by 3."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "quest",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "quest-urfs-champion",
+      "slug": "quest-urfs-champion",
+      "name": {
+        "zh": "海牛阿福的勇士",
+        "en": "Urf's Champion"
+      },
+      "effect": {
+        "zh": "任务：需求：参与击杀18次。\n\n奖励：【金铲铲】",
+        "en": "QUEST: Score 18 takedowns.\n\nREWARD: Golden Spatula"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "quest",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "quest-void-immolation",
+      "slug": "quest-void-immolation",
+      "name": {
+        "zh": "艾卡西亚的陷落",
+        "en": "Icathia's Fall"
+      },
+      "effect": {
+        "zh": "即刻：获得1个【斑比的熔渣】。\n\n任务：持有日炎圣盾和 璀璨回响。\n\n奖励：将【日炎圣盾】 和【璀璨回响】 合成为【虚空献祭】 。",
+        "en": "Immediately: Gain a Bami's Cinder.\n\nRequirement: Possess Sunfire Aegis and Hollow Radiance.\n\nReward: Combine Sunfire Aegis and Hollow Radiance into Void Immolation."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "quest",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "quest-wooglets-witchcap",
+      "slug": "quest-wooglets-witchcap",
+      "name": {
+        "zh": "沃格勒特的巫师帽",
+        "en": "Wooglet's Witchcap"
+      },
+      "effect": {
+        "zh": "立刻获得一个无用大棒。\n\n任务：持有灭世者的死亡之帽和中娅沙漏。\n\n奖励：获得沃格勒特的巫师帽。",
+        "en": "Immediately gain a Needlessly Large Rod.\n\nQUEST: Possess Rabadon's Deathcap and Zhonya's Hourglass.\n\nREWARD: Gain Wooglet's Witchcap."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "quest",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "quickstep",
+      "slug": "quickstep",
+      "name": {
+        "zh": "快步",
+        "en": "Quickstep"
+      },
+      "effect": {
+        "zh": "当你使用【指定技能】技能时，朝你的鼠标指针进行冲刺。",
+        "en": "When you use selected spell, dash towards your cursor."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "rabble-rousing",
+      "slug": "rabble-rousing",
+      "name": {
+        "zh": "活力焕发",
+        "en": "Rejuvenation"
+      },
+      "effect": {
+        "zh": "治疗量等同于30-100（基于英雄等级） (+5% 额外生命值) (+15% 法术强度) (+25% 额外攻击力)，对于冷却时间较长的技能，该数值还会提升至50%。",
+        "en": "Heal amount equal to 30-100 (based on champion level) (+5% bonus Health) (+15% Ability Power) (+25% bonus Attack Damage), scale up to 50% more for longer cooldown abilities."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "recursion",
+      "slug": "recursion",
+      "name": {
+        "zh": "循环往复",
+        "en": "Recursion"
+      },
+      "effect": {
+        "zh": "获得60技能急速。",
+        "en": "Gain 60 Ability Haste."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "scoped-weapons",
+      "slug": "scoped-weapons",
+      "name": {
+        "zh": "万用瞄准镜",
+        "en": "Scoped Weapons"
+      },
+      "effect": {
+        "zh": "获得75攻击距离。",
+        "en": "Gain 75 Attack Range."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "changed",
+      "sourceUrl": null
+    },
+    {
+      "id": "scopier-weapons",
+      "slug": "scopier-weapons",
+      "name": {
+        "zh": "更万用的瞄准镜",
+        "en": "Scopier Weapons"
+      },
+      "effect": {
+        "zh": "获得150攻击距离。",
+        "en": "Gain 150 Attack Range."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "changed",
+      "sourceUrl": null
+    },
+    {
+      "id": "scopiest-weapons",
+      "slug": "scopiest-weapons",
+      "name": {
+        "zh": "最万用的瞄准镜",
+        "en": "Scopiest Weapons"
+      },
+      "effect": {
+        "zh": "获得250攻击距离。",
+        "en": "Gain 250 Attack Range."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "searing-dawn",
+      "slug": "searing-dawn",
+      "name": {
+        "zh": "炽烈黎明",
+        "en": "Searing Dawn"
+      },
+      "effect": {
+        "zh": "你的技能会标记敌人，使其在被你的友军的下一个攻击或技能命中时会受到额外40-200（基于英雄等级）魔法伤害。",
+        "en": "Your Abilities mark enemies, causing them to take an additional 40-200 (based on champion level) magic damage from your ally's next Attack or Ability."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "ally"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "shadow-runner",
+      "slug": "shadow-runner",
+      "name": {
+        "zh": "暗影疾奔",
+        "en": "Shadow Runner"
+      },
+      "effect": {
+        "zh": "在使用一个冲刺、闪烁或传送类技能或离开潜行状态之后，获得持续2秒的300移动速度。",
+        "en": "After using a Dash, Blink, or Teleport Ability or exiting Stealth, gain 300 Movement Speed for 2 seconds."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "shrink-ray",
+      "slug": "shrink-ray",
+      "name": {
+        "zh": "缩小射线",
+        "en": "Shrink Ray"
+      },
+      "effect": {
+        "zh": "你的攻击会对敌人造成持续3秒的15%伤害削减效果。",
+        "en": "Your Attacks reduce an enemy's damage by 15% for 3 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "skilled-sniper",
+      "slug": "skilled-sniper",
+      "name": {
+        "zh": "老练狙神",
+        "en": "Skilled Sniper"
+      },
+      "effect": {
+        "zh": "用一个非终极技能狙击一个敌人时，返还该技能80%冷却时间(周期性技能返还65%)。\n\n狙击 - 从600码外对敌人造成伤害",
+        "en": "Snipe an enemy with a non-Ultimate Ability refunds 80% Cooldown (65% for periodic Abilities).\n\nSnipe - Damage enemies over 600 distance away"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "slap-around",
+      "slug": "slap-around",
+      "name": {
+        "zh": "扇巴掌",
+        "en": "Slap Around"
+      },
+      "effect": {
+        "zh": "每当你定身或缚地一个敌人时，获得一层可叠加的10适应之力。阵亡时损失50%层数。",
+        "en": "Each time you Immobilize or Ground an enemy, gain a stack granting 10 Adaptive Force. Lose 50% stacks on death."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "snowday",
+      "slug": "snowday",
+      "name": {
+        "zh": "下雪天",
+        "en": "Snowday"
+      },
+      "effect": {
+        "zh": "雪球获得100技能急速并且造成伤害提升100%。",
+        "en": "Snowball gains 100 Ability Haste and deals 100% increased damage."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "sonic-boom",
+      "slug": "sonic-boom",
+      "name": {
+        "zh": "天音爆",
+        "en": "Sonic Boom"
+      },
+      "effect": {
+        "zh": "在为你的友军提供增益效果、治疗效果或护盾效果时，会对其附近的敌人们造成30-150（基于英雄等级）真实伤害和持续2秒的30%减速。(2秒冷却时间)",
+        "en": "Buffing, healing, or Shielding your ally deals 30-150 (based on champion level) true damage and Slows enemies surrounding them by 30% for 2 seconds (2 seconds Cooldown)."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility", "ally"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "soul-siphon",
+      "slug": "soul-siphon",
+      "name": {
+        "zh": "灵魂虹吸",
+        "en": "Soul Siphon"
+      },
+      "effect": {
+        "zh": "获得25%暴击几率和作用于暴击的12%生命偷取。",
+        "en": "Gain 25% Crit Chance and 12% Lifesteal on Critical Strikes."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "specialized-recursion",
+      "slug": "specialized-recursion",
+      "name": {
+        "zh": "急速之追求",
+        "en": "Pursuit of Haste"
+      },
+      "effect": {
+        "zh": "任务：用【指定技能】技能命中敌方英雄10次。\n\n奖励：你的【指定技能】技能获得永久的80技能急速\n\n任务进度：当前进度/10",
+        "en": "QUEST: Hit enemy champions with selected spell 10 times.\n\nREWARD: Gain permanent 80 Ability Haste on your selected spell.\n\nQuest Progress: current progress/10"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "spin-to-win",
+      "slug": "spin-to-win",
+      "name": {
+        "zh": "旋转至胜",
+        "en": "Spin To Win"
+      },
+      "effect": {
+        "zh": "你的旋转类技能获得30技能急速并且造成30%额外伤害，对于终极技能，该额外伤害提升至50%。",
+        "en": "Your spin Abilities gain 30 Ability Haste and deal 30% more damage, increase to 50% for Ultimates"
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "spirit-bomb",
+      "slug": "spirit-bomb",
+      "name": {
+        "zh": "灵魄炸弹",
+        "en": "Spirit Bomb"
+      },
+      "effect": {
+        "zh": "提供治疗和护盾时会为你积攒一颗灵魄炸弹。在满层时，投掷该灵魄炸弹至你生命值最低的那个友军。在接触到该目标后，它会治疗附近友军们各自的12% (+0.025% 法术强度)已损失生命值并为他们提供持续2秒的15% (+0.02% 法术强度)当前生命值的护盾值。",
+        "en": "Healing and Shielding builds up a Spirit Bomb. At max stacks, toss the Spirit Bomb at your lowest Health ally. After reaching the target, it heals nearby allies for 12% (+0.025% Ability Power) of their missing Health and grants them a 15% (+0.02% Ability Power) current Health shield for 2 seconds."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience", "ally"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "spiritual-purification",
+      "slug": "spiritual-purification",
+      "name": {
+        "zh": "心灵净化",
+        "en": "Spiritual Purification"
+      },
+      "effect": {
+        "zh": "参与击杀时，产生一次爆炸，对附近敌人们造成相当于他们15%当前生命值的伤害并留下一个减速区域。区域内的敌人们会受到持续1.5秒的60%减速。",
+        "en": "Takedowns create an explosion that deals damage to nearby enemies equal to 15% of their current health and leave a slowing area. Enemies within are slowed by 60% for 1.5 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "stackosaurus-rex",
+      "slug": "stackosaurus-rex",
+      "name": {
+        "zh": "叠角龙",
+        "en": "Stackosaurus Rex"
+      },
+      "effect": {
+        "zh": "在你获得一个技能的永久层数时，多获得100%！",
+        "en": "When you gain permanent Stacks of an Ability, gain 100% more!"
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "stats",
+      "slug": "stats",
+      "name": {
+        "zh": "属性！",
+        "en": "Stats!"
+      },
+      "effect": {
+        "zh": "获得2个【属性锻造器】！",
+        "en": "Gain 2 Stat Anvils!"
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "stats-on-stats",
+      "slug": "stats-on-stats",
+      "name": {
+        "zh": "属性叠属性！",
+        "en": "Stats on Stats!"
+      },
+      "effect": {
+        "zh": "获得3个【属性锻造器】，有更高几率出现黄金阶和棱彩阶锻造器！",
+        "en": "Gain 3 Stat Anvils, with a higher chance of Gold and Prismatic Anvils!"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "stats-on-stats-on-stats",
+      "slug": "stats-on-stats-on-stats",
+      "name": {
+        "zh": "属性叠属性叠属性！",
+        "en": "Stats on Stats on Stats!"
+      },
+      "effect": {
+        "zh": "获得4个【属性锻造器】，有更高几率出现黄金阶和棱彩阶锻造器！\n\n在你的下一次强化符文选取时，每个栏位获得一次额外的刷新。",
+        "en": "Gain 4 Stat Anvils, with a higher chance of Gold and Prismatic Anvils!\n\nOn your next Augment selection, gain one additional reroll per slot."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "stuck-in-here-with-me",
+      "slug": "stuck-in-here-with-me",
+      "name": {
+        "zh": "和我一起困在这里",
+        "en": "Stuck In Here With Me"
+      },
+      "effect": {
+        "zh": "在使用你的终极技能后，获得持续2秒的50%伤害减免，然后你嘲讽其中的敌人们2秒。\n\n获得30终极技能急速。",
+        "en": "After using your Ultimate, gain 50% damage reduction for 2 seconds, after which you Taunt enemies inside for 2 seconds.\n\nGain 30 Ultimate Ability Haste."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "sustaining-strike",
+      "slug": "sustaining-strike",
+      "name": {
+        "zh": "虹吸",
+        "en": "Siphon"
+      },
+      "effect": {
+        "zh": "治疗相当于用【指定技能】技能对敌方英雄的30%造成伤害的生命值。",
+        "en": "Heal for 30% of the damage dealt to enemy champions by selected spell."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "symphonyof-war",
+      "slug": "symphonyof-war",
+      "name": {
+        "zh": "战争交响乐",
+        "en": "Symphony of War"
+      },
+      "effect": {
+        "zh": "获得致命节奏和征服者基石符文。\n\n致命节奏 - 攻击英雄提供攻击速度，至多叠加6层。在6层时，你的攻击发射造成额外伤害的一个弩箭。\n\n征服者：攻击敌方英雄时提供适应之力层数。在达到12层后，将你的一部分伤害转化为等额的治疗效果。",
+        "en": "Gain the Lethal Tempo and Conqueror Keystone Runes.\n\nLethal Tempo - Attacking champions grants Attack Speed, stacking up to 6 times. At 6 stacks, your Attacks launch a bolt that deals additional damage.\n\nConqueror: Gain stacks of Adaptive Force when attacking enemy champions. After reaching 12 stacks, heal for a portion of damage you deal to champions."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage", "speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "tank-engine",
+      "slug": "tank-engine",
+      "name": {
+        "zh": "坦克引擎",
+        "en": "Tank Engine"
+      },
+      "effect": {
+        "zh": "参与击杀时，获得一个层数，使你的体型增大5%并提升5%最大生命值。阵亡时损失65%层数。",
+        "en": "On takedown, gain a stack that grants 5% increased size and 5% max Health. Lose 65% of stacks on death."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "tank-it-or-leave-it",
+      "slug": "tank-it-or-leave-it",
+      "name": {
+        "zh": "会心防御",
+        "en": "Tank It Or Leave It"
+      },
+      "effect": {
+        "zh": "你可以使用你的暴击几率(最大50%几率)来进行会心防御，使你有一定几率来使所受伤害降低20%。获得25%暴击几率。",
+        "en": "You can Critically Defend using your Crit Chance (max 50% chance), giving you a chance to reduce damage taken by 20%. Gain 25% Crit Chance."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "tap-dancer",
+      "slug": "tap-dancer",
+      "name": {
+        "zh": "踢踏舞",
+        "en": "Tap Dancer"
+      },
+      "effect": {
+        "zh": "你的攻击会为你提供10移动速度。获得0.1% 移动速度攻击速度。\n\n这个增益可无限叠加并刷新，但有5秒的持续时间。",
+        "en": "Your Attacks grant you 10 Movement Speed. Gain 0.1% Move Speed Attack Speed.\n\nThe buff stacks and refreshes infinitely but lasts 5 seconds."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "terror",
+      "slug": "terror",
+      "name": {
+        "zh": "惊惧",
+        "en": "Terror"
+      },
+      "effect": {
+        "zh": "每当你施放【指定技能】技能时，恐惧你周围的敌人们1.75秒。",
+        "en": "Whenever you cast selected spell, Fear enemies around you for 1.75 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "threadthe-needle",
+      "slug": "threadthe-needle",
+      "name": {
+        "zh": "穿针引线",
+        "en": "Thread the Needle"
+      },
+      "effect": {
+        "zh": "获得18%护甲穿透和法术穿透。",
+        "en": "Gain 18% Armor Penetration and Magic Penetration."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "transmute-chaos",
+      "slug": "transmute-chaos",
+      "name": {
+        "zh": "质变：混沌",
+        "en": "Transmute: Chaos"
+      },
+      "effect": {
+        "zh": "获得2个随机强化符文。",
+        "en": "Gain 2 random Augments."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "special",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "transmute-gold",
+      "slug": "transmute-gold",
+      "name": {
+        "zh": "质变：黄金阶",
+        "en": "Transmute: Gold"
+      },
+      "effect": {
+        "zh": "获得1个随机黄金阶强化符文。",
+        "en": "Gain a random Gold Augment."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "special",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "transmute-prismatic",
+      "slug": "transmute-prismatic",
+      "name": {
+        "zh": "质变：棱彩阶",
+        "en": "Transmute: Prismatic"
+      },
+      "effect": {
+        "zh": "获得1个随机棱彩阶强化符文。",
+        "en": "Gain a random Prismatic Augment."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "special",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "typhoon",
+      "slug": "typhoon",
+      "name": {
+        "zh": "台风",
+        "en": "Typhoon"
+      },
+      "effect": {
+        "zh": "你的攻击会对一个额外目标发射一个飞弹，从而造成30%伤害并施加攻击特效。",
+        "en": "Your Attacks shoot a missile at an additional target, dealing 30% damage and applying On-Hit effects."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ultimate-revolution",
+      "slug": "ultimate-revolution",
+      "name": {
+        "zh": "终极刷新",
+        "en": "Ultimate Revolution"
+      },
+      "effect": {
+        "zh": "在施放终极技能后刷新你的终极技能(75秒冷却时间或阵亡时重置)。",
+        "en": "Refresh your Ultimate after casting it (75 seconds Cooldown or reset on death)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ultimate-unstoppable",
+      "slug": "ultimate-unstoppable",
+      "name": {
+        "zh": "终极不可阻挡",
+        "en": "Ultimate Unstoppable"
+      },
+      "effect": {
+        "zh": "在你使用你的终极技能后，你获得持续3秒的控制免疫。 (8秒冷却时间)。",
+        "en": "After using your Ultimate, you become immune to crowd control for 3 seconds. (8 second Cooldown)."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-collector",
+      "slug": "upgrade-collector",
+      "name": {
+        "zh": "升级：收集者",
+        "en": "Upgrade Collector"
+      },
+      "effect": {
+        "zh": "在每次使用【收集者】的被动处决敌人时，会使处决阈值提升0.5%，并且提供额外50金币。\n\n获得250金币。",
+        "en": "Executing enemies with The Collector's Passive increases execute threshold by 0.5% and grant additional 50 Gold.\n\nGain 250 Gold."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-ie",
+      "slug": "upgrade-ie",
+      "name": {
+        "zh": "升级：无尽之刃",
+        "en": "Upgrade Infinity Edge"
+      },
+      "effect": {
+        "zh": "获得500金币。\n装备【无尽之刃】后，可使你的暴击造成随机的额外暴击伤害，最高可至你暴击几率的50%。",
+        "en": "Gain 500 Gold.\nHaving Infinity Edge allows your Critical Strikes to deal random bonus Critical Strike Damage, scaling up to 50% of your Critical Strike Chance."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-immolate",
+      "slug": "upgrade-immolate",
+      "name": {
+        "zh": "升级：献祭",
+        "en": "Upgrade Immolate"
+      },
+      "effect": {
+        "zh": "【璀璨回响】和【日炎圣盾】每当有目标受到【献祭】效果影响时，提供12 金币 。获得250金币。",
+        "en": "Hollow Radiance and Sunfire Aegis grant 12 Gold per target affected with Immolate. Gain 250 Gold."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-sheen",
+      "slug": "upgrade-sheen",
+      "name": {
+        "zh": "升级：耀光",
+        "en": "Upgrade Sheen"
+      },
+      "effect": {
+        "zh": "你的咒刃效果造成相当于目标4%生命值的额外伤害，并治疗你自身，治疗效果相当于目标3.5%生命值。此外，获得250金币。",
+        "en": "Your Spellblade effects deal additional damage equal to 4% of the target's health and heal you for 3.5% of the target's health. Additionally, gain 250 Gold."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-zh",
+      "slug": "upgrade-zh",
+      "name": {
+        "zh": "升级：中娅",
+        "en": "Upgrade Zhonya's"
+      },
+      "effect": {
+        "zh": "【中娅沙漏】的冷却时间降低至45秒。你现在可以在【中娅沙漏】、【探索者的护臂】或【沃格勒特的巫师帽】凝滞状态持续期间移动并获得50%移动速度。",
+        "en": "Reduce Zhonya's Hourglass Cooldown to 45 seconds. You can now move when in Zhonya's Hourglass, Seeker's Armguard, or Wooglet's Witchcap stasis and gain 50% Movement Speed during it."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "vulnerability",
+      "slug": "vulnerability",
+      "name": {
+        "zh": "易损",
+        "en": "Vulnerability"
+      },
+      "effect": {
+        "zh": "你的装备效果和持续伤害效果可以暴击来造成145%额外伤害。\n\n获得25%暴击几率。",
+        "en": "Your Item and damage over time effects can Critically Strike for 145% extra damage.\n\nGain 25% Crit chance."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "wee-woo-wee-woo",
+      "slug": "wee-woo-wee-woo",
+      "name": {
+        "zh": "喂呜喂呜",
+        "en": "Wee Woo Wee Woo"
+      },
+      "effect": {
+        "zh": "朝着附近友军移动时，获得至多50%移动速度，基于其已损失生命值。你的治疗和护盾也会提升至多50%，基于目标的已损失生命值。",
+        "en": "Gain up to 50% Move Speed toward nearby allies based on their missing Health. Your healing and shielding are also increased up to 50% based on the target's missing Health."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["ally"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "windspeakers-blessing",
+      "slug": "windspeakers-blessing",
+      "name": {
+        "zh": "风语者的祝福",
+        "en": "Windspeaker's Blessing"
+      },
+      "effect": {
+        "zh": "你的治疗效果和护盾效果还会提升目标30-60（基于英雄等级）护甲和魔法抗性，这些加成持续3秒。",
+        "en": "Your Healing and Shielding also increases the target's Armor and Magic Resist by 30-60 (based on champion level) for 3 seconds."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["resilience", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "witchful-thinking",
+      "slug": "witchful-thinking",
+      "name": {
+        "zh": "巫师式思考",
+        "en": "Witchful Thinking"
+      },
+      "effect": {
+        "zh": "获得20-80（基于英雄等级）法术强度。",
+        "en": "Gain 20-80 (based on champion level) Ability Power."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "with-haste",
+      "slug": "with-haste",
+      "name": {
+        "zh": "急急小子",
+        "en": "With Haste"
+      },
+      "effect": {
+        "zh": "获得70% 技能急速移动速度。",
+        "en": "Gain 70% Ability Haste Move Speed."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "yowch-my-coins",
+      "slug": "yowch-my-coins",
+      "name": {
+        "zh": "哎哟，我的硬币！",
+        "en": "Yowch, My Coins!"
+      },
+      "effect": {
+        "zh": "在参与击杀敌方英雄后，该英雄会在附近掉落6-10（基于英雄等级）枚硬币，你和友军可以收集它们。每枚硬币价值15金币。",
+        "en": "On takedown, enemy champions drop 6-10 (based on champion level) coins nearby, which you and your allies can collect. Each is worth 15 gold."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": ["economy"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "zealot",
+      "slug": "zealot",
+      "name": {
+        "zh": "狂热者",
+        "en": "Zealot"
+      },
+      "effect": {
+        "zh": "获得25% (+0.05% 法术强度)暴击几率和35% (+0.05% 法术强度)攻击速度（随法术强度变化）。",
+        "en": "Gain 25% (+0.05% Ability Power) Critical Strike Chance and 35% (+0.05% Ability Power) Attack Speed."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "esc-apade",
+      "slug": "esc-apade",
+      "name": {
+        "zh": "魔法转物理",
+        "en": "escAPADe"
+      },
+      "effect": {
+        "zh": "将法术强度转化为额外攻击力，并获得15% 额外攻击力。\n\n每点法术强度转化为0.6攻击力。",
+        "en": "Convert Ability Power to Bonus Attack Damage and gain 15% bonus Attack Damage.\n\nConverts at a rate of 0.6 Attack Damage per point of Ability Power."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "aram",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ability-self-aoe-double-cast",
+      "slug": "ability-self-aoe-double-cast",
+      "name": {
+        "zh": "回响施放",
+        "en": "Echo Cast"
+      },
+      "effect": {
+        "zh": "施放你的【指定技能】技能时会朝你的鼠标位置派出一个复制体并且在0.25秒之后再次施放该技能。",
+        "en": "Casting your selected spell sends a clone of the ability toward your mouse position and recasts it after 0.25 seconds."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "biggest-snowball-ever",
+      "slug": "biggest-snowball-ever",
+      "name": {
+        "zh": "史上最大雪球",
+        "en": "Biggest Snowball Ever"
+      },
+      "effect": {
+        "zh": "你的雪球获得100技能急速。\n\n你的雪球现在变得非常大，并且可以穿过小兵。它会对敌人造成持续2秒的20%减速， 将他们击飞0.75秒，并造成额外200-350（基于英雄等级） (+60% 法术强度) (+100% 额外攻击力)伤害。\n\n如果你没有雪球，则获得一个雪球。",
+        "en": "Gain 100 Ability Haste on Snowball.\n\nYour snowball is BIG and will pass through minions. It Slows enemies for 20% for 2 seconds, Knocks Up for 0.75 seconds, and deals an additional 200-350 (based on champion level) (+60% Ability Power) (+100% bonus Attack Damage) damage.\n\nIf you don't have one, gain a Snowball."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "blood-money-burn",
+      "slug": "blood-money-burn",
+      "name": {
+        "zh": "炽燃利息",
+        "en": "Combusting Interest"
+      },
+      "effect": {
+        "zh": "英雄身上的灼烧和持续伤害会生成1-3（基于英雄等级）+0.75%造成伤害的金币。",
+        "en": "Burn and damage-over-time on champions generate 1-3 (based on champion level) + 0.75% of damage dealt as Gold."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["economy"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "bonk",
+      "slug": "bonk",
+      "name": {
+        "zh": "邦！",
+        "en": "BONK!"
+      },
+      "effect": {
+        "zh": "被【指定技能】技能强化的攻击或技能会对目标和附近的敌人们造成额外的30%伤害。",
+        "en": "Attacks and Abilities empowered by selected spell deal an additional 30% damage to the target and nearby enemies."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "brush-power",
+      "slug": "brush-power",
+      "name": {
+        "zh": "藏身草丛",
+        "en": "Hide on Bush"
+      },
+      "effect": {
+        "zh": "进入草丛时提供持续2秒的草丛能量。在草丛能量处于激活状态时，你多造成20%伤害。\n\n待在草丛中会刷新【草丛能量】。",
+        "en": "Entering Brush grants Brush Power for 2 seconds. While Brush Power is active, you deal 20% more damage.\n\nStaying in Brush refreshes Brush Power."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "bursting-teeth",
+      "slug": "bursting-teeth",
+      "name": {
+        "zh": "牙仙子",
+        "en": "Tooth Fairy"
+      },
+      "effect": {
+        "zh": "当你在2.5秒内对一个敌方英雄造成大于其25%生命值的伤害时，其会掉落一颗牙齿。\n\n对每个目标有4秒冷却时间",
+        "en": "When you deal more than 25% of an enemy champion's Health in less than 2.5 seconds, they drop a Tooth.\n\n 4 seconds cooldown per target"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "quest",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "chain-reaction",
+      "slug": "chain-reaction",
+      "name": {
+        "zh": "连锁反应",
+        "en": "Chain Reaction"
+      },
+      "effect": {
+        "zh": "如果你用【指定技能】技能击退的一个英雄命中了另一个英雄，二者都会被击飞0.5秒并且受到100-400（基于英雄等级）魔法伤害。如果敌方英雄们与地形产生碰撞，则会被击飞0.75秒并受到额外150-800（基于英雄等级）伤害。\n\n击飞时长和高度受益于你的技能的冷却时间。\n对于终极技能，该伤害值提升至250%。",
+        "en": "If a champion you Knock Back with selected spell hits another champion, they are Knocked Up for 0.5 seconds and are dealt 100-400 (based on champion level) magic damage. If enemy champions collide with terrain, they are Knocked Up for 0.75 seconds and are dealt 150-800 (based on champion level) magic damage.\n\nKnock Up Duration and Height scale with your spell's cooldown.\nDamage is increased to 250% for Ultimate Abilities."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "crit-ncast",
+      "slug": "crit-ncast",
+      "name": {
+        "zh": "由暴生急",
+        "en": "Crit 'n Cast"
+      },
+      "effect": {
+        "zh": "获得相当于你40%暴击几率的技能急速。",
+        "en": "Gain Ability Haste equal to 40% of your Critical Strike Chance."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "critical-missile",
+      "slug": "critical-missile",
+      "name": {
+        "zh": "暴击飞弹",
+        "en": "Critical Missile"
+      },
+      "effect": {
+        "zh": "当你暴击时，发射1+200% 暴击几率个飞弹，每个造成15-65（基于英雄等级）魔法伤害。\n\n获得 25%暴击几率。",
+        "en": "When you Crit, fire 1 plus 200% Critical Strike Chance missiles that deal 15-65 (based on champion level) magic damage each.\n\nGain 25% Crit chance."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "critical-rhythm",
+      "slug": "critical-rhythm",
+      "name": {
+        "zh": "暴击律动",
+        "en": "Critical Rhythm"
+      },
+      "effect": {
+        "zh": "你的普攻在暴击时获得可叠加的6%攻击速度，至多至10层。\n\n获得 25%暴击几率。",
+        "en": "Your basic Attack stacks 6% Attack Speed on Critical Strikes up to 10 stacks.\n\nGain 25% Crit chance."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dark-wind",
+      "slug": "dark-wind",
+      "name": {
+        "zh": "贪欲束缚",
+        "en": "Ravenous Bind"
+      },
+      "effect": {
+        "zh": "最小治疗：50-200（基于英雄等级） (+5% 法术强度) (+10% 额外生命值)\n\n治疗效果基于技能冷却时间至多提升至50%。",
+        "en": "Minimum healing: 50-200 (based on champion level) (+5% Ability Power) (+10% bonus Health)\n\nHealing increases up to 50% based on spell cooldown."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dimension-shift-active",
+      "slug": "dimension-shift-active",
+      "name": {
+        "zh": "位面转移",
+        "en": "Dimension Shift"
+      },
+      "effect": {
+        "zh": "获得召唤师技能当黑暗到来。\n\n当黑暗到来：发射一道灿烂之光到一个位置。当它着陆时，区域内的所有活着的单位都将在接下来的8秒期间被送到一个不同的领域。\n\n在你处于这个领域时，你获得：\n 300-1500（基于英雄等级）生命值\n 35-150（基于英雄等级）法术强度\n 35-150（基于英雄等级）攻击力\n 35%体型\n\n所有单位在该领域中都能自由地移动和行动，但不能以战略点(诸如防御塔或召唤水晶)为目标。\n\n“跟随你的光明……”——一个迷失的灵魂",
+        "en": "Gain the Summoner Spell When the Darkness Comes.\n\nWhen the Darkness Comes: Launch a brilliant light at a position. When it lands, every living unit within the area will be sent to a different Realm for 8 seconds.\n\nWhile you are in this Realm, you gain:\n 300-1500 (based on champion level) Health\n 35-150 (based on champion level) Ability Power\n 35-150 (based on champion level) Attack Damage\n 35% Size\n\nAll units can move and act freely in that Realm but cannot target objectives such as Turrets or Inhibitors.\n\n\"Follow your Light...\" — A Lost Soul"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "donation",
+      "slug": "donation",
+      "name": {
+        "zh": "捐赠",
+        "en": "Donation"
+      },
+      "effect": {
+        "zh": "收到1750金币。谢了！ :)",
+        "en": "Receive 1750 Gold. Thanks chat! :)"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "dont-change-the-channel",
+      "slug": "dont-change-the-channel",
+      "name": {
+        "zh": "别停止引导",
+        "en": "Don't Change the Channel"
+      },
+      "effect": {
+        "zh": "在引导状态下，每秒获得50-200（基于英雄等级） (+50% 额外攻击力) (+25% 法术强度) (+10% 额外生命值)护盾值。它会在你未处于引导状态时不断衰减。",
+        "en": "While Channeling gain 50-200 (based on champion level) (+50% bonus Attack Damage) (+25% Ability Power) (+10% bonus Health) Shield every second. It decays when you are not Channeling."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "double-defense",
+      "slug": "double-defense",
+      "name": {
+        "zh": "加固护盾",
+        "en": "Bolstered"
+      },
+      "effect": {
+        "zh": "来自【指定技能】技能的护盾变强至多60%，受益于目标的已损失生命值。\n\n在30%最大生命值时达到最大效能。",
+        "en": "Shields granted from selected spell are up to 60% stronger, scaling with target's missing Health.\n\nMost effective at 30% max health."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "double-strike",
+      "slug": "double-strike",
+      "name": {
+        "zh": "双重打击",
+        "en": "Double Strike"
+      },
+      "effect": {
+        "zh": "【指定技能】技能施加一次额外的攻击特效。",
+        "en": "selected spell applies On-Hit effects an additional time."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "empyrean-promise",
+      "slug": "empyrean-promise",
+      "name": {
+        "zh": "至高天诺言",
+        "en": "Empyrean Promise"
+      },
+      "effect": {
+        "zh": "获得15%治疗和护盾强度。获得至高天诺言作为一个召唤师技能。\n\n警惕\n传送至你的友军并在着陆时提供持续3秒的100-250（基于英雄等级） (+100% 法术强度) (+10% 额外生命值)护盾值。",
+        "en": "Gain 15% Heal and Shield power. Gain Empyrean Promise as a Summoner Spell.\n\nVigilance\nTeleport to an ally and grant 100-250 (based on champion level) (+100% Ability Power) (+10% bonus Health) Shield for 3 seconds after landing."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "endless-decimation",
+      "slug": "endless-decimation",
+      "name": {
+        "zh": "无尽大杀四方",
+        "en": "Endless Decimation"
+      },
+      "effect": {
+        "zh": "在战斗中每8秒自动施放一次环形斧头挥舞来造成物理伤害。被斧刃命中的敌人们受到额外伤害(100-400（基于英雄等级） (+40% 法术强度) (+60% 额外攻击力))并治疗你18%已损失生命值。用斧刃命中的每个敌人，都会将这个技能的冷却时间缩短10%，最小值为3秒。",
+        "en": "Autocast a circular axe swing that deals physical damage every 8 seconds in combat. Enemies along the outer edge take increased damage (100-400 (based on champion level) (+40% Ability Power) (+60% bonus Attack Damage)) and heal you 18% of your Missing Health. Each enemy hit along the outer edge reduces this ability's cooldown by 10% down to a minimum of 3 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "equilibrium",
+      "slug": "equilibrium",
+      "name": {
+        "zh": "我们的治疗",
+        "en": "Our Healing"
+      },
+      "effect": {
+        "zh": "每当你周围的某人进行治疗时，你获得相当于其15%治疗效果的治疗效果。从敌方治疗中获得双倍。",
+        "en": "Whenever someone heals around you, you heal 15% of their own healing. Doubled from Enemy healing."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "escape-plan",
+      "slug": "escape-plan",
+      "name": {
+        "zh": "逃跑计划",
+        "en": "Escape Plan"
+      },
+      "effect": {
+        "zh": "在降至35%生命值时，获得巨量65% 生命值持续衰减的护盾、持续衰减的150%移动速度和持续衰减的缩小效果。(75秒冷却时间)",
+        "en": "Gain a massive 65% Health decaying Shield, decaying 150% Movement Speed, and a decaying shrink effect upon reaching 35% Health (75 seconds Cooldown)."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience", "speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "final-form",
+      "slug": "final-form",
+      "name": {
+        "zh": "最终形态",
+        "en": "Final Form"
+      },
+      "effect": {
+        "zh": "在施放你的终极技能时，获得持续10秒的50%最大生命值护盾、20%全能吸血和30%额外移动速度。(20秒冷却时间)。",
+        "en": "After casting your Ultimate, gain a 50% max Health Shield, 20% Omnivamp and 30% bonus Movement Speed for 10 seconds. (20 seconds Cooldown)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "fish-bait",
+      "slug": "fish-bait",
+      "name": {
+        "zh": "鲨鱼诱饵",
+        "en": "Shark Bait"
+      },
+      "effect": {
+        "zh": "阵亡时，变成一个鲨鱼诱饵。你不能采取除了移动之外的任何其它行动，会对附近的敌人们造成40%减速。在若干秒之后，一头鲨鱼会浮现，击飞所有附近的敌人们并啃咬他们，对范围内的所有敌人造成120-350（基于英雄等级） + 30%已损失生命值的魔法伤害。",
+        "en": "On death, become Shark Bait. You can take no actions other than moving, which slows nearby enemies by 40%. After a few seconds, a Shark emerges, knocking up all nearby Enemies and biting them for 120-350 (based on champion level) + 30% Missing Health Magic Damage."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "flash2",
+      "slug": "flash2",
+      "name": {
+        "zh": "闪闪现现",
+        "en": "Flash 2"
+      },
+      "effect": {
+        "zh": "获得第二个【闪现】召唤师技能和70召唤师技能急速。",
+        "en": "Gain a second Flash Summoner Spell and 70 Summoner Haste."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "forged-by-the-master",
+      "slug": "forged-by-the-master",
+      "name": {
+        "zh": "大师铸就",
+        "en": "Forged By The Master"
+      },
+      "effect": {
+        "zh": "你的装备和强化符文伤害提升45%。",
+        "en": "Your Item and Augment damage are increased by 45%."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "glass-cannon",
+      "slug": "glass-cannon",
+      "name": {
+        "zh": "玻璃大炮",
+        "en": "Glass Cannon"
+      },
+      "effect": {
+        "zh": "减少30%最大生命值。造成额外的25%伤害作为真实伤害。",
+        "en": "Reduce max Health by 30%. Deal an extra 25% damage as true damage."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "golden-snowball",
+      "slug": "golden-snowball",
+      "name": {
+        "zh": "神圣雪球",
+        "en": "Holy Snowball"
+      },
+      "effect": {
+        "zh": "雪球获得100技能急速。\n\n你在用【雪球】冲刺后会免疫伤害1.5秒。\n\n如果你没有雪球，获得一个雪球。",
+        "en": "Gain 100 Ability Haste on Snowball.\n\nYou become Invulnerable for 1.5 seconds when you dash with Snowball.\n\nIf you don't have one, gain a Snowball."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "goldrend",
+      "slug": "goldrend",
+      "name": {
+        "zh": "夺金",
+        "en": "Goldrend"
+      },
+      "effect": {
+        "zh": "用攻击或技能对一个英雄造成伤害时会造成额外50-150（基于英雄等级） (+20% 法术强度) (+40% 额外攻击力)魔法伤害，并为你提供30金币和持续1.5秒的25%移动速度(每个英雄有30秒冷却时间)。",
+        "en": "Damaging a champion with Attacks or Abilities deals an additional 50-150 (based on champion level) (+20% Ability Power) (+40% bonus Attack Damage) magic damage, grants you 30 Gold and 25% Movement Speed for 1.5 seconds (30 seconds Cooldown per champion)."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "growth-spurt",
+      "slug": "growth-spurt",
+      "name": {
+        "zh": "生机迸发",
+        "en": "Growth Spurt"
+      },
+      "effect": {
+        "zh": "获得生机迸发作为一个召唤师技能。\n\n生机迸发会猛然提升你的体型，击飞附近的敌人们1秒并提供持续7秒的300 (+20% 生命值)最大生命值。",
+        "en": "Gain Growth Spurt as a Summoner Spell.\n\nGrowth Spurt suddenly increases your size, Knocking Up nearby enemies for 1 second and granting 300 (+20% Health) max Health for 7 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "hand-of-baron",
+      "slug": "hand-of-baron",
+      "name": {
+        "zh": "男爵之手",
+        "en": "Hand of Baron"
+      },
+      "effect": {
+        "zh": "获得25%适应之力。附近友方小兵都获得极大增强。",
+        "en": "Gain 25% Adaptive Force. Nearby allied minions are greatly empowered."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "hextech-soul",
+      "slug": "hextech-soul",
+      "name": {
+        "zh": "海克斯科技龙魂",
+        "en": "Hextech Soul"
+      },
+      "effect": {
+        "zh": "周期性地使你的下一个伤害型技能或攻击触发一道闪电爆裂，连锁穿过敌人以造成伤害和减速。",
+        "en": "Periodically your next damaging Ability or Attack triggers a lightning blast, chaining through enemies to deal damage and Slow."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "infinite-recursion",
+      "slug": "infinite-recursion",
+      "name": {
+        "zh": "无限循环往复",
+        "en": "Infinite Recursion"
+      },
+      "effect": {
+        "zh": "获得60技能急速，外加每次参与击杀3技能急速。\n\n当前技能急速：60 (+每层3)",
+        "en": "Gain 60 Ability Haste, plus 3 Ability Haste per takedown.\n\nCurrent Ability Haste: 60 (+3 per stack)"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "its-go-time",
+      "slug": "its-go-time",
+      "name": {
+        "zh": "前进时间到",
+        "en": "It's Go Time"
+      },
+      "effect": {
+        "zh": "激活【指定技能】技能会在其持续期间为你提供25-45%（基于英雄等级）移动速度。",
+        "en": "Activating selected spell grants you 25-45% (based on champion level) Movement Speed for its duration."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "keep-going",
+      "slug": "keep-going",
+      "name": {
+        "zh": "装填",
+        "en": "Reload"
+      },
+      "effect": {
+        "zh": "在【指定技能】技能期间的普攻攻击特效会降低其冷却时间。",
+        "en": "Basic Attacks On-Hit during selected spell reduce its cooldown."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "kill-secured",
+      "slug": "kill-secured",
+      "name": {
+        "zh": "杀意翻涌",
+        "en": "Kill Secured"
+      },
+      "effect": {
+        "zh": "在朝着低于40%生命值的敌人时，获得60%移动速度。",
+        "en": "Gain 60% Movement Speed towards enemies below 40% health."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "king-me",
+      "slug": "king-me",
+      "name": {
+        "zh": "尊我为王",
+        "en": "King Me"
+      },
+      "effect": {
+        "zh": "当你第一次携带一件传说级装备并乘坐敌人的传送门时，你会加冕为王，升级你的装备并获得一个随机棱彩阶强化符文。",
+        "en": "The first time you take the enemy transport with a Legendary Item you become Kinged, upgrading your item and gaining a random Prismatic Augment."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "little-extra-help",
+      "slug": "little-extra-help",
+      "name": {
+        "zh": "小小的额外帮助",
+        "en": "Lil' Extra Help"
+      },
+      "effect": {
+        "zh": "在你的【指定技能】技能持续期间获得150攻击距离和75%攻击速度。",
+        "en": "Gain 150 Attack Range and 75% Attack Speed during your selected spell duration."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "mercys-strike",
+      "slug": "mercys-strike",
+      "name": {
+        "zh": "仁慈打击",
+        "en": "Mercy's Strike"
+      },
+      "effect": {
+        "zh": "在使用【指定技能】技能为你的友军提供治疗或护盾之后之后，你的下一次普攻获得300额外攻击距离、75%攻击速度并造成额外的2.5% (+20% 治疗和护盾强度)最大生命值魔法伤害。\n\n防御塔受到2.5%最大生命值魔法伤害。",
+        "en": "After healing or shielding your ally with selected spell, your next basic attack gains 300 bonus attack range, 75% attack speed and deals an additional 2.5% (+20% Heal and Shield Power) max Health magic damage.\n\nTurret take 2.5% max health magic damage."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "mighty-shield",
+      "slug": "mighty-shield",
+      "name": {
+        "zh": "强力护盾",
+        "en": "Mighty Shield"
+      },
+      "effect": {
+        "zh": "当你获得护盾时，获得40-100（基于英雄等级）适应之力，持续3秒。(5秒冷却时间)",
+        "en": "Gain 40-100 (based on champion level) Adaptive Force for 3 seconds when you gain a Shield (5 seconds Cooldown)."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "missile-split",
+      "slug": "missile-split",
+      "name": {
+        "zh": "咒语裂变",
+        "en": "Spell Split"
+      },
+      "effect": {
+        "zh": "在命中时、最大距离时或再次施放时，你的【指定技能】技能的飞弹会分裂为两部分。\n\n敌人被同一技能命中时，承受伤害会减少。",
+        "en": "Your selected spell missile splits into two on hit, at max Range, or when Recast.\n\nEnemies take less damage if hit by the same spell."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "nature-is-healing",
+      "slug": "nature-is-healing",
+      "name": {
+        "zh": "自然即是治愈",
+        "en": "Nature is Healing"
+      },
+      "effect": {
+        "zh": "进入草丛时回复40-300（基于英雄等级） + 15%已损失生命值，每个草丛有20秒冷却时间。",
+        "en": "Entering Brush restores 40-300 (based on champion level) + 15% Missing Health, 20 second cooldown per brush."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "nightstalking",
+      "slug": "nightstalking",
+      "name": {
+        "zh": "夜狩",
+        "en": "Nightstalking"
+      },
+      "effect": {
+        "zh": "在对敌人造成伤害的3秒内参与击杀该敌人会为你提供40%移动速度并使你进入隐身状态1.5秒。",
+        "en": "Takedowns against enemy champions within 3 seconds of damaging them grants you 40% Move Speed and renders you invisible for 1.5 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ominous-pact",
+      "slug": "ominous-pact",
+      "name": {
+        "zh": "不祥契约",
+        "en": "Ominous Pact"
+      },
+      "effect": {
+        "zh": "基于已损失生命值，获得75-150（基于英雄等级）法术强度，50%移动速度和20%全能吸血。施放技能会消耗你的5%当前生命值。\n\n在30%生命值时获得最大增益。",
+        "en": "Gain 75-150 (based on champion level) Ability Power, 50% Movement Speed, and 20% Omnivamp based on missing Health. Spell casts cost 5% of your current Health.\n\nMax benefit at 30% Health."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "overextender",
+      "slug": "overextender",
+      "name": {
+        "zh": "过量延伸者",
+        "en": "Overextender"
+      },
+      "effect": {
+        "zh": "你的加农炮发射器的距离、飞行速度和伤害已经得到显著提升。回城并进入到你的加农炮发射器。",
+        "en": "Your Cannon Launcher has significantly increased range, travel speed, and damage. Recall to enter your Cannon Launcher."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "overkill",
+      "slug": "overkill",
+      "name": {
+        "zh": "针插垫",
+        "en": "Pin Cushion"
+      },
+      "effect": {
+        "zh": "在【指定技能】技能期间进行攻击会对你的目标凿下大钉。\n\n大钉会在【指定技能】技能到期时引爆，每层造成20-60（基于英雄等级）物理伤害并提供持续3秒的10移动速度。如果已积累的伤害足以击杀该敌方英雄，则大钉将提前引爆并将其处决。",
+        "en": "Attacks during selected spell gouge your target with Nails.\n\nNails explode once selected spell expires, dealing 20-60 (based on champion level) Physical Damage and granting 10 Move Speed per stack for 3 seconds. Nails will explode early and execute if the accumulated damage would kill the enemy champion."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage", "speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "overloaded",
+      "slug": "overloaded",
+      "name": {
+        "zh": "超负荷",
+        "en": "Overloaded"
+      },
+      "effect": {
+        "zh": "使用另一个技能会重置【指定技能】技能的冷却时间。\n\n“它们来找卷轴了……按计划来……EQEQEQ……” —— 那个蓝人",
+        "en": "Using another Ability resets the cooldown of selected spell.\n\n\"They come for the scroll... Stick to the plan... EQEQEQ...\" — The Blue One"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "pat-on-the-back",
+      "slug": "pat-on-the-back",
+      "name": {
+        "zh": "轻拍背部",
+        "en": "Pat On The Back"
+      },
+      "effect": {
+        "zh": "友军会在你走过时鼓励你，为你提供持续3秒的50-150（基于英雄等级） (+25% 额外移动速度)护盾和30%移动速度。这个效果可以叠加。\n\n每个友军需要经过9秒冷却时间才能重新轻拍你的背部。",
+        "en": "Allies encourage you when you walk past them, granting you 50-150 (based on champion level) (+25% bonus Move Speed) Shield and 30% Movement Speed for 3 seconds. This effect can stack.\n\nEach ally has a 9 cooldown before they can pat you on the back again."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "pin-cushion",
+      "slug": "pin-cushion",
+      "name": {
+        "zh": "豪猪",
+        "en": "Porcupine"
+      },
+      "effect": {
+        "zh": "承受来自英雄的伤害会积攒一次尖针迸发。当达到临界质量时，尖针就会爆裂，对附近敌人们造成75-200（基于英雄等级） (+125% 额外护甲) (+125% 额外魔法抗性)物理伤害和持续2秒的30%减速。",
+        "en": "Taking damage from champions builds up a burst of needles. At critical mass, the needles burst, dealing 75-200 (based on champion level) (+125% bonus Armor) (+125% bonus Magic Resistance) physical damage and Slowing nearby enemies by 30% for 2 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage", "resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "pinball-snowball",
+      "slug": "pinball-snowball",
+      "name": {
+        "zh": "弹球",
+        "en": "Pinball"
+      },
+      "effect": {
+        "zh": "你的雪球获得50技能急速，造成额外的100-500（基于英雄等级） 真实伤害并且可以从墙体上反弹。每次反弹会提升它 25%体型、20%造成伤害，并且缩短它30%冷却时间。",
+        "en": "Your Snowball gains 50 Ability Haste, deals extra 100-500 (based on champion level) true damage and bounces off walls. Each bounce increases its size by 25%, increases its damage dealt by 20% and reduces its Cooldown by 30%."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "poltergeist",
+      "slug": "poltergeist",
+      "name": {
+        "zh": "吵闹鬼",
+        "en": "Poltergeist"
+      },
+      "effect": {
+        "zh": "获得【吵闹鬼】作为一个召唤师技能。\n\n吵闹鬼会同时施放召唤师技能【屏障】和【幽灵疾步】。",
+        "en": "Gain Poltergeist as a Summoner Spell.\n\nPoltergeist casts both Barrier and Ghost."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "poro-charge-active",
+      "slug": "poro-charge-active",
+      "name": {
+        "zh": "魄罗蛮冲",
+        "en": "Poro Stampede"
+      },
+      "effect": {
+        "zh": "【魄罗佳肴】会每25-15（基于英雄等级）秒出现在你周围。投喂魄罗会给你魄罗之爱层数。在5层时，解锁魄罗冲锋召唤师技能。投喂更多魄罗会提升你发动攻势的波次。\n\n魄罗冲锋：发动若干波次的魄罗攻势，可对敌方英雄们造成100-200（基于英雄等级） (+每层20（魄罗之爱）)物理伤害。\n\n魄罗们仅能命中单个敌方英雄，并且仅第一波攻势会击飞敌人们。\n\n“噢吼！它们可真萌啊！”——魄罗驯养人",
+        "en": "Poro Snax appear around you every 25-15 (based on champion level) seconds. Feeding Poros gives you stacks of Poro Love. At 5 stacks, unlock the Poro Charge Summoner Spell. Feeding more Poros increases how many waves you launch.\n\nPoro Charge: Launch waves of Poros that deal 100-200 (based on champion level) (+20 per Poro Love stack) physical damage to enemy champions.\n\nPoros can only hit a single enemy, and only the first wave knocks enemies up.\n\n\"Oho! Look how charming they are!\" — Poro Herder"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "quest",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "pressure-cooker",
+      "slug": "pressure-cooker",
+      "name": {
+        "zh": "高压锅",
+        "en": "Pressure Cooker"
+      },
+      "effect": {
+        "zh": "每一秒，对附近的敌方英雄们施加一层可无限叠加的灼烧，在2秒的持续时间里每秒造成0.5% 生命值魔法伤害。\n\n任务：对敌方英雄造成1500灼烧伤害。\n\n奖励：提高你周围的灼烧伤害的距离。\n\n已造成的灼烧伤害：当前进度 / 1500",
+        "en": "Every second, apply an infinitely stacking Burn to nearby enemy champions, dealing 0.5% Health magic damage per second for 2 seconds.\n\nQUEST: Deal 1500 Burn damage to enemy Champions.\n\nREWARD: Increase the range of the Burn damage around you.\n\nBurn Damage Dealt: current progress / 1500"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "quest",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "prom-queen",
+      "slug": "prom-queen",
+      "name": {
+        "zh": "舞会女王",
+        "en": "Prom Queen"
+      },
+      "effect": {
+        "zh": "每35秒，自动施放一道闪亮宝冠降临在你头上。当它着陆时，获得洛的终极技能，魅惑你碰到的敌人们。",
+        "en": "Every 35 seconds, Autocast a sparkly tiara descends upon you. When it lands, gain Rakan's Ultimate, charming enemies you touch."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "quest-sneakerhead",
+      "slug": "quest-sneakerhead",
+      "name": {
+        "zh": "王中王，靴中靴",
+        "en": "Sneakerhead"
+      },
+      "effect": {
+        "zh": "完成以下的任务即可获得一份超级大奖：",
+        "en": "Do the following quests for a super reward:"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "quest",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["speed"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "quest-ultra-hydra",
+      "slug": "quest-ultra-hydra",
+      "name": {
+        "zh": "终极九头蛇",
+        "en": "Ultra Hydra"
+      },
+      "effect": {
+        "zh": "在完成一个【九头蛇】装备时，获得一个提亚马特。\n\n任务：拥有【贪欲九头蛇】，【亵渎九头蛇】和【巨型九头蛇】。\n\n奖励：获得【终极九头蛇】。",
+        "en": "Gain a Tiamat when completing a Hydra Item.\n\nQUEST: Gain Ravenous Hydra, Profane Hydra and Titanic Hydra.\n\nREWARD: Gain Ultra Hydra."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "quest",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "shark-tempest",
+      "slug": "shark-tempest",
+      "name": {
+        "zh": "鲨鱼暴风",
+        "en": "Shark Tempest"
+      },
+      "effect": {
+        "zh": "鲨鱼们环绕着你的【雪球】，对它们途经的敌人们造成减速和100-200（基于英雄等级）魔法伤害。如果你的【雪球】命中了一个英雄，鲨鱼们会吸附至其身上并生成一阵鲨鱼暴风，从而对附近的敌人们造成每秒30-90（基于英雄等级） (+25% 额外攻击力) (+15% 法术强度)魔法伤害和持续3秒的40%减速。",
+        "en": "Sharks circle your Snowball, slowing and dealing 100-200 (based on champion level) magic damage to enemies they pass through. If your Snowball hits a Champion, the Sharks attach to them and create a Shark Tempest, which deals 30-90 (based on champion level) (+25% bonus Attack Damage) (+15% Ability Power) magic damage per second and Slows nearby enemies by 40% for 3 seconds."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "shrink-engine",
+      "slug": "shrink-engine",
+      "name": {
+        "zh": "缩小引擎",
+        "en": "Shrink Engine"
+      },
+      "effect": {
+        "zh": "参与击杀后会让你变小4%，每次提供8技能急速和1%移动速度。\n\n阵亡时损失65%层数。\n------------------------------------------------------------",
+        "en": "Takedowns grant a stack that makes you 4% smaller, grants 8 Ability Haste, and 1% Movement Speed.\n\nLose 65% stacks on death.\n------------------------------------------------------------"
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["speed", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "skip-the-basics",
+      "slug": "skip-the-basics",
+      "name": {
+        "zh": "大招工具人",
+        "en": "Ult Bot"
+      },
+      "effect": {
+        "zh": "你的技能急速仅作用于终极技能，但效果多50%。获得100技能急速。",
+        "en": "Your Ability Haste only applies to your Ultimate, but is 50% more effective. Gain 100 Ability Haste."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "snap-back",
+      "slug": "snap-back",
+      "name": {
+        "zh": "复位",
+        "en": "Snap Back"
+      },
+      "effect": {
+        "zh": "再次施放【指定技能】技能时会产生爆炸，造成100-300（基于英雄等级） (+20% 法术强度) (+20% 额外攻击力)魔法伤害，并回到你的原本位置。",
+        "en": "Recast selected spell to explode for 100-300 (based on champion level) (+20% Ability Power) (+20% bonus Attack Damage) magic damage and return to your original position."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "snowbomb",
+      "slug": "snowbomb",
+      "name": {
+        "zh": "冰雪爆裂",
+        "en": "Snowblast"
+      },
+      "effect": {
+        "zh": "你的雪球获得100技能急速。这个技能的再次施放造成100%提升伤害、击飞该目标、并击退附近的敌人们。",
+        "en": "Your Snowball gains 100 Ability Haste. The ability's recast deals 100% increased damage, Knocks Up the target, and knocks back nearby enemies."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "sonata",
+      "slug": "sonata",
+      "name": {
+        "zh": "咏叹奏鸣",
+        "en": "Sonata"
+      },
+      "effect": {
+        "zh": "每10秒，以一个不断交替的旋律来自动施放坚毅咏叹调和迅捷奏鸣曲。\n\n坚毅咏叹调治疗附近友军并提供一个临时的护盾光环。\n\n迅捷奏鸣曲提供一个临时光环来提供额外移动速度。",
+        "en": "Every 10 seconds, automatically cast the Aria of Perseverence and Song of Celerity in an alternating melody.\n\nAria of Perseverence heals nearby allies and grants a temporary shielding aura.\n\nSong of Celerity grants a temporary aura that provides bonus Movement Speed."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience", "utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "soul-eater",
+      "slug": "soul-eater",
+      "name": {
+        "zh": "吞噬灵魂",
+        "en": "Soul Eater"
+      },
+      "effect": {
+        "zh": "定身一个敌方英雄时会提供20最大生命值。\n\n总生命值获取：每层20\n如果是你的第二个强化符文，会自带300生命值。",
+        "en": "Immobilizing an enemy champion grants 20 max Health.\n\nTotal Health Gained: 20 per stack\nIf taken as your second Augment, starts with 300 Health."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "specialized-empowerment",
+      "slug": "specialized-empowerment",
+      "name": {
+        "zh": "威能之追求",
+        "en": "Pursuit of Power"
+      },
+      "effect": {
+        "zh": "用【指定技能】技能命中敌方英雄以使它的伤害提升3%x命中次数。\n\n命中敌人10次之后，【指定技能】技能永久造成30%更多伤害。",
+        "en": "Hit enemy champions with selected spell to increase its damage by 3% per hit.\n\nAfter hitting enemies 10 times, selected spell permanently deals 30% more damage."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "spell-volley",
+      "slug": "spell-volley",
+      "name": {
+        "zh": "三重射击",
+        "en": "Tripleshot"
+      },
+      "effect": {
+        "zh": "你的【指定技能】技能会瞄准你前方2个额外的敌人。\n\n单位从同一技能中承受伤害会减少。",
+        "en": "Your selected spell targets 2 additional enemies in front of you.\n\nUnits take less damage from the same spell."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "squishy-slappy-grab",
+      "slug": "squishy-slappy-grab",
+      "name": {
+        "zh": "软弹啪叽抓",
+        "en": "Squishy Slappy Grab"
+      },
+      "effect": {
+        "zh": "偶尔对所有附近的敌方英雄放出软弹啪叽的手，然后用灵链系住4秒。当你处于系住敌人的状态时，你的下一次攻击将拉拽其到你的位置，对其造成50-150（基于英雄等级） (+15% 额外生命值)魔法伤害和0.25秒晕眩。你每拉拽到一个敌人就会获得持续2.5秒的50-200（基于英雄等级） (+50% 额外护甲) (+50% 额外魔法抗性)护盾值。\n\n这个效果有30秒冷却时间。",
+        "en": "Occasionally send out Squishy Slappy Hands that latch on to all nearby enemy champions for 4 seconds. While you're latched onto enemies, your next attack will pull them to you, deal 50-150 (based on champion level) (+15% bonus Health) magic damage, and stun them for 0.25 seconds. You gain 50-200 (based on champion level) (+50% bonus Armor) (+50% bonus Magic Resistance) shield for 2.5 seconds per pulled enemy.\n\nThis has a 30 second cooldown."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "support-main",
+      "slug": "support-main",
+      "name": {
+        "zh": "主玩辅助",
+        "en": "Support Main"
+      },
+      "effect": {
+        "zh": "任务：治疗友方英雄3000生命值。\n\n奖励：你提供的任何治疗效果现在还会在3秒里提供相当于25%初始治疗量的持续治疗效果。\n\n已造成的治疗：当前进度 / 3000",
+        "en": "QUEST: Heal allied champions for 3000 health.\n\nREWARD: Any healing you provide now also Heals Over Time for 25% of the initial heal over 3 seconds.\n\nHealing Done: current progress / 3000"
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "quest",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["ally"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "surge-field",
+      "slug": "surge-field",
+      "name": {
+        "zh": "电涌力场",
+        "en": "Surge Field"
+      },
+      "effect": {
+        "zh": "在施放终极技能时，在你周围生成一个地带。在它其中时，获得50技能急速和40%移动速度，并发射若干飞弹来对敌人们造成20%已造成伤害。\n\n这个地带会在你第一次离开它时跟随你，并且在你第二次离开它时，它会在短暂持续之后消散。",
+        "en": "On ultimate cast, spawn a Zone around you. While in it, gain 50 Ability Haste, 40% Movement Speed, and fire missiles that deal 20% of damage dealt to enemies.\n\nThe Zone follows you the first time you leave it and expires after a short duration the second time you do so."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "swift-and-safe",
+      "slug": "swift-and-safe",
+      "name": {
+        "zh": "快中求稳",
+        "en": "Swift and Safe"
+      },
+      "effect": {
+        "zh": "在冲刺或闪烁后，获得持续2秒的65-290（基于英雄等级） (+26% 法术强度) (+65% 额外攻击力)护盾值。 (5秒冷却时间)",
+        "en": "Gain a 65-290 (based on champion level) (+26% Ability Power) (+65% bonus Attack Damage) Shield for 2 seconds after a Dash or Blink (5 seconds Cooldown)."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "terraind",
+      "slug": "terraind",
+      "name": {
+        "zh": "地形专家",
+        "en": "Terrain'd"
+      },
+      "effect": {
+        "zh": "由你的【指定技能】技能生成的地形会每秒对附近的敌人们造成20-180（基于英雄等级） (+20% 法术强度)魔法伤害。\n\n如果是终极技能，那么此伤害提升200%。",
+        "en": "Your terrain created by selected spell deals 20-180 (based on champion level) (+20% Ability Power) magic damage per second to nearby enemies.\n\nDamage is increased by 200% for Ultimate Abilities."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "titans-pulse",
+      "slug": "titans-pulse",
+      "name": {
+        "zh": "保持坚定",
+        "en": "Stay Resolute"
+      },
+      "effect": {
+        "zh": "用【指定技能】技能对敌方英雄造成伤害会基于其伤害类型为你提供1-3（基于英雄等级）护甲或魔抗。\n\n如果这不是你的第一个强化符文，获得20护甲和魔抗。",
+        "en": "Damaging enemy champions with selected spell grants you 1-3 (based on champion level) Armor or Magic Resistance based on their Damage Type.\n\nIf this is not your first augment, gain 20 Armor and Magic Resistance."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "trusty-weapon",
+      "slug": "trusty-weapon",
+      "name": {
+        "zh": "可靠武器",
+        "en": "Trusty Weapon"
+      },
+      "effect": {
+        "zh": "在你用指定技能打击一个敌方英雄时，铸造一条友谊纽带来为该技能提供5%提升伤害，持续6秒。这个效果可以叠加。\n\n“我——我才不是喜欢你呢！”——所选技能",
+        "en": "When you strike an enemy champion with selected spell, forge a bond of Friendship that grants it 5% increased damage for 6 seconds. This effect can stack.\n\n\"It's—it's not like I like you or anything!!\" — selected ability"
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "twinfire",
+      "slug": "twinfire",
+      "name": {
+        "zh": "双生火焰",
+        "en": "Twin Fire"
+      },
+      "effect": {
+        "zh": "造成技能伤害时，发射1+300% 暴击几率个飞弹，每个造成10-30（基于英雄等级） (+7% 额外攻击力) (+7% 法术强度)魔法伤害。\n\n此外，获得25%暴击几率。",
+        "en": "On ability damage, fire 1 plus 300% Critical Strike Chance missiles that deal 10-30 (based on champion level) (+7% bonus Attack Damage) (+7% Ability Power) magic damage each.\n\nGain 25% Critical Strike Chance."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "ultimate-awakening",
+      "slug": "ultimate-awakening",
+      "name": {
+        "zh": "终极唤醒",
+        "en": "Ultimate Awakening"
+      },
+      "effect": {
+        "zh": "获得30终极技能急速。\n在施放你的终极技能后，刷新你的所有基础技能并获得持续15秒的300基础技能急速。(20秒冷却时间)",
+        "en": "Gain 30 Ultimate Ability Haste.\nAfter using your Ultimate, refresh your basic abilities and gain 300 basic ability haste for 15s. (20s Cooldown)"
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-death-dance",
+      "slug": "upgrade-death-dance",
+      "name": {
+        "zh": "升级：死亡之舞",
+        "en": "Upgrade Death's Dance"
+      },
+      "effect": {
+        "zh": "获得 250。\n\n死亡之舞的无视痛苦提升至40%所受伤害，并且在参与一次击杀后，即刻治疗125% 额外攻击力生命值。",
+        "en": "Gain 250.\n\nDeath's Dance's Ignore Pain is increased to 40% of damage received, and heals for 125% bonus Attack Damage instantly when scoring a takedown."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-ravenous",
+      "slug": "upgrade-ravenous",
+      "name": {
+        "zh": "升级：贪欲九头蛇",
+        "en": "Upgrade Ravenous Hydra"
+      },
+      "effect": {
+        "zh": "你对敌人的技能命中会触发顺劈。提升【贪欲九头蛇】的生命偷取至20%。\n\n获得500金币.",
+        "en": "Your spell hits trigger Cleave against enemies. Increase Ravenous Hydra's Life Steal to 20%\n\nGain 500 Gold."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-sundered-sky",
+      "slug": "upgrade-sundered-sky",
+      "name": {
+        "zh": "升级：焚天",
+        "en": "Upgrade Sundered Sky"
+      },
+      "effect": {
+        "zh": "将【焚天】对每个目标的冷却时间缩短至5秒，并且治疗你9%已损失生命值。\n\n获得500金币。",
+        "en": "Reduce Sundered Sky's per target cooldown to 5 seconds and heal you for 9% of missing health.\n\nGain 500 Gold."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["damage"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "upgrade-sword-of-blossom",
+      "slug": "upgrade-sword-of-blossom",
+      "name": {
+        "zh": "升级：花晓之剑",
+        "en": "Upgrade Sword of Blossoming Dawn"
+      },
+      "effect": {
+        "zh": "获得100%攻击速度。\n\n你对英雄的攻击会使来自【花晓之剑】的治疗效果提升250%。",
+        "en": "Gain 100% Attack Speed.\n\nIncrease Sword of Blossoming Dawn's healing to 250% when you attack enemy champions."
+      },
+      "tier": {
+        "zh": "棱彩阶",
+        "en": "Prismatic"
+      },
+      "rarity": "prismatic",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "veil-of-warding",
+      "slug": "veil-of-warding",
+      "name": {
+        "zh": "防护面纱",
+        "en": "Veil of Warding"
+      },
+      "effect": {
+        "zh": "每30秒获得一层法术护盾来格挡下一个敌方技能。",
+        "en": "Gain a Spell Shield every 30 seconds that blocks the next enemy Ability."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["utility"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "warding-weapon",
+      "slug": "warding-weapon",
+      "name": {
+        "zh": "自适应防护",
+        "en": "Adaptive Ward"
+      },
+      "effect": {
+        "zh": "用【指定技能】技能打击一个敌方英雄时，为你提供持续6秒的7-12（基于英雄等级）护甲或魔法抗性，基于该技能的伤害类型。这个效果可以叠加。",
+        "en": "Striking an enemy champion with selected spell grants you 7-12 (based on champion level) Armor or Magic Resist based on their damage type for 6 seconds. This effect can stack."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "ability",
+      "scope": "shared",
+      "textStatus": "dynamic",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "warlock-juicebox",
+      "slug": "warlock-juicebox",
+      "name": {
+        "zh": "术士果汁盒",
+        "en": "Warlock Juicebox"
+      },
+      "effect": {
+        "zh": "获得10% (+0.035% 法术强度)全能吸血。",
+        "en": "Gain 10% (+0.035% Ability Power) Omnivamp."
+      },
+      "tier": {
+        "zh": "黄金阶",
+        "en": "Gold"
+      },
+      "rarity": "gold",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": ["resilience"],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    },
+    {
+      "id": "you-spin-me-right-round",
+      "slug": "you-spin-me-right-round",
+      "name": {
+        "zh": "转得我眩晕了",
+        "en": "Spin Me Right Round"
+      },
+      "effect": {
+        "zh": "将一个召唤师技能替换为骄行荡寇。\n\n骄行荡寇发射一根钩爪，吸附在地形上，在此之后，你可以再次施放来绕着它摆荡。在摆荡状态下，自动攻击相距最近的那个敌人。在与一个敌方英雄碰撞或再次施放时结束摆荡。",
+        "en": "Replace a Summoner Spell with Heroic Swing.\n\nHeroic Swing fires a grappling hook, sticking into terrain, after which you can Recast to swing around it. While swinging, automatically Attack the nearest enemy. Colliding with an enemy champion or Recasting ends the swing."
+      },
+      "tier": {
+        "zh": "白银阶",
+        "en": "Silver"
+      },
+      "rarity": "silver",
+      "kind": "standard",
+      "scope": "shared",
+      "textStatus": "verified",
+      "tags": [],
+      "currentPatchChange": "unchanged",
+      "sourceUrl": null
+    }
+  ]
+}

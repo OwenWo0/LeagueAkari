@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+import AramAssistant from '@main-window/views/aram-assistant/AramAssistant.vue'
 import Automation from '@main-window/views/automation/Automation.vue'
 import OngoingGame from '@main-window/views/ongoing-game/OngoingGame.vue'
 import PlayerTabs from '@main-window/views/player-tabs/PlayerTabs.vue'
@@ -24,6 +25,11 @@ const router = createRouter({
       name: 'ongoing-game',
       path: '/ongoing-game',
       component: OngoingGame
+    },
+    {
+      name: 'aram-assistant',
+      path: '/aram-assistant',
+      component: AramAssistant
     },
     {
       name: 'toolkit',

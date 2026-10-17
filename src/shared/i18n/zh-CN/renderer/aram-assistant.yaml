@@ -1,0 +1,153 @@
+aramAssistant:
+  title: ARAM 海克斯大乱斗助手
+  intro: 离线增益卡库，支持明确选择截图或文本分析，并可选使用海克斯大乱斗英雄统计。
+  mode:
+    aram: ARAM
+    aramMayhem: 海克斯大乱斗
+  match:
+    title: 对局上下文
+    connected: 已连接
+    connecting: 连接中
+    disconnected: 未连接
+    mode: 模式
+    champion: 英雄
+    follow: 跟随 League Client
+    noChampion: 尚未识别英雄。可手动选择英雄生成攻略。
+    manualOverride: 正在使用手动指定的英雄。
+    allies: 队友
+    enemies: 已知敌方英雄
+    phase: 阶段
+    automaticContext: 在提示词中包含当前 League Client 上下文
+  guide:
+    title: 阵容攻略
+    automatic: 每局自动请求一次阵容攻略
+    run: 生成阵容攻略
+    defaultOff: 自动攻略默认关闭。
+  provider:
+    title: 视觉模型提供方
+    active: 当前提供方
+    gemini: Gemini 原生协议
+    openai: OpenAI 兼容协议
+    baseUrl: 带版本的 API 基础 URL
+    model: 模型
+    save: 保存提供方设置
+    apiKey: API 密钥
+    saveKey: 安全保存凭据
+    clearKey: 清除凭据
+    configured: 已配置凭据
+    missing: 尚未配置凭据
+    encrypted: 已使用操作系统安全存储加密
+    memory: 仅保存在本次应用会话内存中
+    storageError: 无法确认安全存储状态
+    timeout: 总请求超时（秒）
+    statsSource: ChampionData 数据源
+    opgg: OP.GG
+    qq101: QQ101
+    note: 凭据单独保存在安全文件中，不进入设置同步或导出。
+    saved: 提供方设置已保存。
+    credentialSaved: 凭据已保存。
+    statsNote: 海克斯大乱斗统计只使用所选数据源和模式；名称未知或匹配歧义的卡牌会被略过。
+  catalog:
+    title: 离线增益卡库
+    count: '{{count}} 条记录'
+    bundled: 内置快照
+    user: 用户更新快照
+    fallback: 保存的卡库无法读取，当前使用内置快照。
+    update: 检查并安装卡库更新
+    updating: 正在更新卡库…
+    updated: 已更新到源版本 {{patch}}，共 {{count}} 条记录。
+    source: 数据来源
+    sourceData: 来源数据
+    sourcePatch: 来源版本
+    notVerified: 未与当前游戏版本核验
+    sourcePage: 打开来源页面
+    fetchedAt: 获取时间
+    sha256: 来源 SHA-256
+    licenseStatus: 许可状态
+    search: 搜索卡牌
+    rarity: 稀有度
+    kind: 卡牌类别
+    scope: 适用范围
+    all: 全部
+    silver: 银色
+    gold: 金色
+    prismatic: 棱彩
+    standard: 标准
+    ability: 技能
+    quest: 任务
+    special: 特殊
+    aram: ARAM
+    shared: 通用
+    verified: 文本已核验
+    dynamic: 动态文本
+    changed: 本来源版本有变化
+    unchanged: 本来源版本未变化
+    selectableOnly: 搜索建议仅包含已核验文本且非特殊卡。完整卡库也包含动态和特殊记录。
+    noResults: 没有符合筛选条件的卡牌。
+    previous: 上一页
+    next: 下一页
+    page: 第 {{current}} / {{total}} 页
+  analysis:
+    title: 增益分析
+    screenshot: 截图
+    display: 显示器
+    loadDisplays: 获取显示器
+    capture: 预览显示器
+    chooseFile: 选择图片文件
+    preview: 截图预览
+    cancelPreview: 丢弃预览
+    previewHint: 点击“分析截图”之前不会发送图片。
+    analyzeImage: 分析截图
+    text: 纯文本
+    cardOne: 卡牌 1
+    cardTwo: 卡牌 2
+    cardThree: 卡牌 3
+    analyzeText: 分析这三张卡
+    guide: 生成阵容攻略
+    cancel: 取消分析
+    running: 正在分析…
+    result: 最近一次回复
+    confirmSelected: 确认为本局已选
+    selected: 已确认为本局已选
+    history: 本局已确认增益
+    undo: 撤销最近一次确认
+    emptyHistory: 尚未确认增益。
+    sessionOnly: 此列表仅保留在当前应用会话，新对局会清空。
+    imageOnly: 截图分析只需要图片；文本分析必须选择三张不同的本地卡牌。
+    noPreview: 选择显示器截图或图片文件后，可在此预览。
+    selectThree: 选择三张不同且已核验的本地卡牌。文本请求只会发送这些卡牌。
+    confirmed: 已记录为本局已选增益。
+  error:
+    title: 助手请求失败
+    CREDENTIAL_STORAGE_FAILED: 凭据无法安全保存或清除。
+    INVALID_PROTOCOL: 请选择 Gemini 原生协议或 OpenAI 兼容协议。
+    INVALID_BASE_URL: API 地址请使用 HTTPS，或字面 loopback HTTP 地址。
+    INVALID_INPUT: 请检查所选卡牌、英雄和请求内容。
+    INVALID_IMAGE: 图片无效或无法解码。
+    IMAGE_TOO_LARGE: 图片超过允许大小。
+    CONFIG_ERROR: 请检查提供方、模型和凭据设置。
+    AUTH_ERROR: 提供方拒绝了该凭据。
+    RATE_LIMITED: 提供方正在限流，请稍后重试。
+    TIMEOUT: 请求超过时间限制。
+    NETWORK_ERROR: 无法连接提供方。
+    REDIRECT_BLOCKED: 已阻止提供方重定向。
+    UPSTREAM_ERROR: 提供方返回错误。
+    INVALID_RESPONSE: 提供方响应无效。
+    RESPONSE_TOO_LARGE: 提供方响应超过允许大小。
+    EMPTY_RESPONSE: 提供方没有返回文本。
+    BLOCKED_RESPONSE: 提供方未为此请求提供回答。
+    OUTPUT_TRUNCATED: 响应达到模型输出上限。
+    CANCELLED: 请求已取消。
+    SCREEN_PERMISSION_REQUIRED: 请在 macOS“隐私与安全性”设置中允许 League Akari 录屏，然后重试。
+    SCREEN_PERMISSION_DENIED: 请在 macOS“隐私与安全性”设置中允许 League Akari 录屏。
+    SCREEN_PERMISSION_RESTRICTED: macOS 当前限制了屏幕录制。
+    SCREEN_CAPTURE_FAILED: 无法捕获所选显示器。
+    TOO_LARGE: 卡库来源超过允许大小。
+    SOURCE_HTML: 卡库来源没有返回 JSON。
+    INVALID_SCHEMA: 卡库数据不符合支持的格式。
+    INVALID_PATCH: 卡库版本信息无效。
+    PATCH_ROLLBACK: 不能用较旧卡库替换当前版本。
+    SUDDEN_DROP: 同版本卡库缺少的记录过多。
+    TOO_FEW_CARDS: 卡库记录少于最低要求。
+    ATOMIC_WRITE_FAILED: 无法安全保存卡库。
+    fallback: 请求未能完成。

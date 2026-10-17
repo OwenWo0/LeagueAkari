@@ -1,4 +1,5 @@
 import commonEn from '@shared/i18n/en/common.yaml'
+import aramAssistantEn from '@shared/i18n/en/renderer/aram-assistant.yaml'
 import automationEn from '@shared/i18n/en/renderer/automation.yaml'
 import auxWindowEn from '@shared/i18n/en/renderer/aux-window.yaml'
 import cdTimerEn from '@shared/i18n/en/renderer/cd-timer.yaml'
@@ -14,6 +15,7 @@ import settingsEn from '@shared/i18n/en/renderer/settings.yaml'
 import shellEn from '@shared/i18n/en/renderer/shell.yaml'
 import toolkitEn from '@shared/i18n/en/renderer/toolkit.yaml'
 import commonZhCN from '@shared/i18n/zh-CN/common.yaml'
+import aramAssistantZhCN from '@shared/i18n/zh-CN/renderer/aram-assistant.yaml'
 import automationZhCN from '@shared/i18n/zh-CN/renderer/automation.yaml'
 import auxWindowZhCN from '@shared/i18n/zh-CN/renderer/aux-window.yaml'
 import cdTimerZhCN from '@shared/i18n/zh-CN/renderer/cd-timer.yaml'
@@ -50,6 +52,7 @@ const rendererEn = mergeRendererResources(
   shellEn,
   settingsEn,
   automationEn,
+  aramAssistantEn,
   leagueClientEn,
   rankedEn,
   matchCardEn,
@@ -67,6 +70,7 @@ const rendererZhCN = mergeRendererResources(
   shellZhCN,
   settingsZhCN,
   automationZhCN,
+  aramAssistantZhCN,
   leagueClientZhCN,
   rankedZhCN,
   matchCardZhCN,

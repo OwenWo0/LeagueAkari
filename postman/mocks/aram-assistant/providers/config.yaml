@@ -1,0 +1,10 @@
+version: 1
+id: a103f35c-889a-4a25-8e8c-419c6f72a16f
+name: ARAM Vision Provider Fixture Contract
+slug: aram-vision-provider-fixture-con
+protocol: http
+port: 4900
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true

@@ -1,0 +1,5 @@
+simulation: aram-assistant-providers
+routing: path
+mocks:
+  - routeKey: providers
+    path: ../mocks/aram-assistant/providers/config.yaml

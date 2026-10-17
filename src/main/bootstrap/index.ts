@@ -5,6 +5,7 @@ import { initializeNativeRuntime } from '@main/native'
 import { AkariApiMain } from '@main/shards/akari-api'
 import { AkariProtocolMain } from '@main/shards/akari-protocol'
 import { AppCommonMain } from '@main/shards/app-common'
+import { AramAssistantMain } from '@main/shards/aram-assistant'
 import { AutoChampionConfigMain } from '@main/shards/auto-champ-config'
 import { AutoGameflowMain } from '@main/shards/auto-gameflow'
 import { AutoMiscMain } from '@main/shards/auto-misc'
@@ -340,6 +341,7 @@ export function bootstrap() {
     manager.use(AutoMiscMain)
     manager.use(AutoSelectMain)
     manager.use(ChampionDataMain)
+    manager.use(AramAssistantMain)
     manager.use(InGameSendMain)
     manager.use(OngoingGameMain)
     manager.use(RespawnTimerMain)

@@ -1,0 +1,158 @@
+openapi: 3.0.3
+info:
+  title: ARAM Vision Provider Fixture Contract
+  version: 1.0.0
+  description: Local-only response fixtures for the public Gemini generateContent and OpenAI chat completions request shapes.
+servers:
+  - url: http://127.0.0.1:4900/providers
+paths:
+  /openai/v1/chat/completions:
+    post:
+      operationId: openaiChatCompletion
+      summary: OpenAI-compatible multimodal chat completion fixture
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [model, messages]
+              properties:
+                model: { type: string }
+                messages:
+                  type: array
+                  items:
+                    type: object
+                    required: [role, content]
+                    properties:
+                      role: { type: string, enum: [user] }
+                      content:
+                        oneOf:
+                          - type: string
+                          - type: array
+                            items:
+                              oneOf:
+                                - type: object
+                                  required: [type, text]
+                                  properties:
+                                    type: { type: string, enum: [text] }
+                                    text: { type: string }
+                                - type: object
+                                  required: [type, image_url]
+                                  properties:
+                                    type: { type: string, enum: [image_url] }
+                                    image_url:
+                                      type: object
+                                      required: [url]
+                                      properties:
+                                        url:
+                                          {
+                                            type: string,
+                                            format: uri,
+                                            description: Base64 image data URI.
+                                          }
+                temperature: { type: number }
+                max_tokens: { type: integer }
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Generated text
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: object
+                          properties:
+                            content: { type: string }
+              example:
+                choices:
+                  - message:
+                      content: Fixture OpenAI-compatible recommendation.
+  /gemini/v1beta/models/{model}:generateContent:
+    post:
+      operationId: geminiGenerateContent
+      summary: Gemini multimodal generateContent fixture
+      parameters:
+        - name: model
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [contents]
+              properties:
+                contents:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      role: { type: string, enum: [user] }
+                      parts:
+                        type: array
+                        items:
+                          oneOf:
+                            - type: object
+                              required: [text]
+                              properties:
+                                text: { type: string }
+                            - type: object
+                              required: [inline_data]
+                              properties:
+                                inline_data:
+                                  type: object
+                                  required: [mime_type, data]
+                                  properties:
+                                    mime_type: { type: string, enum: [image/png, image/jpeg] }
+                                    data: { type: string, description: Base64 image bytes. }
+                generationConfig: { type: object }
+      security:
+        - GeminiApiKey: []
+      responses:
+        '200':
+          description: Generated text
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  candidates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content:
+                          type: object
+                          properties:
+                            parts:
+                              {
+                                type: array,
+                                items: { type: object, properties: { text: { type: string } } }
+                              }
+                        finishReason: { type: string, enum: [STOP] }
+              example:
+                candidates:
+                  - finishReason: STOP
+                    content:
+                      parts:
+                        - text: Fixture Gemini recommendation.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+    GeminiApiKey:
+      type: apiKey
+      in: header
+      name: x-goog-api-key

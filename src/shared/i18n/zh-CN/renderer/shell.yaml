@@ -182,6 +182,7 @@ navigation:
   sidebar:
     menu:
       match-history: 战绩
+      aram-assistant: ARAM 海克斯大乱斗助手
       ongoing-game: 对局
       automation: 自动操作
       toolkit: 工具集

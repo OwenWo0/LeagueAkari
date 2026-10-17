@@ -60,7 +60,10 @@ import {
   Flash20Filled as Flash20FilledIcon,
   Games24Filled as Games24FilledIcon
 } from '@vicons/fluent'
-import { AnalyticsRound as AnalyticsRoundIcon } from '@vicons/material'
+import {
+  AnalyticsRound as AnalyticsRoundIcon,
+  AutoAwesomeRound as AutoAwesomeRoundIcon
+} from '@vicons/material'
 import { useTranslation } from 'i18next-vue'
 import { NIcon } from 'naive-ui'
 import {
@@ -182,6 +185,11 @@ const menu = computed(() => {
       name: t('navigation.sidebar.menu.ongoing-game'),
       inProgress: shouldShowOngoingGameBadge.value,
       isDisabled: !lcs.isConnected
+    },
+    {
+      key: 'aram-assistant',
+      icon: renderIcon(AutoAwesomeRoundIcon),
+      name: t('navigation.sidebar.menu.aram-assistant')
     },
     {
       key: 'automation',

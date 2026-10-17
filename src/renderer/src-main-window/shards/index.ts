@@ -31,6 +31,7 @@ import { SgpRenderer } from '@renderer-shared/shards/sgp'
 import { StorageRenderer } from '@renderer-shared/shards/storage'
 import { WindowManagerRenderer } from '@renderer-shared/shards/window-manager'
 
+import { AramAssistantRenderer } from './aram-assistant'
 import { LeagueClientPeekRenderer } from './league-client-peek'
 import { MainWindowUiRenderer } from './main-window-ui'
 import { PlayerTabsRenderer } from './player-tabs'
@@ -48,6 +49,7 @@ manager.use(AutoChampConfigRenderer)
 manager.use(AutoGameflowRenderer)
 manager.use(AutoSelectRenderer)
 manager.use(AutoMiscRenderer)
+manager.use(AramAssistantRenderer)
 manager.use(ClientInstallationRenderer)
 manager.use(ExtraAssetsRenderer)
 manager.use(FeatureGatingRenderer)

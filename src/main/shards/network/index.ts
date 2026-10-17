@@ -13,6 +13,7 @@ import {
   NETWORK_SESSION_PARTITION,
   type NetworkMainContext
 } from './context'
+import { fetchNetworkSession } from './fetch'
 import { NetworkProxyController } from './proxy-controller'
 import { NetworkSettings } from './state'
 
@@ -64,6 +65,15 @@ export class NetworkMain implements IAkariShardInitDispose {
       this._context.electronSession,
       () => this._proxyController.waitUntilConfigured(),
       defaults
+    )
+  }
+
+  async fetch(input: string | URL, init: RequestInit = {}) {
+    return fetchNetworkSession(
+      this._context.electronSession,
+      () => this._proxyController.waitUntilConfigured(),
+      input,
+      init
     )
   }
 

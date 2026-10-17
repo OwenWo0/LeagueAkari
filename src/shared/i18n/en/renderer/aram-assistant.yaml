@@ -1,0 +1,153 @@
+aramAssistant:
+  title: ARAM Mayhem assistant
+  intro: Offline augment cards, explicit screenshot or text analysis, and optional Mayhem champion statistics.
+  mode:
+    aram: ARAM
+    aramMayhem: ARAM Mayhem
+  match:
+    title: Match context
+    connected: Connected
+    connecting: Connecting
+    disconnected: Disconnected
+    mode: Mode
+    champion: Champion
+    follow: Follow League Client
+    noChampion: No champion resolved. Select one for a manual guide.
+    manualOverride: Manual champion override is active.
+    allies: Allies
+    enemies: Visible enemies
+    phase: Phase
+    automaticContext: Include current League Client context in prompts
+  guide:
+    title: Lineup guide
+    automatic: Automatically request one lineup guide per match
+    run: Generate lineup guide
+    defaultOff: Automatic guide requests are off by default.
+  provider:
+    title: Vision provider
+    active: Active provider
+    gemini: Gemini native
+    openai: OpenAI compatible
+    baseUrl: Versioned API base URL
+    model: Model
+    save: Save provider settings
+    apiKey: API key
+    saveKey: Store credential securely
+    clearKey: Clear credential
+    configured: Credential configured
+    missing: No credential configured
+    encrypted: Encrypted with operating system secure storage
+    memory: Memory only for this app session
+    storageError: Secure storage state could not be confirmed
+    timeout: Total request timeout (seconds)
+    statsSource: ChampionData source
+    opgg: OP.GG
+    qq101: QQ101
+    note: Credentials stay in a separate secure file and are not included in settings sync or exports.
+    saved: Provider settings saved.
+    credentialSaved: Credential stored.
+    statsNote: Mayhem statistics use only the chosen source and mode. Unknown or ambiguous card name matches are omitted.
+  catalog:
+    title: Offline augment catalog
+    count: '{{count}} records'
+    bundled: Bundled snapshot
+    user: User updated snapshot
+    fallback: A saved catalog could not be loaded. The bundled snapshot is active.
+    update: Check and install catalog update
+    updating: Updating catalog…
+    updated: Catalog updated to patch {{patch}} with {{count}} records.
+    source: Source
+    sourceData: Source data
+    sourcePatch: Source patch
+    notVerified: Not verified against the live game patch
+    sourcePage: Open source page
+    fetchedAt: Retrieved at
+    sha256: Source SHA-256
+    licenseStatus: License status
+    search: Search cards
+    rarity: Rarity
+    kind: Card kind
+    scope: Scope
+    all: All
+    silver: Silver
+    gold: Gold
+    prismatic: Prismatic
+    standard: Standard
+    ability: Ability
+    quest: Quest
+    special: Special
+    aram: ARAM
+    shared: Shared
+    verified: Verified text
+    dynamic: Dynamic text
+    changed: Changed this source patch
+    unchanged: Unchanged this source patch
+    selectableOnly: Search results include only verified, non-special suggestions. The catalog also contains dynamic and special records.
+    noResults: No cards match these filters.
+    previous: Previous
+    next: Next
+    page: Page {{current}} of {{total}}
+  analysis:
+    title: Augment analysis
+    screenshot: Screenshot
+    display: Display
+    loadDisplays: Find displays
+    capture: Preview display
+    chooseFile: Choose image file
+    preview: Screenshot preview
+    cancelPreview: Discard preview
+    previewHint: Nothing is sent until you press Analyze screenshot.
+    analyzeImage: Analyze screenshot
+    text: Text only
+    cardOne: Card 1
+    cardTwo: Card 2
+    cardThree: Card 3
+    analyzeText: Analyze these three cards
+    guide: Generate lineup guide
+    cancel: Cancel analysis
+    running: Analysis is running…
+    result: Latest response
+    confirmSelected: Confirm as already selected this match
+    selected: Confirmed for this match
+    history: Confirmed augments this match
+    undo: Undo latest confirmation
+    emptyHistory: No augments confirmed yet.
+    sessionOnly: This list lasts for this app session and clears for a new match.
+    imageOnly: Screenshot analysis needs only an image; text analysis needs exactly three different local cards.
+    noPreview: Choose a display capture or image file to preview it here.
+    selectThree: Choose three different verified local cards. Only those cards will be sent as text.
+    confirmed: Augment recorded as selected for this match.
+  error:
+    title: Assistant request failed
+    CREDENTIAL_STORAGE_FAILED: The credential could not be stored or cleared safely.
+    INVALID_PROTOCOL: Choose Gemini native or OpenAI-compatible protocol.
+    INVALID_BASE_URL: Use an HTTPS API base URL or a literal loopback HTTP URL.
+    INVALID_INPUT: Check the selected card, champion, and request details.
+    INVALID_IMAGE: The image is invalid or could not be decoded.
+    IMAGE_TOO_LARGE: The image exceeds the allowed size.
+    CONFIG_ERROR: Check the provider, model, and credential settings.
+    AUTH_ERROR: The provider rejected the credential.
+    RATE_LIMITED: The provider is rate limiting requests. Try again later.
+    TIMEOUT: The request exceeded its time limit.
+    NETWORK_ERROR: The provider could not be reached.
+    REDIRECT_BLOCKED: Provider redirects are blocked.
+    UPSTREAM_ERROR: The provider returned an error response.
+    INVALID_RESPONSE: The provider response was invalid.
+    RESPONSE_TOO_LARGE: The provider response exceeds the allowed size.
+    EMPTY_RESPONSE: The provider returned no response text.
+    BLOCKED_RESPONSE: The provider did not provide an answer for this request.
+    OUTPUT_TRUNCATED: The response reached the model output limit.
+    CANCELLED: The request was cancelled.
+    SCREEN_PERMISSION_REQUIRED: Allow screen recording for League Akari in macOS Privacy & Security settings, then try again.
+    SCREEN_PERMISSION_DENIED: Allow screen recording for League Akari in macOS Privacy & Security settings.
+    SCREEN_PERMISSION_RESTRICTED: macOS currently restricts screen recording.
+    SCREEN_CAPTURE_FAILED: The selected display could not be captured.
+    TOO_LARGE: Catalog source exceeds the allowed size.
+    SOURCE_HTML: Catalog source did not return JSON.
+    INVALID_SCHEMA: Catalog data does not match the supported schema.
+    INVALID_PATCH: Catalog patch information is invalid.
+    PATCH_ROLLBACK: An older catalog cannot replace the current one.
+    SUDDEN_DROP: The same-patch catalog has too many missing records.
+    TOO_FEW_CARDS: Catalog has fewer than the minimum number of records.
+    ATOMIC_WRITE_FAILED: Catalog could not be saved safely.
+    fallback: The request could not be completed.

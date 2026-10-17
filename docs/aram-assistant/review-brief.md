@@ -1,0 +1,9 @@
+# Final unified review brief
+
+Run only after native implementation and its initial tests/build complete. Exact mandatory reviewer: OpenCode2 `opencode/glm-5.3-flash-free`. Read-only implementation review; write findings to `docs/aram-assistant/reviews/final-opencode2.md`. No source edits, commit, push, or additional workers.
+
+Target full working-tree delta against HEAD 56cdfde0, including untracked feature files (git diff alone omits them). Read AGENTS.md, design-decision.md, native-design.md, implementation-report.md and verification.md. Use local shard/UI/data-source skills. Do not treat copied reference reports as native validation.
+
+Priorities: complete native UI/route/shard/i18n wiring; real LeagueClientMain reuse and init reaction; self identity, unknown champions, gameId0, handoff, disconnect/reconnect and new-match history boundaries; default-off auto guide readiness/dedup; manual override feeding prompts; provider abort across body reads, retries and response caps; URL and scope validation; credentials outside settings/export/state/logs with accurate encryption fallback; main-window/mainFrame authorization on all sensitive IPC; screenshot import/capture/permissions/hide-finally/ephemeral preview; explicit-send-only image flow and independent text flow; catalog validation/atomic overlay/current lookup/bundled asset paths; real stats source and verified numeric ID mapping; safe text output; lifetime disposal and request generations.
+
+Evaluate tests against user-visible contracts, not implementation string assertions. Report concrete findings with severity, file:line, reproduction/failure mechanism, smallest remediation. Explicitly distinguish observed evidence from untested runtime. Do not claim live LoL/Windows/real provider validation. If no actionable findings remain, state it and residual unverified areas.

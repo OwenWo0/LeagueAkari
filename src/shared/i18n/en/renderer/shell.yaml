@@ -183,6 +183,7 @@ navigation:
   sidebar:
     menu:
       match-history: Match History
+      aram-assistant: ARAM Mayhem Assistant
       ongoing-game: Ongoing Game
       automation: Automation
       toolkit: Toolkit
