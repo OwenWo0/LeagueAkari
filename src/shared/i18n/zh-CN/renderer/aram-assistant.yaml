@@ -47,6 +47,14 @@ aramAssistant:
     saved: 提供方设置已保存。
     credentialSaved: 凭据已保存。
     statsNote: 海克斯大乱斗统计只使用所选数据源和模式；名称未知或匹配歧义的卡牌会被略过。
+    probe: 测试视觉模型
+    probing: 正在发送探针图片…
+    probeHint: 使用随包两张公开样例图向当前提供方各发一次短请求，用于验证 Base URL、模型和密钥，不会写入本局历史。
+    probeNeedKey: 请先保存提供方设置并配置 API 密钥。
+    probeOk: 探针通过（{{passed}}/{{total}}）
+    probePartial: 探针部分失败（{{passed}}/{{total}}）
+    probeFailed: 探针失败
+    probeImage: 样例 {{id}}
   catalog:
     title: 离线增益卡库
     count: '{{count}} 条记录'

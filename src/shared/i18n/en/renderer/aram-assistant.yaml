@@ -47,6 +47,14 @@ aramAssistant:
     saved: Provider settings saved.
     credentialSaved: Credential stored.
     statsNote: Mayhem statistics use only the chosen source and mode. Unknown or ambiguous card name matches are omitted.
+    probe: Test vision provider
+    probing: Sending probe images…
+    probeHint: Sends two bundled public sample images to the active provider as short connectivity checks. Results are not saved to match history.
+    probeNeedKey: Save provider settings and configure an API key first.
+    probeOk: Probe passed ({{passed}}/{{total}})
+    probePartial: Probe partially failed ({{passed}}/{{total}})
+    probeFailed: Probe failed
+    probeImage: Sample {{id}}
   catalog:
     title: Offline augment catalog
     count: '{{count}} records'

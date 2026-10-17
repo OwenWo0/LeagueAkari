@@ -101,6 +101,21 @@ export interface AramCredentialStatus {
   storageMode: 'empty' | 'encrypted-file' | 'memory-only' | 'storage-error'
 }
 
+export type AramVisionProbeImageId = 'probe-a' | 'probe-b'
+
+export interface AramVisionProbeImageResult {
+  id: AramVisionProbeImageId
+  ok: boolean
+  output?: string
+  errorCode?: string
+}
+
+export interface AramVisionProbeResult {
+  protocol: ProviderProtocol
+  model: string
+  results: AramVisionProbeImageResult[]
+}
+
 export interface AramAssistantPreferences {
   activeProvider: ProviderProtocol
   providers: Record<ProviderProtocol, AramProviderPreference>

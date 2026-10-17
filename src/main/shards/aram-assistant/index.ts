@@ -1,4 +1,6 @@
 import catalogAssetPath from '@resources/aram-assistant/augment-catalog.json?asset&asarUnpack'
+import probeAPath from '@resources/aram-assistant/probe/probe-a.jpg?asset&asarUnpack'
+import probeBPath from '@resources/aram-assistant/probe/probe-b.jpg?asset&asarUnpack'
 import { IAkariShardInitDispose, Shard } from '@shared/akari-shard'
 import type { ChampionDataSourceId } from '@shared/data-adapter/champion-data'
 import { app } from 'electron'
@@ -87,6 +89,10 @@ export class AramAssistantMain implements IAkariShardInitDispose {
       state: this.state,
       logger: this._logger,
       bundledCatalogPath: catalogAssetPath,
+      bundledProbeImagePaths: [
+        { id: 'probe-a', path: probeAPath },
+        { id: 'probe-b', path: probeBPath }
+      ],
       userDataPath: app.getPath('userData')
     }
     this._controller = new AramAssistantController(context)

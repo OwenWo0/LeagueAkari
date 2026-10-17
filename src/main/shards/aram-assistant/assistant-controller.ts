@@ -4,11 +4,14 @@ import type {
   AramAnalysisInput,
   AramCredentialStatus,
   AramPendingResult,
-  AramProviderPreference
+  AramProviderPreference,
+  AramVisionProbeResult
 } from '@shared/types/aram-assistant'
 import type { Augment } from '@shared/types/league-client/game-data'
+import { nativeImage } from 'electron'
 import { runInAction } from 'mobx'
 import crypto from 'node:crypto'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 
 import {
@@ -329,6 +332,84 @@ export class AramAssistantController {
     const result = await this._startAnalysis(normalized, true, null)
     if (!result) throw new ProviderError('CANCELLED', 'Analysis was cancelled.')
     return result
+  }
+
+  /**
+   * Sends the two bundled probe JPEGs to the active vision provider.
+   * Does not write analysis history or latestResult; used only for connectivity checks.
+   */
+  async probeVisionProvider(): Promise<AramVisionProbeResult> {
+    if (this._active) {
+      throw new ProviderError(
+        'INVALID_INPUT',
+        'Finish or cancel the current analysis before probing.'
+      )
+    }
+    const protocol = this._context.settings.activeProvider
+    const providerSettings = this._context.settings.providers[protocol]
+    const apiKey = (await this._credentials.get(this._scope(protocol))) ?? ''
+    if (!apiKey.trim()) {
+      throw new ProviderError('CONFIG_ERROR', 'Configure a provider API key before probing.')
+    }
+    const fixtures = this._context.bundledProbeImagePaths
+    if (!fixtures.length) {
+      throw new ProviderError('CONFIG_ERROR', 'Bundled probe images are missing.')
+    }
+    const provider = createVisionProvider({
+      protocol,
+      baseUrl: providerSettings.baseUrl,
+      model: providerSettings.model,
+      apiKey,
+      fetchImpl: (url, init) => this._context.network.fetch(url, init)
+    })
+    const controller = new AbortController()
+    const results: AramVisionProbeResult['results'] = []
+    for (const fixture of fixtures) {
+      try {
+        const image = await this._loadProbeImage(fixture.path)
+        const output = await provider.generate({
+          prompt:
+            'This is a League Akari vision connectivity probe. Reply with exactly PROBE_OK, then one short English word describing the image. No other text.',
+          image,
+          timeoutMs: Math.min(this._context.settings.requestTimeoutMs, 30_000),
+          signal: controller.signal
+        })
+        results.push({ id: fixture.id, ok: true, output })
+      } catch (error) {
+        const code =
+          error instanceof ProviderError
+            ? error.code
+            : error instanceof Error && 'code' in error
+              ? String((error as { code: unknown }).code)
+              : 'NETWORK_ERROR'
+        results.push({ id: fixture.id, ok: false, errorCode: safeErrorCode(code) })
+      }
+    }
+    return {
+      protocol,
+      model: providerSettings.model,
+      results
+    }
+  }
+
+  private async _loadProbeImage(filePath: string): Promise<ProviderImage> {
+    const input = await fs.readFile(filePath)
+    if (input.length > 8 * 1024 * 1024) {
+      throw new ProviderError('IMAGE_TOO_LARGE', 'Probe image exceeds 8 MB.')
+    }
+    const decoded = nativeImage.createFromBuffer(input)
+    if (decoded.isEmpty()) {
+      throw new ProviderError('INVALID_IMAGE', 'The probe image could not be decoded.')
+    }
+    const sourceSize = decoded.getSize()
+    const scale = Math.min(1, 1280 / Math.max(sourceSize.width, sourceSize.height))
+    const width = Math.max(1, Math.round(sourceSize.width * scale))
+    const height = Math.max(1, Math.round(sourceSize.height * scale))
+    const jpeg = decoded.resize({ width, height, quality: 'good' }).toJPEG(86)
+    if (!jpeg.length || jpeg.length > 4 * 1024 * 1024) {
+      throw new ProviderError('IMAGE_TOO_LARGE', 'Prepared probe image exceeds 4 MB.')
+    }
+    return { bytes: jpeg, mimeType: 'image/jpeg' }
   }
 
   cancelAnalysis(runDeferredGuide = true) {

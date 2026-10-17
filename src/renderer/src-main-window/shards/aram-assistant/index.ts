@@ -6,6 +6,7 @@ import type {
   AramAnalysisInput,
   AramCredentialStatus,
   AramProviderPreference,
+  AramVisionProbeResult,
   AugmentCatalog,
   AugmentCatalogEntry,
   CatalogSearchOptions,
@@ -135,6 +136,13 @@ export class AramAssistantRenderer implements IAkariShardInitDispose {
 
   analyze(input: AramAnalysisInput) {
     return this._context.ipc.call(ARAM_ASSISTANT_MAIN_NAMESPACE, 'analyze', input)
+  }
+
+  probeVisionProvider() {
+    return this._context.ipc.call<AramVisionProbeResult>(
+      ARAM_ASSISTANT_MAIN_NAMESPACE,
+      'probeVisionProvider'
+    )
   }
 
   cancelAnalysis() {

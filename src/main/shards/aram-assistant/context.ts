@@ -20,5 +20,6 @@ export interface AramAssistantMainContext {
   state: AramAssistantState
   logger: AkariLogger
   bundledCatalogPath: string
+  bundledProbeImagePaths: ReadonlyArray<{ id: 'probe-a' | 'probe-b'; path: string }>
   userDataPath: string
 }

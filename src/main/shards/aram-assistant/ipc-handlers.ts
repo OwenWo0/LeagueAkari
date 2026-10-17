@@ -98,6 +98,10 @@ export class AramAssistantIpcHandlers {
       this._assertMainFrame(event)
       return this._controller.analyze(input)
     })
+    this._ipc.onCall(namespace, 'probeVisionProvider', (event) => {
+      this._assertMainFrame(event)
+      return this._controller.probeVisionProvider()
+    })
     this._ipc.onCall(namespace, 'cancelAnalysis', (event) => {
       this._assertMainFrame(event)
       return this._controller.cancelAnalysis()

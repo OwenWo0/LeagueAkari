@@ -169,6 +169,14 @@
           <NButton :disabled="!activeCredential.configured" @click="clearCredential">
             {{ t('aramAssistant.provider.clearKey') }}
           </NButton>
+          <NButton
+            secondary
+            :loading="probeRunning"
+            :disabled="!activeCredential.configured || probeRunning || state.active"
+            @click="runVisionProbe"
+          >
+            {{ t('aramAssistant.provider.probe') }}
+          </NButton>
           <NTag :type="activeCredential.configured ? 'success' : 'default'">
             {{
               activeCredential.configured
@@ -187,6 +195,31 @@
           </NTag>
         </div>
         <p class="mt-2 text-sm opacity-65">{{ t('aramAssistant.provider.note') }}</p>
+        <p class="mt-1 text-sm opacity-65">{{ t('aramAssistant.provider.probeHint') }}</p>
+        <NAlert
+          v-if="probeRunning"
+          class="mt-3"
+          type="info"
+          :title="t('aramAssistant.provider.probing')"
+        />
+        <NAlert
+          v-else-if="probeSummary"
+          class="mt-3"
+          :type="probeSummary.type"
+          :title="probeSummary.title"
+        >
+          <div class="space-y-2 text-sm">
+            <div v-for="item in probeSummary.results" :key="item.id">
+              <div class="font-medium">
+                {{ t('aramAssistant.provider.probeImage', { id: item.id }) }} ·
+                {{ item.ok ? 'OK' : item.errorCode || 'FAILED' }}
+              </div>
+              <div v-if="item.output" class="break-words whitespace-pre-wrap opacity-80">
+                {{ item.output }}
+              </div>
+            </div>
+          </div>
+        </NAlert>
 
         <NDivider />
         <label class="block space-y-1">
@@ -444,6 +477,7 @@ import { AramAssistantRenderer } from '@main-window/shards/aram-assistant'
 import type {
   AramAnalysisInput,
   AramMatchContext,
+  AramVisionProbeImageResult,
   AugmentCatalog,
   AugmentCatalogEntry,
   BilingualText,
@@ -499,6 +533,8 @@ const credentialDraft = ref('')
 const championOverride = ref<number | null>(state.manualChampionOverrideId)
 const selectedMode = ref<'aram' | 'aram_mayhem'>('aram_mayhem')
 const statsSource = ref<ChampionDataSourceId>(settings.statsSource)
+const probeRunning = ref(false)
+const probeResults = ref<AramVisionProbeImageResult[] | null>(null)
 let searchTimer: ReturnType<typeof setTimeout> | undefined
 let searchGeneration = 0
 
@@ -550,6 +586,31 @@ const statsSourceOptions = computed(() => [
   { label: t('aramAssistant.provider.opgg'), value: 'opgg' },
   { label: t('aramAssistant.provider.qq101'), value: 'qq101' }
 ])
+const probeSummary = computed(() => {
+  const results = probeResults.value
+  if (!results?.length) return null
+  const passed = results.filter((item) => item.ok).length
+  const total = results.length
+  if (passed === total) {
+    return {
+      type: 'success' as const,
+      title: t('aramAssistant.provider.probeOk', { passed, total }),
+      results
+    }
+  }
+  if (passed === 0) {
+    return {
+      type: 'error' as const,
+      title: t('aramAssistant.provider.probeFailed'),
+      results
+    }
+  }
+  return {
+    type: 'warning' as const,
+    title: t('aramAssistant.provider.probePartial', { passed, total }),
+    results
+  }
+})
 
 watch(activeProvider, (protocol) => {
   Object.assign(providerDraft, settings.providers[protocol])
@@ -644,6 +705,33 @@ async function clearCredential() {
     state.credentialStatus = await assistant.refreshCredentialStatuses()
     credentialDraft.value = ''
   })
+}
+
+async function runVisionProbe() {
+  if (!activeCredential.value.configured) {
+    message.warning(t('aramAssistant.provider.probeNeedKey'))
+    return
+  }
+  probeRunning.value = true
+  probeResults.value = null
+  try {
+    const result = await assistant.probeVisionProvider()
+    probeResults.value = result.results
+    const passed = result.results.filter((item) => item.ok).length
+    if (passed === result.results.length) {
+      message.success(t('aramAssistant.provider.probeOk', { passed, total: result.results.length }))
+    } else if (passed === 0) {
+      message.error(t('aramAssistant.provider.probeFailed'))
+    } else {
+      message.warning(
+        t('aramAssistant.provider.probePartial', { passed, total: result.results.length })
+      )
+    }
+  } catch (error) {
+    showError(error)
+  } finally {
+    probeRunning.value = false
+  }
 }
 
 async function setAutomaticGuide(enabled: boolean) {

@@ -21,7 +21,15 @@ vi.mock('electron', () => ({
   },
   desktopCapturer: { getSources: vi.fn() },
   dialog: { showOpenDialog: vi.fn() },
-  nativeImage: { createFromBuffer: vi.fn() },
+  nativeImage: {
+    createFromBuffer: vi.fn(() => ({
+      isEmpty: () => false,
+      getSize: () => ({ width: 32, height: 24 }),
+      resize: () => ({
+        toJPEG: () => Buffer.from([0xff, 0xd8, 0xff, 0xd9])
+      })
+    }))
+  },
   systemPreferences: { getMediaAccessStatus: () => 'granted' }
 }))
 vi.mock('@main/i18n', () => ({ i18next: { language: 'en' } }))
@@ -342,6 +350,37 @@ describe('AramAssistantController flows', () => {
     await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(2))
   })
 
+  it('probes the active vision provider with both bundled sample images', async () => {
+    const requests: CapturedProviderRequest[] = []
+    const fetch = vi.fn(async (url: string, init?: RequestInit) => {
+      const headers: Record<string, string> = {}
+      new Headers(init?.headers).forEach((value, key) => (headers[key] = value))
+      requests.push({
+        url,
+        body: JSON.parse(String(init?.body)) as Record<string, any>,
+        headers
+      })
+      return jsonResponse('PROBE_OK landscape')
+    })
+    const { controller, settings } = await createController({ fetch })
+    configureOpenAi(settings, 'http://127.0.0.1:1/v1')
+    await controller.setCredential('openai', 'probe-key')
+
+    const result = await controller.probeVisionProvider()
+
+    expect(result.protocol).toBe('openai')
+    expect(result.results).toEqual([
+      { id: 'probe-a', ok: true, output: 'PROBE_OK landscape' },
+      { id: 'probe-b', ok: true, output: 'PROBE_OK landscape' }
+    ])
+    expect(requests).toHaveLength(2)
+    expect(
+      requests.every((entry) =>
+        entry.body.messages[0].content.some((part: { type: string }) => part.type === 'image_url')
+      )
+    ).toBe(true)
+  })
+
   it('shares one catalog update among concurrent callers', async () => {
     const source = await catalogUpdateSource()
     let releaseFetch!: (response: Response) => void
@@ -445,11 +484,16 @@ async function createController(
   const leagueClient = options.league ?? createReadyLeague({ connected: false })
   const folder = await fs.mkdtemp(path.join(os.tmpdir(), 'akari-aram-controller-'))
   tempFolders.push(folder)
+  const probeDir = path.resolve('resources/aram-assistant/probe')
   const context = {
     settings,
     state,
     userDataPath: folder,
     bundledCatalogPath: catalogPath,
+    bundledProbeImagePaths: [
+      { id: 'probe-a' as const, path: path.join(probeDir, 'probe-a.jpg') },
+      { id: 'probe-b' as const, path: path.join(probeDir, 'probe-b.jpg') }
+    ],
     leagueClient,
     network: {
       fetch: options.fetch ?? ((input: string, init?: RequestInit) => fetch(input, init))
