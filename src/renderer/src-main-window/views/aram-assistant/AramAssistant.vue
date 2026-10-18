@@ -5,11 +5,25 @@
         <h1 class="text-xl font-semibold">{{ t('aramAssistant.title') }}</h1>
         <p class="mt-1 text-sm opacity-75">{{ t('aramAssistant.intro') }}</p>
       </div>
-      <NButton :loading="catalogUpdating" @click="updateCatalog">
-        {{
-          catalogUpdating ? t('aramAssistant.catalog.updating') : t('aramAssistant.catalog.update')
-        }}
-      </NButton>
+      <div class="flex flex-wrap items-center gap-2">
+        <NTag :type="activeCredential.configured ? 'success' : 'warning'" size="small">
+          {{
+            activeCredential.configured
+              ? t('aramAssistant.provider.statusConfigured')
+              : t('aramAssistant.provider.statusMissing')
+          }}
+        </NTag>
+        <NButton quaternary @click="showProviderSettings = true">
+          {{ t('aramAssistant.provider.openSettings') }}
+        </NButton>
+        <NButton :loading="catalogUpdating" @click="updateCatalog">
+          {{
+            catalogUpdating
+              ? t('aramAssistant.catalog.updating')
+              : t('aramAssistant.catalog.update')
+          }}
+        </NButton>
+      </div>
     </header>
 
     <NAlert v-if="state.catalogFallbackCode" type="warning" :show-icon="false">
@@ -89,6 +103,19 @@
         <NDivider />
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div>
+            <div class="font-medium">{{ t('aramAssistant.guide.automaticCapture') }}</div>
+            <div class="mt-1 text-sm opacity-65">
+              {{ t('aramAssistant.guide.automaticCaptureHint') }}
+            </div>
+          </div>
+          <NSwitch
+            :value="settings.automaticAugmentCapture"
+            :aria-label="t('aramAssistant.guide.automaticCapture')"
+            @update:value="setAutomaticAugmentCapture"
+          />
+        </div>
+        <div class="mt-3 flex flex-wrap items-center justify-between gap-3">
+          <div>
             <div class="font-medium">{{ t('aramAssistant.guide.title') }}</div>
             <div class="mt-1 text-sm opacity-65">{{ t('aramAssistant.guide.defaultOff') }}</div>
           </div>
@@ -113,128 +140,77 @@
         </div>
       </NCard>
 
-      <NCard :title="t('aramAssistant.provider.title')">
-        <div class="grid gap-3 sm:grid-cols-2">
-          <label class="space-y-1">
-            <span class="text-sm opacity-75">{{ t('aramAssistant.provider.active') }}</span>
-            <NSelect
-              v-model:value="activeProvider"
-              :options="providerOptions"
-              @update:value="setActiveProvider"
-            />
-          </label>
-          <label class="space-y-1">
-            <span class="text-sm opacity-75">{{ t('aramAssistant.provider.timeout') }}</span>
-            <NInputNumber
-              :value="settings.requestTimeoutMs / 1000"
-              :min="5"
-              :max="120"
-              :step="5"
-              class="w-full"
-              @update:value="setTimeoutSeconds"
-            />
-          </label>
-        </div>
-
-        <div class="mt-3 grid gap-3 sm:grid-cols-2">
-          <label class="space-y-1 sm:col-span-2">
-            <span class="text-sm opacity-75">{{ t('aramAssistant.provider.baseUrl') }}</span>
-            <NInput v-model:value="providerDraft.baseUrl" maxlength="2048" />
-          </label>
-          <label class="space-y-1">
-            <span class="text-sm opacity-75">{{ t('aramAssistant.provider.model') }}</span>
-            <NInput v-model:value="providerDraft.model" maxlength="256" />
-          </label>
-          <div class="flex items-end">
-            <NButton @click="saveProviderSettings">{{ t('aramAssistant.provider.save') }}</NButton>
-          </div>
-        </div>
-
-        <NDivider />
-        <label class="block space-y-1">
-          <span class="text-sm opacity-75"
-            >{{ t('aramAssistant.provider.apiKey') }} · {{ providerName(activeProvider) }}</span
+      <NCard class="xl:min-h-[28rem]" :title="t('aramAssistant.analysis.resultPanel')">
+        <div class="flex h-full min-h-[24rem] flex-col gap-3">
+          <NAlert
+            v-if="state.active"
+            type="info"
+            :show-icon="false"
+            class="flex items-center justify-between gap-3"
           >
-          <NInput
-            v-model:value="credentialDraft"
-            type="password"
-            show-password-on="click"
-            autocomplete="off"
-          />
-        </label>
-        <div class="mt-3 flex flex-wrap items-center gap-2">
-          <NButton type="primary" :disabled="!credentialDraft.trim()" @click="saveCredential">
-            {{ t('aramAssistant.provider.saveKey') }}
-          </NButton>
-          <NButton :disabled="!activeCredential.configured" @click="clearCredential">
-            {{ t('aramAssistant.provider.clearKey') }}
-          </NButton>
-          <NButton
-            secondary
-            :loading="probeRunning"
-            :disabled="!activeCredential.configured || probeRunning || state.active"
-            @click="runVisionProbe"
-          >
-            {{ t('aramAssistant.provider.probe') }}
-          </NButton>
-          <NTag :type="activeCredential.configured ? 'success' : 'default'">
-            {{
-              activeCredential.configured
-                ? t('aramAssistant.provider.configured')
-                : t('aramAssistant.provider.missing')
-            }}
-          </NTag>
-          <NTag v-if="activeCredential.storageMode === 'encrypted-file'" type="success">
-            {{ t('aramAssistant.provider.encrypted') }}
-          </NTag>
-          <NTag v-else-if="activeCredential.storageMode === 'memory-only'" type="warning">
-            {{ t('aramAssistant.provider.memory') }}
-          </NTag>
-          <NTag v-else-if="activeCredential.storageMode === 'storage-error'" type="error">
-            {{ t('aramAssistant.provider.storageError') }}
-          </NTag>
-        </div>
-        <p class="mt-2 text-sm opacity-65">{{ t('aramAssistant.provider.note') }}</p>
-        <p class="mt-1 text-sm opacity-65">{{ t('aramAssistant.provider.probeHint') }}</p>
-        <NAlert
-          v-if="probeRunning"
-          class="mt-3"
-          type="info"
-          :title="t('aramAssistant.provider.probing')"
-        />
-        <NAlert
-          v-else-if="probeSummary"
-          class="mt-3"
-          :type="probeSummary.type"
-          :title="probeSummary.title"
-        >
-          <div class="space-y-2 text-sm">
-            <div v-for="item in probeSummary.results" :key="item.id">
-              <div class="font-medium">
-                {{ t('aramAssistant.provider.probeImage', { id: item.id }) }} ·
-                {{ item.ok ? 'OK' : item.errorCode || 'FAILED' }}
-              </div>
-              <div v-if="item.output" class="break-words whitespace-pre-wrap opacity-80">
-                {{ item.output }}
-              </div>
+            <span>{{ t('aramAssistant.analysis.running') }}</span>
+            <NButton size="small" @click="cancelAnalysis">{{
+              t('aramAssistant.analysis.cancel')
+            }}</NButton>
+          </NAlert>
+          <NAlert v-if="state.lastErrorCode" type="error" :title="t('aramAssistant.error.title')">
+            {{ errorMessage(state.lastErrorCode) }}
+          </NAlert>
+
+          <template v-if="state.latestResult">
+            <div class="flex flex-wrap items-center gap-2">
+              <NTag
+                :type="state.latestResult.kind === 'augment-advice' ? 'success' : 'info'"
+                size="small"
+              >
+                {{ resultKindLabel(state.latestResult.kind) }}
+              </NTag>
+              <NTag size="small">{{ modeLabel(state.latestResult.mode) }}</NTag>
+              <NTag v-if="state.latestResult.championName" size="small">
+                {{ state.latestResult.championName }}
+              </NTag>
             </div>
+            <div
+              class="flex-1 overflow-auto rounded-lg border border-black/10 bg-black/[0.03] p-4 text-[15px] leading-relaxed break-words whitespace-pre-wrap dark:border-white/10 dark:bg-white/[0.04]"
+            >
+              {{ state.latestResult.output }}
+            </div>
+          </template>
+          <div
+            v-else-if="!state.active && !state.lastErrorCode"
+            class="flex flex-1 flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-black/15 px-6 py-10 text-center dark:border-white/15"
+          >
+            <NEmpty :description="t('aramAssistant.analysis.resultEmpty')" />
           </div>
-        </NAlert>
 
-        <NDivider />
-        <label class="block space-y-1">
-          <span class="text-sm opacity-75">{{ t('aramAssistant.provider.statsSource') }}</span>
-          <NSelect
-            v-model:value="statsSource"
-            :options="statsSourceOptions"
-            @update:value="setStatsSource"
-          />
-        </label>
-        <p class="mt-2 text-sm opacity-65">{{ t('aramAssistant.provider.statsNote') }}</p>
+          <NDivider class="!my-1" />
+          <div>
+            <div class="mb-2 text-sm font-medium">{{ t('aramAssistant.analysis.history') }}</div>
+            <p class="mb-2 text-xs opacity-65">{{ t('aramAssistant.analysis.sessionOnly') }}</p>
+            <NEmpty
+              v-if="state.history.length === 0"
+              :description="t('aramAssistant.analysis.emptyHistory')"
+              size="small"
+            />
+            <div v-else class="flex flex-wrap gap-2">
+              <NTag v-for="item in state.history" :key="item.id" type="success">{{
+                localized(item.name)
+              }}</NTag>
+            </div>
+            <NButton
+              class="mt-3"
+              size="small"
+              :disabled="state.history.length === 0"
+              @click="undoConfirmedAugment"
+            >
+              {{ t('aramAssistant.analysis.undo') }}
+            </NButton>
+          </div>
+        </div>
       </NCard>
     </div>
 
-    <NCard :title="t('aramAssistant.analysis.title')">
+    <NCard :title="t('aramAssistant.analysis.manualTools')">
       <p class="mb-3 text-sm opacity-65">{{ t('aramAssistant.analysis.imageOnly') }}</p>
       <div class="grid gap-4 xl:grid-cols-2">
         <section class="space-y-3 rounded-lg border border-black/10 p-3 dark:border-white/10">
@@ -311,30 +287,6 @@
           >
             {{ t('aramAssistant.analysis.analyzeText') }}
           </NButton>
-        </section>
-      </div>
-
-      <div v-if="state.active || state.lastErrorCode || state.latestResult" class="mt-4 space-y-3">
-        <NAlert
-          v-if="state.active"
-          type="info"
-          :show-icon="false"
-          class="flex items-center justify-between gap-3"
-        >
-          <span>{{ t('aramAssistant.analysis.running') }}</span>
-          <NButton size="small" @click="cancelAnalysis">{{
-            t('aramAssistant.analysis.cancel')
-          }}</NButton>
-        </NAlert>
-        <NAlert v-if="state.lastErrorCode" type="error" :title="t('aramAssistant.error.title')">
-          {{ errorMessage(state.lastErrorCode) }}
-        </NAlert>
-        <section
-          v-if="state.latestResult"
-          class="rounded-lg border border-black/10 p-4 dark:border-white/10"
-        >
-          <h2 class="mb-2 font-medium">{{ t('aramAssistant.analysis.result') }}</h2>
-          <div class="break-words whitespace-pre-wrap">{{ state.latestResult.output }}</div>
         </section>
       </div>
     </NCard>
@@ -451,22 +403,137 @@
       </div>
     </NCard>
 
-    <NCard :title="t('aramAssistant.analysis.history')">
-      <p class="mb-3 text-sm opacity-65">{{ t('aramAssistant.analysis.sessionOnly') }}</p>
-      <NEmpty
-        v-if="state.history.length === 0"
-        :description="t('aramAssistant.analysis.emptyHistory')"
-        size="small"
-      />
-      <div v-else class="flex flex-wrap gap-2">
-        <NTag v-for="item in state.history" :key="item.id" type="success">{{
-          localized(item.name)
-        }}</NTag>
+    <NModal
+      v-model:show="showProviderSettings"
+      preset="card"
+      :title="t('aramAssistant.provider.title')"
+      class="w-full max-w-2xl"
+      :bordered="false"
+      size="huge"
+      transform-origin="center"
+    >
+      <p class="mb-3 text-sm opacity-65">{{ t('aramAssistant.provider.settingsHint') }}</p>
+      <div class="grid gap-3 sm:grid-cols-2">
+        <label class="space-y-1">
+          <span class="text-sm opacity-75">{{ t('aramAssistant.provider.active') }}</span>
+          <NSelect
+            v-model:value="activeProvider"
+            :options="providerOptions"
+            @update:value="setActiveProvider"
+          />
+        </label>
+        <label class="space-y-1">
+          <span class="text-sm opacity-75">{{ t('aramAssistant.provider.timeout') }}</span>
+          <NInputNumber
+            :value="settings.requestTimeoutMs / 1000"
+            :min="5"
+            :max="120"
+            :step="5"
+            class="w-full"
+            @update:value="setTimeoutSeconds"
+          />
+        </label>
       </div>
-      <NButton class="mt-3" :disabled="state.history.length === 0" @click="undoConfirmedAugment">
-        {{ t('aramAssistant.analysis.undo') }}
-      </NButton>
-    </NCard>
+
+      <div class="mt-3 grid gap-3 sm:grid-cols-2">
+        <label class="space-y-1 sm:col-span-2">
+          <span class="text-sm opacity-75">{{ t('aramAssistant.provider.baseUrl') }}</span>
+          <NInput v-model:value="providerDraft.baseUrl" maxlength="2048" />
+        </label>
+        <label class="space-y-1">
+          <span class="text-sm opacity-75">{{ t('aramAssistant.provider.model') }}</span>
+          <NInput v-model:value="providerDraft.model" maxlength="256" />
+        </label>
+        <div class="flex items-end">
+          <NButton @click="saveProviderSettings">{{ t('aramAssistant.provider.save') }}</NButton>
+        </div>
+      </div>
+
+      <NDivider />
+      <label class="block space-y-1">
+        <span class="text-sm opacity-75"
+          >{{ t('aramAssistant.provider.apiKey') }} · {{ providerName(activeProvider) }}</span
+        >
+        <NInput
+          v-model:value="credentialDraft"
+          type="password"
+          show-password-on="click"
+          autocomplete="off"
+        />
+      </label>
+      <div class="mt-3 flex flex-wrap items-center gap-2">
+        <NButton type="primary" :disabled="!credentialDraft.trim()" @click="saveCredential">
+          {{ t('aramAssistant.provider.saveKey') }}
+        </NButton>
+        <NButton :disabled="!activeCredential.configured" @click="clearCredential">
+          {{ t('aramAssistant.provider.clearKey') }}
+        </NButton>
+        <NButton
+          secondary
+          :loading="probeRunning"
+          :disabled="!activeCredential.configured || probeRunning || state.active"
+          @click="runVisionProbe"
+        >
+          {{ t('aramAssistant.provider.probe') }}
+        </NButton>
+        <NTag :type="activeCredential.configured ? 'success' : 'default'">
+          {{
+            activeCredential.configured
+              ? t('aramAssistant.provider.configured')
+              : t('aramAssistant.provider.missing')
+          }}
+        </NTag>
+        <NTag v-if="activeCredential.storageMode === 'encrypted-file'" type="success">
+          {{ t('aramAssistant.provider.encrypted') }}
+        </NTag>
+        <NTag v-else-if="activeCredential.storageMode === 'memory-only'" type="warning">
+          {{ t('aramAssistant.provider.memory') }}
+        </NTag>
+        <NTag v-else-if="activeCredential.storageMode === 'storage-error'" type="error">
+          {{ t('aramAssistant.provider.storageError') }}
+        </NTag>
+      </div>
+      <p class="mt-2 text-sm opacity-65">{{ t('aramAssistant.provider.note') }}</p>
+      <p class="mt-1 text-sm opacity-65">{{ t('aramAssistant.provider.probeHint') }}</p>
+      <NAlert
+        v-if="probeRunning"
+        class="mt-3"
+        type="info"
+        :title="t('aramAssistant.provider.probing')"
+      />
+      <NAlert
+        v-else-if="probeSummary"
+        class="mt-3"
+        :type="probeSummary.type"
+        :title="probeSummary.title"
+      >
+        <div class="space-y-2 text-sm">
+          <div v-for="item in probeSummary.results" :key="item.id">
+            <div class="font-medium">
+              {{ t('aramAssistant.provider.probeImage', { id: item.id }) }} ·
+              {{ item.ok ? 'OK' : item.errorCode || 'FAILED' }}
+            </div>
+            <div v-if="item.errorDetail" class="break-words whitespace-pre-wrap opacity-80">
+              {{ item.errorDetail }}
+            </div>
+            <div v-if="item.output" class="break-words whitespace-pre-wrap opacity-80">
+              {{ item.output }}
+            </div>
+          </div>
+        </div>
+      </NAlert>
+
+      <NDivider />
+      <label class="block space-y-1">
+        <span class="text-sm opacity-75">{{ t('aramAssistant.provider.statsSource') }}</span>
+        <NSelect
+          v-model:value="statsSource"
+          :options="statsSourceOptions"
+          @update:value="setStatsSource"
+        />
+      </label>
+      <p class="mt-2 text-sm opacity-65">{{ t('aramAssistant.provider.statsNote') }}</p>
+    </NModal>
   </main>
 </template>
 
@@ -477,6 +544,7 @@ import { AramAssistantRenderer } from '@main-window/shards/aram-assistant'
 import type {
   AramAnalysisInput,
   AramMatchContext,
+  AramPendingResult,
   AramVisionProbeImageResult,
   AugmentCatalog,
   AugmentCatalogEntry,
@@ -494,6 +562,7 @@ import {
   NEmpty,
   NInput,
   NInputNumber,
+  NModal,
   NSelect,
   NSwitch,
   NTag,
@@ -535,6 +604,7 @@ const selectedMode = ref<'aram' | 'aram_mayhem'>('aram_mayhem')
 const statsSource = ref<ChampionDataSourceId>(settings.statsSource)
 const probeRunning = ref(false)
 const probeResults = ref<AramVisionProbeImageResult[] | null>(null)
+const showProviderSettings = ref(false)
 let searchTimer: ReturnType<typeof setTimeout> | undefined
 let searchGeneration = 0
 
@@ -672,6 +742,12 @@ function modeLabel(mode: AramMatchContext['mode']) {
   return '—'
 }
 
+function resultKindLabel(kind: AramPendingResult['kind']) {
+  if (kind === 'augment-advice') return t('aramAssistant.analysis.resultKindAugment')
+  if (kind === 'lineup-guide') return t('aramAssistant.analysis.resultKindLineup')
+  return kind
+}
+
 function providerName(protocol: ProviderProtocol) {
   return t(`aramAssistant.provider.${protocol}`)
 }
@@ -708,13 +784,19 @@ async function clearCredential() {
 }
 
 async function runVisionProbe() {
-  if (!activeCredential.value.configured) {
-    message.warning(t('aramAssistant.provider.probeNeedKey'))
-    return
-  }
   probeRunning.value = true
   probeResults.value = null
   try {
+    // Probe validates the form on screen, so persist draft provider settings first.
+    // Credentials are scoped by Base URL; refreshing status after save avoids probing a
+    // stale host while the UI still shows a key configured for a previous URL.
+    await assistant.setProviderSettings(activeProvider.value, { ...providerDraft })
+    await assistant.setActiveProvider(activeProvider.value)
+    state.credentialStatus = await assistant.refreshCredentialStatuses()
+    if (!activeCredential.value.configured) {
+      message.warning(t('aramAssistant.provider.probeNeedKey'))
+      return
+    }
     const result = await assistant.probeVisionProvider()
     probeResults.value = result.results
     const passed = result.results.filter((item) => item.ok).length
@@ -736,6 +818,10 @@ async function runVisionProbe() {
 
 async function setAutomaticGuide(enabled: boolean) {
   await runAction(() => assistant.setAutomaticGuide(enabled))
+}
+
+async function setAutomaticAugmentCapture(enabled: boolean) {
+  await runAction(() => assistant.setAutomaticAugmentCapture(enabled))
 }
 
 async function setAutomaticContext(enabled: boolean) {

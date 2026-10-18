@@ -1,0 +1,50 @@
+{
+  "id": "e2e-opening-match",
+  "title": "默认初始对局（阵容攻略）",
+  "kind": "lineup-guide",
+  "mode": "aram_mayhem",
+  "trigger": {
+    "automaticGuide": true,
+    "phase": "InProgress",
+    "queueId": 2400,
+    "gameMode": "KIWI",
+    "notes": "自动阵容攻略就绪后触发一次；不依赖截图。"
+  },
+  "matchContext": {
+    "connection": "connected",
+    "phase": "InProgress",
+    "queueId": 2400,
+    "mode": "aram_mayhem",
+    "mapId": 12,
+    "gameId": 900001,
+    "selfChampion": { "championId": 1, "name": "Annie" },
+    "allies": [
+      { "championId": 1, "name": "Annie" },
+      { "championId": 2, "name": "Olaf" },
+      { "championId": 3, "name": "Galio" },
+      { "championId": 4, "name": "Twitch" },
+      { "championId": 5, "name": "Sona" }
+    ],
+    "enemies": [
+      { "championId": 6, "name": "Garen" },
+      { "championId": 7, "name": "Lux" },
+      { "championId": 8, "name": "Jinx" },
+      { "championId": 9, "name": "Thresh" },
+      { "championId": 10, "name": "Yasuo" }
+    ],
+    "champSelectSessionId": null
+  },
+  "provider": {
+    "protocol": "openai",
+    "baseUrl": "http://127.0.0.1:4900/openai/v1",
+    "model": "e2e-opening-match",
+    "scenarioHeader": "opening-match"
+  },
+  "expectedLatestResult": {
+    "kind": "lineup-guide",
+    "mode": "aram_mayhem",
+    "championName": "Annie",
+    "outputIncludes": ["[e2e:opening-match]", "开局阵容攻略", "开场选卡"]
+  },
+  "mockOutputZh": "[e2e:opening-match]\n海克斯大乱斗 · 开局阵容攻略（模拟）\n\n当前假设：你方已就位，模式为 ARAM: Mayhem。以下为进入对局前的默认建议，不依赖截图。\n\n1. 定位：先明确自己是前排承伤、中排续航还是后排输出，开局不要硬抢对面半血。\n2. 出门：优先保证基础续航与鞋子节奏；第一件核心装再决定是否打爆发。\n3. 开场选卡：出生后三选一会出现，优先选能立刻生效、且不依赖复杂连招的增益。\n4. 团战：第一次塔下团以「活着打伤害」为主，避免为了抢人头提前交闪。\n5. 证据边界：本回复为 e2e 固定 mock，未读取真实付费模型，也不声称统计胜率。\n"
+}

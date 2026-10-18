@@ -32,6 +32,7 @@ import {
   type AramMatchContext,
   deriveAramMatchContext,
   isChampSelectGameHandoff,
+  isReadyForAutomaticAugmentCapture,
   isReadyForAutomaticGuide,
   shouldResetMatch
 } from './match-context'
@@ -46,6 +47,9 @@ import {
 import { AramScreenshotController } from './screenshot-controller'
 
 export type { AramAnalysisInput } from '@shared/types/aram-assistant'
+
+/** Delay so the opening Mayhem three-card UI is on screen after spawn. */
+const AUTOMATIC_AUGMENT_CAPTURE_DELAY_MS = 8_000
 
 interface ActiveAnalysis {
   generation: number
@@ -105,6 +109,9 @@ export class AramAssistantController {
   private _generation = 0
   private _autoAttemptedSignature: string | null = null
   private _deferredAutomaticSignature: string | null = null
+  private _autoCaptureAttemptedSignature: string | null = null
+  private _deferredAutomaticCaptureSignature: string | null = null
+  private _autoCaptureTimer: ReturnType<typeof setTimeout> | null = null
   private _reaction: (() => void) | null = null
   private _disposed = false
 
@@ -147,6 +154,7 @@ export class AramAssistantController {
     this._disposed = true
     this._reaction?.()
     this._reaction = null
+    this._clearAutomaticAugmentCaptureTimer()
     this._catalogUpdateAbortController?.abort()
     this.cancelAnalysis(false)
     this.screenshot.clear()
@@ -223,6 +231,20 @@ export class AramAssistantController {
       throw new ProviderError('INVALID_INPUT', 'Automatic guide setting is invalid.')
     await this._context.settingService.set('automaticGuide', enabled)
     if (!enabled) this._deferredAutomaticSignature = null
+  }
+
+  async setAutomaticAugmentCapture(enabled: boolean) {
+    if (typeof enabled !== 'boolean') {
+      throw new ProviderError('INVALID_INPUT', 'Automatic augment capture setting is invalid.')
+    }
+    await this._context.settingService.set('automaticAugmentCapture', enabled)
+    if (!enabled) {
+      this._clearAutomaticAugmentCaptureTimer()
+      this._deferredAutomaticCaptureSignature = null
+      this._autoCaptureAttemptedSignature = null
+    } else {
+      this._considerAutomaticAugmentCapture(this._context.state.matchContext)
+    }
   }
 
   async setAutomaticContext(enabled: boolean) {
@@ -382,7 +404,16 @@ export class AramAssistantController {
             : error instanceof Error && 'code' in error
               ? String((error as { code: unknown }).code)
               : 'NETWORK_ERROR'
-        results.push({ id: fixture.id, ok: false, errorCode: safeErrorCode(code) })
+        const detail =
+          error instanceof Error
+            ? error.message.replace(/\s+/g, ' ').trim().slice(0, 240)
+            : undefined
+        results.push({
+          id: fixture.id,
+          ok: false,
+          errorCode: safeErrorCode(code),
+          ...(detail ? { errorDetail: detail } : {})
+        })
       }
     }
     return {
@@ -415,13 +446,19 @@ export class AramAssistantController {
   cancelAnalysis(runDeferredGuide = true) {
     const active = this._active
     if (!active) {
-      if (!runDeferredGuide) this._deferredAutomaticSignature = null
+      if (!runDeferredGuide) {
+        this._deferredAutomaticSignature = null
+        this._deferredAutomaticCaptureSignature = null
+      }
       return
     }
     this._generation += 1
     active.controller.abort()
     this._active = null
-    if (!runDeferredGuide) this._deferredAutomaticSignature = null
+    if (!runDeferredGuide) {
+      this._deferredAutomaticSignature = null
+      this._deferredAutomaticCaptureSignature = null
+    }
     this.screenshot.clear()
     runInAction(() => {
       this._context.state.active = false
@@ -430,7 +467,10 @@ export class AramAssistantController {
         this._context.state.lastErrorCode = 'CANCELLED'
       }
     })
-    if (runDeferredGuide) this._runDeferredGuideIfReady()
+    if (runDeferredGuide) {
+      this._runDeferredGuideIfReady()
+      this._runDeferredAutomaticCaptureIfReady()
+    }
   }
 
   confirmAugment(cardId: string) {
@@ -481,6 +521,7 @@ export class AramAssistantController {
         return {
           context: deriveAramMatchContext(source),
           automaticGuide: this._context.settings.automaticGuide,
+          automaticAugmentCapture: this._context.settings.automaticAugmentCapture,
           automaticContext: this._context.settings.automaticContext
         }
       },
@@ -528,6 +569,7 @@ export class AramAssistantController {
     runInAction(() => (this._context.state.matchContext = visibleContext))
     // Also run when a provider-backed champion name arrives or automatic guide is enabled mid-match.
     this._considerAutomaticGuide(visibleContext)
+    this._considerAutomaticAugmentCapture(visibleContext)
   }
 
   private _considerAutomaticGuide(context: AramMatchContext) {
@@ -545,6 +587,61 @@ export class AramAssistantController {
       false,
       signature
     ).catch(() => {})
+  }
+
+  private _considerAutomaticAugmentCapture(context: AramMatchContext) {
+    if (!this._context.settings.automaticAugmentCapture) {
+      this._clearAutomaticAugmentCaptureTimer()
+      return
+    }
+    if (!isReadyForAutomaticAugmentCapture(context)) return
+    const signature = `${context.gameId}:opening`
+    if (signature === this._autoCaptureAttemptedSignature) return
+    this._autoCaptureAttemptedSignature = signature
+    this._clearAutomaticAugmentCaptureTimer()
+    this._autoCaptureTimer = setTimeout(() => {
+      this._autoCaptureTimer = null
+      void this._runAutomaticAugmentCapture(signature)
+    }, AUTOMATIC_AUGMENT_CAPTURE_DELAY_MS)
+  }
+
+  private async _runAutomaticAugmentCapture(signature: string) {
+    if (this._disposed) return
+    if (!this._context.settings.automaticAugmentCapture) return
+    const context = this._context.state.matchContext
+    if (`${context.gameId}:opening` !== signature || !isReadyForAutomaticAugmentCapture(context)) {
+      return
+    }
+    if (this._active) {
+      if (this._active.manual) this._deferredAutomaticCaptureSignature = signature
+      return
+    }
+    try {
+      const displays = await this.screenshot.listDisplays()
+      const sourceId = displays[0]?.sourceId
+      if (!sourceId) {
+        this._context.logger.warn('Automatic augment capture skipped: no display available')
+        return
+      }
+      const prepared = await this.screenshot.prepareDesktopScreenshot(sourceId)
+      await this._startAnalysis(
+        {
+          kind: 'augment-advice',
+          mode: 'aram_mayhem',
+          screenshotToken: prepared.token
+        },
+        false,
+        signature
+      )
+    } catch (error) {
+      this._context.logger.warn('Automatic augment capture failed', error)
+      if (!this._disposed) {
+        runInAction(() => {
+          this._context.state.lastErrorCode =
+            error instanceof ProviderError ? safeErrorCode(error.code) : 'SCREEN_CAPTURE_FAILED'
+        })
+      }
+    }
   }
 
   private async _startAnalysis(
@@ -657,6 +754,7 @@ export class AramAssistantController {
         this._active = null
         runInAction(() => (this._context.state.active = false))
         this._runDeferredGuideIfReady()
+        this._runDeferredAutomaticCaptureIfReady()
       }
     }
   }
@@ -677,6 +775,20 @@ export class AramAssistantController {
       false,
       signature
     ).catch(() => {})
+  }
+
+  private _runDeferredAutomaticCaptureIfReady() {
+    const signature = this._deferredAutomaticCaptureSignature
+    this._deferredAutomaticCaptureSignature = null
+    if (!signature || !this._context.settings.automaticAugmentCapture) return
+    void this._runAutomaticAugmentCapture(signature)
+  }
+
+  private _clearAutomaticAugmentCaptureTimer() {
+    if (this._autoCaptureTimer) {
+      clearTimeout(this._autoCaptureTimer)
+      this._autoCaptureTimer = null
+    }
   }
 
   private _validateAnalysisInput(input: AramAnalysisInput): AramAnalysisInput {
@@ -947,6 +1059,14 @@ export class AramAssistantController {
     if (this._deferredAutomaticSignature === previousSignature) {
       this._deferredAutomaticSignature = nextSignature
     }
+    const previousCapture = `${previousSignature}:opening`
+    const nextCapture = `${nextSignature}:opening`
+    if (this._autoCaptureAttemptedSignature === previousCapture) {
+      this._autoCaptureAttemptedSignature = nextCapture
+    }
+    if (this._deferredAutomaticCaptureSignature === previousCapture) {
+      this._deferredAutomaticCaptureSignature = nextCapture
+    }
   }
 
   private _resetMatch() {
@@ -956,6 +1076,9 @@ export class AramAssistantController {
     this._manualChampionOverride = null
     this._autoAttemptedSignature = null
     this._deferredAutomaticSignature = null
+    this._clearAutomaticAugmentCaptureTimer()
+    this._autoCaptureAttemptedSignature = null
+    this._deferredAutomaticCaptureSignature = null
     this.screenshot.clear()
     runInAction(() => {
       this._context.state.history = []

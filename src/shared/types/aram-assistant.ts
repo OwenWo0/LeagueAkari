@@ -108,6 +108,8 @@ export interface AramVisionProbeImageResult {
   ok: boolean
   output?: string
   errorCode?: string
+  /** Short transport/provider message for failed probes; omit on success. */
+  errorDetail?: string
 }
 
 export interface AramVisionProbeResult {
@@ -120,6 +122,8 @@ export interface AramAssistantPreferences {
   activeProvider: ProviderProtocol
   providers: Record<ProviderProtocol, AramProviderPreference>
   automaticGuide: boolean
+  /** When true, Mayhem InProgress automatically captures and analyzes the opening augment pick. */
+  automaticAugmentCapture: boolean
   automaticContext: boolean
   requestTimeoutMs: number
   statsSource: ChampionDataSourceId

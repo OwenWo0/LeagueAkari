@@ -90,6 +90,14 @@ export class AramAssistantRenderer implements IAkariShardInitDispose {
     return this._context.ipc.call(ARAM_ASSISTANT_MAIN_NAMESPACE, 'setAutomaticGuide', enabled)
   }
 
+  setAutomaticAugmentCapture(enabled: boolean) {
+    return this._context.ipc.call(
+      ARAM_ASSISTANT_MAIN_NAMESPACE,
+      'setAutomaticAugmentCapture',
+      enabled
+    )
+  }
+
   setAutomaticContext(enabled: boolean) {
     return this._context.ipc.call(ARAM_ASSISTANT_MAIN_NAMESPACE, 'setAutomaticContext', enabled)
   }

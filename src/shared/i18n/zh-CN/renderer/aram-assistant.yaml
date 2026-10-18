@@ -1,6 +1,6 @@
 aramAssistant:
   title: ARAM 海克斯大乱斗助手
-  intro: 离线增益卡库，支持明确选择截图或文本分析，并可选使用海克斯大乱斗英雄统计。
+  intro: 开场选卡默认自动截屏分析，右侧展示选卡推荐与阵容建议。视觉模型与卡库可在页内二级入口配置。
   mode:
     aram: ARAM
     aramMayhem: 海克斯大乱斗
@@ -23,8 +23,14 @@ aramAssistant:
     automatic: 每局自动请求一次阵容攻略
     run: 生成阵容攻略
     defaultOff: 自动攻略默认关闭。
+    automaticCapture: 开场自动截屏分析选卡
+    automaticCaptureHint: 进入海克斯大乱斗对局后约数秒自动截取屏幕并分析三张增益卡，无需手动选图或粘贴。
   provider:
     title: 视觉模型提供方
+    openSettings: 视觉模型设置
+    settingsHint: 配置 Base URL、模型与密钥；不影响右侧推荐主视图。
+    statusConfigured: 模型已配置
+    statusMissing: 尚未配置模型
     active: 当前提供方
     gemini: Gemini 原生协议
     openai: OpenAI 兼容协议
@@ -49,8 +55,8 @@ aramAssistant:
     statsNote: 海克斯大乱斗统计只使用所选数据源和模式；名称未知或匹配歧义的卡牌会被略过。
     probe: 测试视觉模型
     probing: 正在发送探针图片…
-    probeHint: 使用随包两张公开样例图向当前提供方各发一次短请求，用于验证 Base URL、模型和密钥，不会写入本局历史。
-    probeNeedKey: 请先保存提供方设置并配置 API 密钥。
+    probeHint: 使用随包两张公开样例图向当前提供方各发一次短请求，用于验证 Base URL、模型和密钥。点击测试会先保存当前表单中的提供方设置，不会写入本局历史。
+    probeNeedKey: 当前 Base URL 尚未配置 API 密钥（密钥按提供方与 Base URL 分别保存）。
     probeOk: 探针通过（{{passed}}/{{total}}）
     probePartial: 探针部分失败（{{passed}}/{{total}}）
     probeFailed: 探针失败
@@ -97,7 +103,13 @@ aramAssistant:
     page: 第 {{current}} / {{total}} 页
   analysis:
     title: 增益分析
-    screenshot: 截图
+    resultPanel: 推荐与分析
+    resultEmpty: 进入海克斯大乱斗对局后，开场选卡与阵容建议会显示在这里。
+    resultKindAugment: 选卡推荐
+    resultKindLineup: 阵容分析
+    manualTools: 备用手动分析
+    imageOnly: 默认自动截屏分析。仅在需要时使用下列手动入口（预览后才会发送）。
+    screenshot: 备用手动截图
     display: 显示器
     loadDisplays: 获取显示器
     capture: 预览显示器
@@ -121,7 +133,6 @@ aramAssistant:
     undo: 撤销最近一次确认
     emptyHistory: 尚未确认增益。
     sessionOnly: 此列表仅保留在当前应用会话，新对局会清空。
-    imageOnly: 截图分析只需要图片；文本分析必须选择三张不同的本地卡牌。
     noPreview: 选择显示器截图或图片文件后，可在此预览。
     selectThree: 选择三张不同且已核验的本地卡牌。文本请求只会发送这些卡牌。
     confirmed: 已记录为本局已选增益。

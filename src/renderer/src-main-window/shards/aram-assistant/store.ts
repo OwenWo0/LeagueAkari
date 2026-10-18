@@ -21,6 +21,7 @@ export const useAramAssistantStore = defineStore('main-window:aram-assistant', (
       openai: { baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini' }
     } as Record<ProviderProtocol, AramProviderPreference>,
     automaticGuide: false,
+    automaticAugmentCapture: true,
     automaticContext: true,
     requestTimeoutMs: 30_000,
     statsSource: 'opgg' as ChampionDataSourceId

@@ -30,6 +30,7 @@ export class AramAssistantSettings implements AramAssistantPreferences {
     openai: { baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o-mini' }
   }
   automaticGuide = false
+  automaticAugmentCapture = true
   automaticContext = true
   requestTimeoutMs = 30_000
   statsSource: ChampionDataSourceId = 'opgg'

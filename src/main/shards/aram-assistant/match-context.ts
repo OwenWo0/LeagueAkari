@@ -152,6 +152,18 @@ export function isReadyForAutomaticGuide(context: AramMatchContext): boolean {
   )
 }
 
+/** Opening Mayhem augment UI appears shortly after spawn; only needs self + InProgress. */
+export function isReadyForAutomaticAugmentCapture(context: AramMatchContext): boolean {
+  return (
+    context.connection === 'connected' &&
+    context.mode === 'aram_mayhem' &&
+    context.phase === 'InProgress' &&
+    context.gameId !== null &&
+    context.gameId > 0 &&
+    Boolean(context.selfChampion?.name)
+  )
+}
+
 export function resolveAramMode(queueId: number | null, gameMode?: string | null): AramMode {
   if (queueId === 2400 || gameMode?.toUpperCase() === 'KIWI') return 'aram_mayhem'
   if (queueId === 450 || gameMode?.toUpperCase() === 'ARAM') return 'aram'

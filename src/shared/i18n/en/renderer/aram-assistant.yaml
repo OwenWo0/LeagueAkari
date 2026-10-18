@@ -1,6 +1,6 @@
 aramAssistant:
   title: ARAM Mayhem assistant
-  intro: Offline augment cards, explicit screenshot or text analysis, and optional Mayhem champion statistics.
+  intro: Opening Mayhem picks are captured automatically. Recommendations and lineup advice appear on the right. Provider and catalog settings live in in-page secondary panels.
   mode:
     aram: ARAM
     aramMayhem: ARAM Mayhem
@@ -23,8 +23,14 @@ aramAssistant:
     automatic: Automatically request one lineup guide per match
     run: Generate lineup guide
     defaultOff: Automatic guide requests are off by default.
+    automaticCapture: Auto-capture opening augment pick
+    automaticCaptureHint: Shortly after a Mayhem match starts, capture the screen and analyze the three augment cards. No manual paste or file pick required.
   provider:
     title: Vision provider
+    openSettings: Vision model settings
+    settingsHint: Configure base URL, model, and API key without crowding the recommendation view.
+    statusConfigured: Model configured
+    statusMissing: Model not configured
     active: Active provider
     gemini: Gemini native
     openai: OpenAI compatible
@@ -49,8 +55,8 @@ aramAssistant:
     statsNote: Mayhem statistics use only the chosen source and mode. Unknown or ambiguous card name matches are omitted.
     probe: Test vision provider
     probing: Sending probe images…
-    probeHint: Sends two bundled public sample images to the active provider as short connectivity checks. Results are not saved to match history.
-    probeNeedKey: Save provider settings and configure an API key first.
+    probeHint: Sends two bundled public sample images to the active provider as short connectivity checks. Clicking Test first saves the provider settings currently shown in the form. Results are not saved to match history.
+    probeNeedKey: No API key is configured for the current Base URL (keys are stored per provider and Base URL).
     probeOk: Probe passed ({{passed}}/{{total}})
     probePartial: Probe partially failed ({{passed}}/{{total}})
     probeFailed: Probe failed
@@ -97,7 +103,13 @@ aramAssistant:
     page: Page {{current}} of {{total}}
   analysis:
     title: Augment analysis
-    screenshot: Screenshot
+    resultPanel: Recommendations
+    resultEmpty: After a Mayhem match starts, opening pick advice and lineup guidance appear here.
+    resultKindAugment: Augment pick
+    resultKindLineup: Lineup guide
+    manualTools: Manual fallback tools
+    imageOnly: Automatic capture is the default. Use the controls below only when needed (nothing is sent until you confirm the preview).
+    screenshot: Manual screenshot fallback
     display: Display
     loadDisplays: Find displays
     capture: Preview display
@@ -121,7 +133,6 @@ aramAssistant:
     undo: Undo latest confirmation
     emptyHistory: No augments confirmed yet.
     sessionOnly: This list lasts for this app session and clears for a new match.
-    imageOnly: Screenshot analysis needs only an image; text analysis needs exactly three different local cards.
     noPreview: Choose a display capture or image file to preview it here.
     selectThree: Choose three different verified local cards. Only those cards will be sent as text.
     confirmed: Augment recorded as selected for this match.

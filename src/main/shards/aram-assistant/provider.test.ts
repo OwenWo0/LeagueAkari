@@ -115,6 +115,26 @@ describe('vision provider HTTP handling', () => {
     }
   })
 
+  it('surfaces Chromium net error codes on transport failure', async () => {
+    const fetchImpl = vi
+      .fn(async () => {
+        throw new Error('net::ERR_CONNECTION_REFUSED')
+      })
+      .mockName('refused-fetch')
+    const provider = createVisionProvider({
+      protocol: 'openai',
+      baseUrl: 'http://127.0.0.1:9/v1',
+      model: 'test-model',
+      apiKey: 'k',
+      fetchImpl
+    })
+    await expect(provider.generate({ prompt: 'test', timeoutMs: 5_000 })).rejects.toMatchObject({
+      code: 'NETWORK_ERROR',
+      message: expect.stringContaining('net::ERR_CONNECTION_REFUSED')
+    })
+    expect(fetchImpl).toHaveBeenCalledTimes(2)
+  })
+
   it('retries one 429 response and does not retry malformed or oversized output', async () => {
     const retryFetch = vi
       .fn(async (_url: string, _init: RequestInit) => new Response('{}'))

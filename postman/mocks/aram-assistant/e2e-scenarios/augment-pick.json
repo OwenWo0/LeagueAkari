@@ -1,0 +1,57 @@
+{
+  "id": "e2e-augment-pick",
+  "title": "开场选卡三选一（截图分析）",
+  "kind": "augment-advice",
+  "mode": "aram_mayhem",
+  "trigger": {
+    "automaticAugmentCapture": true,
+    "phase": "InProgress",
+    "delayMs": 8000,
+    "fixtureImageHint": "~/Desktop/akari-aram-real-shots/00-wiki-official-augment-selection.png（可选；mock 不依赖真实识图）",
+    "notes": "自动截屏分析开场三卡；也可走备用手动预览后发送。本 mock 按 prompt 关键字返回固定识图结果。"
+  },
+  "visibleCards": [
+    {
+      "id": "symphonyof-war",
+      "name": { "zh": "战争交响乐", "en": "Symphony of War" },
+      "rarity": "prismatic"
+    },
+    {
+      "id": "mystic-punch",
+      "name": { "zh": "秘术冲拳", "en": "Mystic Punch" },
+      "rarity": "prismatic"
+    },
+    {
+      "id": "quest-sneakerhead",
+      "name": { "zh": "王中王，靴中靴", "en": "Sneakerhead" },
+      "rarity": "prismatic",
+      "kind": "quest"
+    }
+  ],
+  "recommendedCardId": "mystic-punch",
+  "matchContext": {
+    "connection": "connected",
+    "phase": "InProgress",
+    "queueId": 2400,
+    "mode": "aram_mayhem",
+    "mapId": 12,
+    "gameId": 900002,
+    "selfChampion": { "championId": 45, "name": "Veigar" },
+    "allies": [],
+    "enemies": [],
+    "champSelectSessionId": null
+  },
+  "provider": {
+    "protocol": "openai",
+    "baseUrl": "http://127.0.0.1:4900/openai/v1",
+    "model": "e2e-augment-pick",
+    "scenarioHeader": "augment-pick"
+  },
+  "expectedLatestResult": {
+    "kind": "augment-advice",
+    "mode": "aram_mayhem",
+    "championName": "Veigar",
+    "outputIncludes": ["[e2e:augment-pick]", "秘术冲拳", "战争交响乐", "王中王，靴中靴", "推荐"]
+  },
+  "mockOutputZh": "[e2e:augment-pick]\n海克斯大乱斗 · 开场三选一（模拟识图）\n\n识别到的三张卡（仅基于可见文本，不猜测）：\n1. 战争交响乐（棱彩）— 获得致命节奏与征服者基石符文。\n2. 秘术冲拳（棱彩）— 普攻命中时缩短基础技能剩余冷却。\n3. 王中王，靴中靴（棱彩 / 任务）— 立即获得随机进阶鞋子，完成任务可再换一双。\n\n推荐：秘术冲拳\n理由：开场即可提升技能周转，对多数英雄都有稳定收益；「战争交响乐」更吃攻击节奏，「王中王，靴中靴」前期收益偏移动与任务进度。\n\n不确定项：若实际截图文字模糊，请重拍或改用本地三卡文本分析。本回复为 e2e 固定 mock。\n"
+}

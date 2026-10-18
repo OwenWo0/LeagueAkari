@@ -69,6 +69,10 @@ export class AramAssistantMain implements IAkariShardInitDispose {
           })
         },
         automaticGuide: { default: this.settings.automaticGuide, schema: z.boolean() },
+        automaticAugmentCapture: {
+          default: this.settings.automaticAugmentCapture,
+          schema: z.boolean()
+        },
         automaticContext: { default: this.settings.automaticContext, schema: z.boolean() },
         requestTimeoutMs: {
           default: this.settings.requestTimeoutMs,
@@ -109,6 +113,7 @@ export class AramAssistantMain implements IAkariShardInitDispose {
       'activeProvider',
       'providers',
       'automaticGuide',
+      'automaticAugmentCapture',
       'automaticContext',
       'requestTimeoutMs',
       'statsSource'

@@ -17,7 +17,7 @@
 3. 自动攻略默认OFF，相关模式、正 gameId、本人可解析英雄及已知队友就绪才触发一次阵容攻略；不要求隐藏敌方可见。正在手动请求时自动触发延迟重试，失败不无限自动扣费。非相关模式禁止自动；手动离线英雄攻略允许。
 4. Gemini-native/OpenAI-compatible base URL/model/key 可配置。HTTPS或字面loopback HTTP，协议+完整规范化URL隔离凭据；拒绝userinfo/query/hash/完整端点/畸形转义/redirect。safeStorage独立原子文件，失败内存，无密钥/密文进入设置、同步、日志。主窗主frame IPC验证所有参数并限长。普通设置仍通过SettingFactory保存，不能用其通用setter绕过URL校验。
 5. 真实30秒总预算5–120可配，最多额外一次暂态HTTP或网络重试；401/403/取消/非法/超大响应不重试。通过NetworkMain客户端且fetch adapter必须显式redirect:error（maxRedirects对fetch不足）。流式限额与abort在正文读取期间仍生效。错误短码，不回显上游正文。Gemini排除thought、处理block/finish；OpenAI处理refusal/finish/空/null/primitive。
-6. 图像-only无需卡名，文本-only恰好3个不重复本地候选无需截图。截图/导入为主进程内存，PNG/JPEG魔数及真正解码，输入8MB、输出JPEG长边1280/4MB，预览后才请求。多屏选择；只隐藏已创建且可见窗口，finally恢复。截图不propSync；取消和退出都处理。
+6. 图像-only无需卡名，文本-only恰好3个不重复本地候选无需截图。截图/导入为主进程内存，PNG/JPEG魔数及真正解码，输入8MB、输出JPEG长边1280/4MB。**默认路径**：海克斯大乱斗 `InProgress` 且 `automaticAugmentCapture`（默认开）时，开场约 8s 后自动截取主显示器并直接分析选卡，不经手动预览确认。显示器预览/选文件仅作备用。多屏选择；只隐藏已创建且可见窗口，finally恢复。截图不propSync；取消和退出都处理。后续等级选卡自动检测本版不做。
 7. 冻结离线216条源快照，保留kind/scope/textStatus等，不把216全称为可选池。支持显式更新和共享loader CLI；无启动抓取。overlay原子写、流式上限、schema/唯一/完整/100最小/补丁单调/同补丁20%下降闸门；更新后所有分析和lookup读取新目录。
 8. ChampionDataMain使用明确source+mode，仅Mayhem强化统计；必要时向loadDetails增加向后兼容options.signal。缓存/合并source:mode:champion，generation取消。数字ID通过LCU增益名称与目录唯一映射，歧义/未知不注入；OP.GG performance/popularity不叫winrate，QQ101大盘不叫英雄胜率。缺数据非失败。
 

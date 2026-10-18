@@ -8,3 +8,6 @@ scenarios:
   - name: default
     path: ./default.js
     default: true
+# e2e scenario fixtures (assert anchors) live beside this mock:
+# ../e2e-scenarios/opening-match.json
+# ../e2e-scenarios/augment-pick.json

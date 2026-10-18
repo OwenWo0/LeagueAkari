@@ -62,6 +62,10 @@ export class AramAssistantIpcHandlers {
       this._assertMainFrame(event)
       return this._controller.setAutomaticGuide(enabled)
     })
+    this._ipc.onCall(namespace, 'setAutomaticAugmentCapture', (event, enabled: boolean) => {
+      this._assertMainFrame(event)
+      return this._controller.setAutomaticAugmentCapture(enabled)
+    })
     this._ipc.onCall(namespace, 'setAutomaticContext', (event, enabled: boolean) => {
       this._assertMainFrame(event)
       return this._controller.setAutomaticContext(enabled)

@@ -379,7 +379,7 @@ async function runRequest(
           await wait(100, controller.signal)
           continue
         }
-        throw new ProviderError('NETWORK_ERROR', 'The provider could not be reached.')
+        throw new ProviderError('NETWORK_ERROR', networkErrorMessage(error))
       }
     }
     throw new ProviderError('NETWORK_ERROR', 'The provider could not be reached.')
@@ -504,4 +504,22 @@ function isRedirectError(error: unknown): boolean {
   const message =
     error instanceof Error ? `${error.message} ${String(error.cause || '')}` : String(error)
   return /redirect/i.test(message)
+}
+
+function networkErrorMessage(error: unknown): string {
+  const raw =
+    error instanceof Error
+      ? [
+          error.message,
+          error.cause instanceof Error ? error.cause.message : String(error.cause || '')
+        ]
+          .filter(Boolean)
+          .join(' ')
+      : String(error)
+  const compact = raw.replace(/\s+/g, ' ').trim()
+  if (!compact) return 'The provider could not be reached.'
+  // Chromium session.fetch surfaces codes like net::ERR_CONNECTION_REFUSED.
+  const netCode = compact.match(/net::ERR_[A-Z0-9_]+/)?.[0]
+  if (netCode) return `The provider could not be reached (${netCode}).`
+  return `The provider could not be reached (${compact.slice(0, 160)}).`
 }

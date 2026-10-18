@@ -141,6 +141,49 @@ describe('AramAssistantController flows', () => {
     expect(controller.getCatalog()).toBeTruthy()
   })
 
+  it('automatically captures and analyzes the opening Mayhem augment screen', async () => {
+    vi.useFakeTimers()
+    try {
+      const requests: CapturedProviderRequest[] = []
+      const fetch = createProviderFetch(requests)
+      const screenshot = createScreenshotPort()
+      screenshot.listDisplays = vi.fn(async () => [
+        { sourceId: 'screen:0', name: 'Main', displayId: '0' }
+      ])
+      screenshot.prepareDesktopScreenshot = vi.fn(async () => ({
+        token: 'auto-capture',
+        previewDataUrl: '',
+        width: 1280,
+        height: 720
+      }))
+      const { controller, settings, state } = await createController({
+        screenshot,
+        fetch,
+        league: createReadyLeague()
+      })
+      configureOpenAi(settings, 'http://127.0.0.1:1/v1')
+      // Default is on; re-enable after provider config so the scheduled capture can call the API.
+      await controller.setAutomaticAugmentCapture(false)
+      await controller.setAutomaticAugmentCapture(true)
+
+      expect(screenshot.prepareDesktopScreenshot).not.toHaveBeenCalled()
+      await vi.advanceTimersByTimeAsync(8_000)
+      await vi.waitFor(() =>
+        expect(screenshot.prepareDesktopScreenshot).toHaveBeenCalledWith('screen:0')
+      )
+      await vi.waitFor(() => expect(state.latestResult?.output).toBe('Local simulation response'))
+      expect(screenshot.consume).toHaveBeenCalledWith('auto-capture')
+      expect(requests).toHaveLength(1)
+      expect(
+        requests[0].body.messages[0].content.some(
+          (part: { type: string }) => part.type === 'image_url'
+        )
+      ).toBe(true)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
   it('runs the one deferred automatic guide when a manual analysis is cancelled', async () => {
     let releaseManualCredential!: (value: string | null) => void
     let credentialReads = 0
