@@ -2,10 +2,15 @@ import { i18next } from '@main/i18n'
 import type { ChampionDataDetails, ChampionDataSourceId } from '@shared/data-adapter/champion-data'
 import type {
   AramAnalysisInput,
+  AramAugmentStatComparison,
   AramCredentialStatus,
+  AramItemBuildItem,
+  AramItemBuildRecommendation,
   AramPendingResult,
   AramProviderPreference,
-  AramVisionProbeResult
+  AramStructuredAdvice,
+  AramVisionProbeResult,
+  BilingualText
 } from '@shared/types/aram-assistant'
 import type { Augment } from '@shared/types/league-client/game-data'
 import { nativeImage } from 'electron'
@@ -675,18 +680,118 @@ export class AramAssistantController {
     try {
       const apiKey = (await this._credentials.get(credentialScope)) ?? ''
       this._assertActive(active)
-      const image = input.screenshotToken
-        ? this.screenshot.consume(input.screenshotToken)
-        : undefined
-      if (!input.screenshotToken) this.screenshot.clear()
       const mode = this._resolveMode(input.mode)
       const context = this._context.settings.automaticContext
         ? this._context.state.matchContext
         : null
       const championId = this._resolveChampionId(input.championId, context)
       const championName = championId ? this._championName(championId) : null
-      const cards =
-        input.kind === 'augment-advice' && input.cardIds ? this._resolveCards(input.cardIds) : []
+
+      if (input.kind === 'augment-advice') {
+        let candidateCards: AugmentCatalogEntry[] = []
+        let rawOcrText = ''
+
+        if (input.screenshotToken) {
+          const image = this.screenshot.consume(input.screenshotToken)
+          const ocrPrompt = [
+            'You are an OCR tool for League of Legends ARAM Mayhem augment selection.',
+            'Task: Read the 3 offered augment card titles visible on screen.',
+            'Pick input: one screenshot is attached. Identify only the three currently offered cards that are clearly legible.',
+            'Output ONLY a JSON array of the 3 card title strings, for example: ["Card 1", "Card 2", "Card 3"].',
+            'Do not output markdown code blocks, explanation, or any other text.'
+          ].join('\n')
+
+          const provider = createVisionProvider({
+            protocol,
+            baseUrl: providerSettings.baseUrl,
+            model: providerSettings.model,
+            apiKey,
+            fetchImpl: (url, init) => this._context.network.fetch(url, init)
+          })
+
+          rawOcrText = await provider.generate({
+            prompt: ocrPrompt,
+            image,
+            timeoutMs: this._context.settings.requestTimeoutMs,
+            signal: active.controller.signal
+          })
+          this._assertActive(active)
+
+          const parsedNames = parseOcrCardNames(rawOcrText)
+          const catalog = this._requireCatalog()
+          for (const name of parsedNames) {
+            const matched = matchCardFromCatalog(name, catalog)
+            if (matched && !candidateCards.some((c) => c.id === matched.id)) {
+              candidateCards.push(matched)
+            }
+          }
+        } else if (input.cardIds) {
+          this.screenshot.clear()
+          candidateCards = this._resolveCards(input.cardIds)
+        }
+
+        if (candidateCards.length > 0) {
+          const statsSource = this._context.settings.statsSource
+          const [mayhemStats, aramBuild] = await Promise.all([
+            championId
+              ? this._getMayhemStats(championId, statsSource, active.controller.signal)
+              : null,
+            championId
+              ? this._getAramBuild(championId, statsSource, active.controller.signal)
+              : null
+          ])
+          this._assertActive(active)
+
+          const structuredAdvice = this._buildStructuredRecommendation({
+            candidateCards,
+            championId,
+            championName,
+            mayhemStats,
+            aramBuild
+          })
+
+          const locale = i18next.language.startsWith('zh') ? 'zh' : 'en'
+          const output = formatStructuredAdvice(structuredAdvice, locale, championName)
+
+          const pending: AramPendingResult = {
+            id: crypto.randomUUID(),
+            output,
+            kind: input.kind,
+            mode,
+            championName,
+            structuredAdvice
+          }
+          runInAction(() => {
+            this._context.state.latestResult = pending
+            this._context.state.lastErrorCode = null
+          })
+          return pending
+        }
+
+        const output =
+          rawOcrText ||
+          (i18next.language.startsWith('zh')
+            ? '未能从截图中识别出有效的候选卡牌。'
+            : 'Failed to identify augment cards from the screenshot.')
+        const pending: AramPendingResult = {
+          id: crypto.randomUUID(),
+          output,
+          kind: input.kind,
+          mode,
+          championName
+        }
+        runInAction(() => {
+          this._context.state.latestResult = pending
+          this._context.state.lastErrorCode = null
+        })
+        return pending
+      }
+
+      // lineup-guide
+      const image = input.screenshotToken
+        ? this.screenshot.consume(input.screenshotToken)
+        : undefined
+      if (!input.screenshotToken) this.screenshot.clear()
       const confirmedCards = this._getConfirmedAugments()
       const stats =
         mode === 'aram_mayhem' && championId
@@ -702,7 +807,7 @@ export class AramAssistantController {
         mode,
         context,
         championName,
-        cards,
+        cards: [],
         confirmedCards,
         stats
       })
@@ -905,6 +1010,146 @@ export class AramAssistantController {
       })
     this._statsInFlight.set(key, record)
     return record.promise
+  }
+
+  private async _getAramBuild(
+    championId: number,
+    source: ChampionDataSourceId,
+    signal: AbortSignal
+  ): Promise<ChampionDataDetails | null> {
+    const key = `${source}:aram:${championId}`
+    const cached = this._statsCache.get(key)
+    if (cached !== undefined) return cached
+    const inFlight = this._statsInFlight.get(key)
+    if (inFlight && !inFlight.signal.aborted) return inFlight.promise
+    if (inFlight) this._statsInFlight.delete(key)
+    const record: InFlightChampionStats = { signal, promise: Promise.resolve(null) }
+    record.promise = this._context.championData
+      .loadDetails({ source, mode: 'aram', position: 'none' }, championId, { signal })
+      .then((result) => {
+        const data =
+          result.status === 'success' &&
+          result.effectiveSource === source &&
+          result.data.championId === championId
+            ? result.data
+            : null
+        if (!signal.aborted) this._statsCache.set(key, data)
+        return data
+      })
+      .catch((error) => {
+        if (signal.aborted) throw error
+        this._statsCache.set(key, null)
+        return null
+      })
+      .finally(() => {
+        if (this._statsInFlight.get(key) === record) this._statsInFlight.delete(key)
+      })
+    this._statsInFlight.set(key, record)
+    return record.promise
+  }
+
+  private _buildStructuredRecommendation(options: {
+    candidateCards: AugmentCatalogEntry[]
+    championId: number | null
+    championName: string | null
+    mayhemStats: ChampionDataDetails | null
+    aramBuild: ChampionDataDetails | null
+  }): AramStructuredAdvice {
+    const lcuAugments = this._context.leagueClient.data.gameData.augments
+    const catalog = this._requireCatalog()
+    const statsMap = getAugmentStatsMap(options.mayhemStats, lcuAugments, catalog)
+
+    const candidateStats: AramAugmentStatComparison[] = options.candidateCards.map((card) => {
+      const stat = statsMap.get(card.id)
+      return {
+        cardId: card.id,
+        name: card.name,
+        effect: card.effect,
+        rarity: card.rarity,
+        tierName:
+          stat?.tier !== undefined && stat?.tier !== null ? tierToName(stat.tier) : undefined,
+        performanceScore: stat?.performanceScore ?? null,
+        rank: stat?.rank ?? null,
+        popularity: stat?.popularity ?? null,
+        isRecommended: false
+      }
+    })
+
+    candidateStats.sort((a, b) => {
+      if (a.performanceScore !== null && b.performanceScore !== null) {
+        return b.performanceScore - a.performanceScore
+      }
+      if (a.performanceScore !== null) return -1
+      if (b.performanceScore !== null) return 1
+      if (a.tierName && b.tierName && a.tierName !== b.tierName) {
+        return a.tierName.localeCompare(b.tierName)
+      }
+      return (b.popularity ?? 0) - (a.popularity ?? 0)
+    })
+
+    if (candidateStats.length > 0) {
+      candidateStats[0].isRecommended = true
+    }
+
+    const build = this._extractItemBuild(options.aramBuild)
+
+    return {
+      recommendedCardId: candidateStats[0]?.cardId ?? '',
+      candidates: candidateStats,
+      build
+    }
+  }
+
+  private _extractItemBuild(
+    aramDetails: ChampionDataDetails | null
+  ): AramItemBuildRecommendation | undefined {
+    if (!aramDetails?.sections.itemBuilds) return undefined
+
+    const startingSlot = aramDetails.sections.itemBuilds.find((s) => s.slot === 'starting')
+    const coreSlot = aramDetails.sections.itemBuilds.find((s) => s.slot === 'core')
+    const lastSlot = aramDetails.sections.itemBuilds.find((s) => s.slot === 'last')
+
+    const topStarting = startingSlot?.options[0]
+    const topCore = coreSlot?.options[0]
+
+    const starterItems: AramItemBuildItem[] = (topStarting?.itemIds ?? []).map((id) => ({
+      id,
+      name: this._itemName(id)
+    }))
+    const coreItems: AramItemBuildItem[] = (topCore?.itemIds ?? []).map((id) => ({
+      id,
+      name: this._itemName(id)
+    }))
+
+    const lastItemIds = new Set<number>()
+    const lastItems: AramItemBuildItem[] = []
+    for (const opt of lastSlot?.options ?? []) {
+      for (const id of opt.itemIds) {
+        if (
+          !lastItemIds.has(id) &&
+          !starterItems.some((s) => s.id === id) &&
+          !coreItems.some((c) => c.id === id)
+        ) {
+          lastItemIds.add(id)
+          lastItems.push({ id, name: this._itemName(id) })
+          if (lastItems.length >= 6) break
+        }
+      }
+      if (lastItems.length >= 6) break
+    }
+
+    return {
+      starterItems,
+      starterWinRate: topStarting?.performance.winRate ?? null,
+      coreItems,
+      coreWinRate: topCore?.performance.winRate ?? null,
+      lastItems
+    }
+  }
+
+  private _itemName(itemId: number): string {
+    const item = this._context.leagueClient.data.gameData.items?.[itemId]
+    return item?.name ? cleanLabel(item.name, 100) : `Item #${itemId}`
   }
 
   private _buildPrompt(options: {
@@ -1186,4 +1431,248 @@ function finite(value: number | null | undefined): number | null {
 
 function safeErrorCode(code: string) {
   return /^[A-Z0-9_]{1,64}$/.test(code) ? code : 'ANALYSIS_FAILED'
+}
+
+export function parseOcrCardNames(raw: string): string[] {
+  if (!raw || typeof raw !== 'string') return []
+  const trimmed = raw.trim()
+
+  const jsonMatch = trimmed.match(/\[[\s\S]*?\]/)
+  if (jsonMatch) {
+    try {
+      const parsed = JSON.parse(jsonMatch[0])
+      if (Array.isArray(parsed)) {
+        const names = parsed
+          .map((item) => (typeof item === 'string' ? item.trim() : ''))
+          .filter(Boolean)
+        if (names.length > 0) return names.slice(0, 3)
+      }
+    } catch {
+      // ignore JSON parse error
+    }
+  }
+
+  const lines = trimmed
+    .split(/\r?\n/)
+    .map((line) =>
+      line
+        .replace(/^[\d\s.*•\-–—、:：)\]】]+/, '')
+        .replace(/["'“”‘’]/g, '')
+        .trim()
+    )
+    .filter((line) => line.length >= 2 && line.length <= 30)
+
+  if (lines.length > 0) {
+    return lines.slice(0, 3)
+  }
+
+  return []
+}
+
+export function stringSimilarity(a: string, b: string): number {
+  if (a === b) return 1
+  if (!a || !b) return 0
+  if (a.length === 1 && b.length === 1) return a === b ? 1 : 0
+  if (a.includes(b) || b.includes(a)) {
+    return Math.min(a.length, b.length) / Math.max(a.length, b.length)
+  }
+  const bigramsA = new Map<string, number>()
+  for (let i = 0; i < a.length - 1; i++) {
+    const bigram = a.slice(i, i + 2)
+    bigramsA.set(bigram, (bigramsA.get(bigram) ?? 0) + 1)
+  }
+  let intersection = 0
+  for (let i = 0; i < b.length - 1; i++) {
+    const bigram = b.slice(i, i + 2)
+    const count = bigramsA.get(bigram) ?? 0
+    if (count > 0) {
+      bigramsA.set(bigram, count - 1)
+      intersection++
+    }
+  }
+  const total = a.length - 1 + (b.length - 1)
+  return total > 0 ? (2 * intersection) / total : 0
+}
+
+export function matchCardFromCatalog(
+  candidateName: string,
+  catalog: AugmentCatalog
+): AugmentCatalogEntry | null {
+  const norm = normalizeName(candidateName)
+  if (!norm) return null
+
+  for (const entry of catalog.entries) {
+    if (
+      normalizeName(entry.name.zh) === norm ||
+      normalizeName(entry.name.en) === norm ||
+      normalizeName(entry.id) === norm ||
+      normalizeName(entry.slug) === norm
+    ) {
+      return entry
+    }
+  }
+
+  for (const entry of catalog.entries) {
+    const zhNorm = normalizeName(entry.name.zh)
+    const enNorm = normalizeName(entry.name.en)
+    if (
+      (zhNorm.length >= 2 && norm.includes(zhNorm)) ||
+      (norm.length >= 2 && zhNorm.includes(norm)) ||
+      (enNorm.length >= 3 && norm.includes(enNorm)) ||
+      (norm.length >= 3 && enNorm.includes(norm))
+    ) {
+      return entry
+    }
+  }
+
+  let bestEntry: AugmentCatalogEntry | null = null
+  let bestScore = 0
+  for (const entry of catalog.entries) {
+    const scoreZh = stringSimilarity(norm, normalizeName(entry.name.zh))
+    const scoreEn = stringSimilarity(norm, normalizeName(entry.name.en))
+    const score = Math.max(scoreZh, scoreEn)
+    if (score > bestScore) {
+      bestScore = score
+      bestEntry = entry
+    }
+  }
+
+  return bestScore >= 0.45 ? bestEntry : null
+}
+
+export function tierToName(tier: number | null | undefined): string | undefined {
+  if (tier === null || tier === undefined) return undefined
+  const names: Record<number, string> = {
+    0: 'S',
+    1: 'A',
+    2: 'B',
+    3: 'C',
+    4: 'D',
+    5: 'E',
+    6: 'F'
+  }
+  return names[tier] ?? String(tier)
+}
+
+export interface AugmentStatItem {
+  cardId: string
+  name: string
+  performanceScore: number | null
+  rank: number | null
+  popularity: number | null
+  tier: number | null
+  games: number | null
+}
+
+export function getAugmentStatsMap(
+  details: ChampionDataDetails | null,
+  lcuAugments: Record<number, Augment>,
+  catalog: AugmentCatalog
+): Map<string, AugmentStatItem> {
+  const map = new Map<string, AugmentStatItem>()
+  if (!details || details.metadata.mode !== 'aram_mayhem') return map
+  const names = new Map<string, Set<string>>()
+  for (const entry of catalog.entries) {
+    for (const name of [entry.name.zh, entry.name.en]) {
+      const normalized = normalizeName(name)
+      if (!normalized) continue
+      const ids = names.get(normalized) ?? new Set<string>()
+      ids.add(entry.id)
+      names.set(normalized, ids)
+    }
+  }
+  for (const statistic of details.sections.augments ?? []) {
+    const lcuName = lcuAugments[statistic.augmentId]?.nameTRA
+    const ids = lcuName ? names.get(normalizeName(lcuName)) : undefined
+    if (!ids || ids.size !== 1) continue
+    const cardId = [...ids][0]
+    const card = catalog.entries.find((entry) => entry.id === cardId)
+    if (!card) continue
+    map.set(cardId, {
+      cardId,
+      name: card.name.zh,
+      performanceScore: finite(statistic.performanceScore),
+      rank: finite(statistic.rank),
+      popularity: finite(statistic.popularity),
+      tier: statistic.tier ?? null,
+      games: finite(statistic.performance.games)
+    })
+  }
+  return map
+}
+
+export function formatStructuredAdvice(
+  advice: AramStructuredAdvice,
+  locale: 'zh' | 'en',
+  _championName?: string | null
+): string {
+  const isZh = locale !== 'en'
+  const localized = (text: BilingualText) => (isZh ? text.zh : text.en)
+  const lines: string[] = []
+
+  const recommended = advice.candidates.find((c) => c.isRecommended) ?? advice.candidates[0]
+  if (recommended) {
+    const tierStr = recommended.tierName ? ` (${recommended.tierName}级)` : ''
+    const scoreStr =
+      recommended.performanceScore !== null
+        ? `${isZh ? '综合评分' : 'OP.GG Score'}: ${recommended.performanceScore}`
+        : ''
+    const pop =
+      recommended.popularity !== null
+        ? `${isZh ? '登场率' : 'Pick Rate'}: ${(recommended.popularity * (recommended.popularity <= 1 ? 100 : 1)).toFixed(1)}%`
+        : ''
+    const meta = [tierStr, scoreStr, pop].filter(Boolean).join(' | ')
+
+    lines.push(isZh ? '🎯 【推荐选择】' : '🎯 [Recommended Pick]')
+    lines.push(`★ ${localized(recommended.name)}${meta ? ` — ${meta}` : ''}`)
+    lines.push(`${isZh ? '效果' : 'Effect'}：${localized(recommended.effect)}`)
+    lines.push('')
+  }
+
+  if (advice.candidates.length > 0) {
+    lines.push(isZh ? '📊 【候选卡牌 OP.GG 数据对比】' : '📊 [Candidate Augments OP.GG Stats]')
+    advice.candidates.forEach((c, index) => {
+      const tierTag = c.tierName ? `[${c.tierName}级]` : ''
+      const score =
+        c.performanceScore !== null
+          ? `${isZh ? '评分' : 'Score'}: ${c.performanceScore}`
+          : isZh
+            ? '暂无评分'
+            : 'No score'
+      const pop =
+        c.popularity !== null
+          ? `${isZh ? '登场率' : 'Pick'}: ${(c.popularity * (c.popularity <= 1 ? 100 : 1)).toFixed(1)}%`
+          : ''
+      const topBadge = c.isRecommended ? (isZh ? ' ⭐ 最优推荐' : ' ⭐ Top Pick') : ''
+      const metrics = [tierTag, score, pop].filter(Boolean).join(' | ')
+      lines.push(`${index + 1}. ${localized(c.name)} — ${metrics}${topBadge}`)
+    })
+    lines.push('')
+  }
+
+  if (advice.build) {
+    lines.push(isZh ? '🛡️ 【OP.GG 嚎哭深渊推荐出装】' : '🛡️ [OP.GG ARAM Recommended Build]')
+    if (advice.build.starterItems.length > 0) {
+      const starterNames = advice.build.starterItems.map((i) => i.name).join(' + ')
+      const winStr =
+        advice.build.starterWinRate !== null
+          ? ` (${isZh ? '胜率' : 'Win'}: ${(advice.build.starterWinRate * 100).toFixed(1)}%)`
+          : ''
+      lines.push(`• ${isZh ? '出门装' : 'Starting'}：${starterNames}${winStr}`)
+    }
+    if (advice.build.coreItems.length > 0) {
+      const coreNames = advice.build.coreItems.map((i) => i.name).join(' → ')
+      const winStr =
+        advice.build.coreWinRate !== null
+          ? ` (${isZh ? '胜率' : 'Win'}: ${(advice.build.coreWinRate * 100).toFixed(1)}%)`
+          : ''
+      lines.push(`• ${isZh ? '核心三件套' : 'Core Build'}：${coreNames}${winStr}`)
+    }
+    if (advice.build.lastItems.length > 0) {
+      const lastNames = advice.build.lastItems.map((i) => i.name).join('、')
+      lines.push(`• ${isZh ? '备选后期装备' : 'Situational'}：${lastNames}`)
+    }
+  }
+
+  return lines.join('\n').trim()
 }

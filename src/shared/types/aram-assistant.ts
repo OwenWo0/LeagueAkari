@@ -88,12 +88,44 @@ export interface AramHistoryItem {
   confirmedAt: string
 }
 
+export interface AramAugmentStatComparison {
+  cardId: string
+  name: BilingualText
+  effect: BilingualText
+  rarity: string
+  tierName?: string
+  performanceScore: number | null
+  rank: number | null
+  popularity: number | null
+  isRecommended: boolean
+}
+
+export interface AramItemBuildItem {
+  id: number
+  name: string
+}
+
+export interface AramItemBuildRecommendation {
+  starterItems: AramItemBuildItem[]
+  starterWinRate: number | null
+  coreItems: AramItemBuildItem[]
+  coreWinRate: number | null
+  lastItems: AramItemBuildItem[]
+}
+
+export interface AramStructuredAdvice {
+  recommendedCardId: string
+  candidates: AramAugmentStatComparison[]
+  build?: AramItemBuildRecommendation
+}
+
 export interface AramPendingResult {
   id: string
   output: string
   kind: 'lineup-guide' | 'augment-advice'
   mode: 'aram' | 'aram_mayhem'
   championName: string | null
+  structuredAdvice?: AramStructuredAdvice
 }
 
 export interface AramCredentialStatus {

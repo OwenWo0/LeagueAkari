@@ -136,6 +136,20 @@ aramAssistant:
     noPreview: Choose a display capture or image file to preview it here.
     selectThree: Choose three different verified local cards. Only those cards will be sent as text.
     confirmed: Augment recorded as selected for this match.
+    recommendedPick: Recommended Pick
+    score: Score
+    pickRate: Pick Rate
+    tier: Tier
+    candidateComparison: Candidate Augments OP.GG Stats
+    topPick: Top Pick
+    noScore: No score
+    recommendedBuild: OP.GG ARAM Recommended Build
+    starterItems: Starting Items
+    coreItems: Core Build
+    situationalItems: Situational Items
+    winRate: Win Rate
+    viewRawText: View Raw Text
+    hideRawText: Hide Raw Text
   error:
     title: Assistant request failed
     CREDENTIAL_STORAGE_FAILED: The credential could not be stored or cleared safely.

@@ -61,7 +61,7 @@ describe('vision provider HTTP handling', () => {
 
   it('omits max_tokens by default, sends low thinking, and honors explicit overrides', async () => {
     const fetchImpl = vi.fn(
-      async () =>
+      async (_url?: string, _init?: RequestInit) =>
         new Response(
           JSON.stringify({
             choices: [{ message: { content: 'ok' }, finish_reason: 'stop' }]
@@ -92,7 +92,7 @@ describe('vision provider HTTP handling', () => {
 
   it('sends a low Gemini thinking budget and hides thoughts by default', async () => {
     const fetchImpl = vi.fn(
-      async () =>
+      async (_url?: string, _init?: RequestInit) =>
         new Response(
           JSON.stringify({
             candidates: [

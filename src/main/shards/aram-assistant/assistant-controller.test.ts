@@ -8,7 +8,11 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   AramAssistantController,
   type AramCredentialStorePort,
-  type AramScreenshotPort
+  type AramScreenshotPort,
+  formatStructuredAdvice,
+  matchCardFromCatalog,
+  parseOcrCardNames,
+  stringSimilarity
 } from './assistant-controller'
 import { readCatalogFile, recommendationCandidates } from './catalog-loader'
 import type { AramAssistantMainContext } from './context'
@@ -36,7 +40,7 @@ vi.mock('electron', () => ({
 vi.mock('@main/i18n', () => ({ i18next: { language: 'en' } }))
 
 const catalogPath = path.resolve('resources/aram-assistant/augment-catalog.json')
-const scenarioResponses = createRequire(import.meta.url)(
+const scenarioResponses = createRequire(__filename)(
   path.resolve('postman/mocks/aram-assistant/providers/scenario-responses.js')
 ) as {
   detectScenario: (text: string) => string
@@ -73,10 +77,7 @@ describe('AramAssistantController flows', () => {
     expect(content[1]).toMatchObject({ type: 'image_url' })
     expect(content[1].image_url.url).toMatch(/^data:image\/jpeg;base64,/)
     expect(content[0].text).toContain('Pick input: one screenshot is attached.')
-    expect(content[0].text).toContain('1) 推荐')
-    expect(content[0].text).toContain('2) 出装')
-    expect(content[0].text).toContain('3) 打法')
-    expect(content[0].text).not.toContain('exactly these three local cards')
+    expect(content[0].text).toContain('Output ONLY a JSON array of the 3 card title strings')
     expect(requests[0].body.max_tokens).toBeUndefined()
     expect(requests[0].body.reasoning_effort).toBe('low')
   })
@@ -86,38 +87,21 @@ describe('AramAssistantController flows', () => {
     const fetch = createProviderFetch(requests)
     const { controller, settings } = await createController({ fetch })
     configureOpenAi(settings, 'http://127.0.0.1:1/v1')
-    const cards = recommendationCandidates(controller.getCatalog()).slice(0, 3)
 
     await controller.analyze({ kind: 'lineup-guide', mode: 'aram_mayhem', championId: 1 })
-    await controller.analyze({
-      kind: 'augment-advice',
-      mode: 'aram',
-      cardIds: cards.map((entry) => entry.id)
-    })
     await controller.probeVisionProvider()
 
     const prompts = requests.map((request) => request.body.messages[0].content[0].text as string)
-    expect(requests).toHaveLength(4)
+    expect(requests).toHaveLength(3)
 
-    // The lineup prompt also contains "Pick input: no screenshot ..."; it must not route to augment.
     expect(prompts[0]).toContain('## Output contract')
     expect(prompts[0]).toContain('Task: short lineup plan for this champion.')
     expect(prompts[0]).toContain('1) 定位')
-    expect(prompts[0]).not.toContain('1) 推荐')
     expect(scenarioResponses.detectScenario(prompts[0])).toBe('opening-match')
-
-    expect(prompts[1]).toContain('Pick input: exactly these three local cards:')
-    expect(prompts[1]).toContain('1) 推荐')
-    expect(prompts[1]).not.toContain('Identify only the augment names')
-    expect(scenarioResponses.detectScenario(prompts[1])).toBe('augment-pick')
-
-    expect(scenarioResponses.detectScenario(prompts[2])).toBe('probe')
+    expect(scenarioResponses.detectScenario(prompts[1])).toBe('probe')
 
     expect(scenarioResponses.responseForScenario('opening-match')).toMatch(
       /1\) 定位[\s\S]*2\) 出装[\s\S]*3\) 打法/
-    )
-    expect(scenarioResponses.responseForScenario('augment-pick')).toMatch(
-      /1\) 推荐[\s\S]*2\) 出装[\s\S]*3\) 打法/
     )
   })
 
@@ -134,7 +118,7 @@ describe('AramAssistantController flows', () => {
     expect(context.settingService.set).not.toHaveBeenCalled()
   })
 
-  it('records only a chosen local augment and includes it in future prompts until undo', async () => {
+  it('records only a chosen local augment and includes it in future lineup prompts until undo', async () => {
     const requests: CapturedProviderRequest[] = []
     const fetch = createProviderFetch(requests)
     const { controller, settings } = await createController({ fetch })
@@ -145,9 +129,9 @@ describe('AramAssistantController flows', () => {
     expect(() => controller.confirmAugment('model-output-is-not-a-card')).toThrowError()
     controller.confirmAugment(chosen[0].id)
     await controller.analyze({
-      kind: 'augment-advice',
+      kind: 'lineup-guide',
       mode: 'aram',
-      cardIds: chosen.map((entry) => entry.id)
+      championId: 1
     })
     const firstPrompt = requests[0].body.messages[0].content[0].text as string
     expect(firstPrompt).toContain(
@@ -157,9 +141,9 @@ describe('AramAssistantController flows', () => {
 
     expect(controller.undoConfirmedAugment()?.cardId).toBe(chosen[0].id)
     await controller.analyze({
-      kind: 'augment-advice',
+      kind: 'lineup-guide',
       mode: 'aram',
-      cardIds: chosen.map((entry) => entry.id)
+      championId: 1
     })
     const secondPrompt = requests[1].body.messages[0].content[0].text as string
     expect(secondPrompt).not.toContain(
@@ -563,6 +547,222 @@ describe('AramAssistantController flows', () => {
     await expect(request).rejects.toMatchObject({ code: 'CANCELLED' })
     expect(state.active).toBe(false)
     expect(state.lastErrorCode).toBeNull()
+  })
+})
+
+describe('OCR card parsing and OP.GG advice generation', () => {
+  it('parses card names from JSON array, markdown blocks, and numbered lists', () => {
+    expect(parseOcrCardNames('["物理转魔法", "全心为你", "终极连击"]')).toEqual([
+      '物理转魔法',
+      '全心为你',
+      '终极连击'
+    ])
+    expect(parseOcrCardNames('```json\n["ADAPt", "All For You"]\n```')).toEqual([
+      'ADAPt',
+      'All For You'
+    ])
+    expect(parseOcrCardNames('1. 物理转魔法\n2. 全心为你\n3. 终极连击')).toEqual([
+      '物理转魔法',
+      '全心为你',
+      '终极连击'
+    ])
+    expect(parseOcrCardNames('')).toEqual([])
+  })
+
+  it('measures string similarity for fuzzy matching', () => {
+    expect(stringSimilarity('物理转魔法', '物理转魔法')).toBe(1)
+    expect(stringSimilarity('全心为你', '全心为尔')).toBeGreaterThan(0.5)
+    expect(stringSimilarity('', 'something')).toBe(0)
+  })
+
+  it('matches cards from the augment catalog by exact name, substring, or fuzzy similarity', async () => {
+    const catalog = await readCatalogFile(catalogPath)
+    const exactZh = matchCardFromCatalog('物理转魔法', catalog)
+    expect(exactZh?.id).toBe('adapt')
+
+    const exactEn = matchCardFromCatalog('ADAPt', catalog)
+    expect(exactEn?.id).toBe('adapt')
+
+    const substring = matchCardFromCatalog('全心为你(黄金)', catalog)
+    expect(substring?.id).toBe('all-for-you')
+
+    const unknown = matchCardFromCatalog('绝对不存在的神秘符文名字', catalog)
+    expect(unknown).toBeNull()
+  })
+
+  it('formats structured advice with recommended pick, candidate stats, and item builds', () => {
+    const advice = {
+      recommendedCardId: 'adapt',
+      candidates: [
+        {
+          cardId: 'adapt',
+          name: { zh: '物理转魔法', en: 'ADAPt' },
+          tier: { zh: '白银阶', en: 'Silver' },
+          tierName: 'S',
+          rarity: 'silver' as const,
+          effect: { zh: '攻击力转法强', en: 'AD to AP' },
+          performanceScore: 54.2,
+          rank: 1,
+          popularity: 0.125,
+          games: 1000,
+          isRecommended: true
+        },
+        {
+          cardId: 'all-for-you',
+          name: { zh: '全心为你', en: 'All For You' },
+          tier: { zh: '黄金阶', en: 'Gold' },
+          tierName: 'A',
+          rarity: 'gold' as const,
+          effect: { zh: '护盾提升', en: 'Shield boost' },
+          performanceScore: 48.0,
+          rank: 2,
+          popularity: 0.082,
+          games: 800,
+          isRecommended: false
+        }
+      ],
+      build: {
+        starterItems: [{ id: 1056, name: '多兰之戒' }],
+        starterWinRate: 0.534,
+        coreItems: [
+          { id: 3003, name: '大天使之杖' },
+          { id: 3089, name: '灭世者的死亡之帽' },
+          { id: 3157, name: '中娅沙漏' }
+        ],
+        coreWinRate: 0.582,
+        lastItems: [{ id: 3135, name: '虚空之杖' }]
+      }
+    }
+
+    const zhText = formatStructuredAdvice(advice, 'zh', '安妮')
+    expect(zhText).toContain('🎯 【推荐选择】')
+    expect(zhText).toContain('★ 物理转魔法')
+    expect(zhText).toContain('📊 【候选卡牌 OP.GG 数据对比】')
+    expect(zhText).toContain('🛡️ 【OP.GG 嚎哭深渊推荐出装】')
+    expect(zhText).toContain('出门装')
+    expect(zhText).toContain('核心三件套')
+
+    const enText = formatStructuredAdvice(advice, 'en', 'Annie')
+    expect(enText).toContain('🎯 [Recommended Pick]')
+    expect(enText).toContain('★ ADAPt')
+    expect(enText).toContain('📊 [Candidate Augments OP.GG Stats]')
+    expect(enText).toContain('🛡️ [OP.GG ARAM Recommended Build]')
+  })
+
+  it('performs OCR analysis and populates structured advice', async () => {
+    const requests: CapturedProviderRequest[] = []
+    const fetch = vi.fn(async (url: string, init?: RequestInit) => {
+      if (url.includes('api/global/champions/aram/1/none')) {
+        return new Response(
+          JSON.stringify({
+            data: {
+              starter_items: [{ ids: [1056], win: 55, play: 100 }],
+              core_items: [{ ids: [3003, 3089, 3157], win: 60, play: 100 }],
+              last_items: [{ ids: [3135], win: 58, play: 100 }]
+            }
+          }),
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+      const headers: Record<string, string> = {}
+      new Headers(init?.headers).forEach((value, key) => (headers[key] = value))
+      requests.push({
+        url,
+        body: JSON.parse(String(init?.body)) as Record<string, any>,
+        headers
+      })
+      // OCR returns JSON array with 2 card names from the catalog
+      return jsonResponse('["物理转魔法", "全心为你"]')
+    })
+
+    const screenshot = createScreenshotPort()
+    const championData = {
+      loadDetails: vi.fn(async (query: { mode: string }) => {
+        if (query.mode === 'aram') {
+          return {
+            status: 'success',
+            effectiveSource: 'opgg',
+            data: {
+              metadata: { source: 'opgg', mode: 'aram' },
+              championId: 1,
+              sections: {
+                itemBuilds: [
+                  {
+                    slot: 'starting',
+                    options: [{ itemIds: [1056], performance: { winRate: 0.534 } }]
+                  },
+                  {
+                    slot: 'core',
+                    options: [{ itemIds: [3003, 3089, 3157], performance: { winRate: 0.582 } }]
+                  },
+                  {
+                    slot: 'last',
+                    options: [{ itemIds: [3135], performance: { winRate: 0.54 } }]
+                  }
+                ]
+              }
+            }
+          }
+        }
+        return {
+          status: 'success',
+          effectiveSource: 'opgg',
+          data: {
+            metadata: { source: 'opgg', mode: 'aram_mayhem' },
+            championId: 1,
+            sections: {
+              augments: [
+                {
+                  augmentId: 101,
+                  performanceScore: 55.5,
+                  popularity: 0.15,
+                  rank: 1,
+                  tier: 0,
+                  performance: { games: 1200 }
+                }
+              ]
+            }
+          }
+        }
+      })
+    }
+    const league = createReadyLeague()
+    league.data.gameData.augments = {
+      101: { id: 101, nameTRA: '物理转魔法' }
+    }
+    league.data.gameData.items = {
+      1056: { id: 1056, name: '多兰之戒' },
+      3003: { id: 3003, name: '大天使之杖' },
+      3089: { id: 3089, name: '灭世者的死亡之帽' },
+      3157: { id: 3157, name: '中娅沙漏' },
+      3135: { id: 3135, name: '虚空之杖' }
+    }
+
+    const { controller, settings } = await createController({
+      screenshot,
+      fetch,
+      championData,
+      league
+    })
+    configureOpenAi(settings, 'http://127.0.0.1:1/v1')
+
+    const result = await controller.analyze({
+      kind: 'augment-advice',
+      mode: 'aram_mayhem',
+      championId: 1,
+      screenshotToken: 'preview-one'
+    })
+
+    expect(result.structuredAdvice).toBeDefined()
+    expect(result.structuredAdvice?.candidates.length).toBe(2)
+    // First candidate should be 'adapt' (highest score: 55.5 vs null)
+    expect(result.structuredAdvice?.candidates[0].cardId).toBe('adapt')
+    expect(result.structuredAdvice?.candidates[0].isRecommended).toBe(true)
+    expect(result.structuredAdvice?.build?.starterItems[0].name).toBe('多兰之戒')
+    expect(result.structuredAdvice?.build?.coreItems.length).toBe(3)
+    expect(result.output).toContain('🎯 [Recommended Pick]')
+    expect(result.output).toContain('★ ADAPt')
+    expect(result.output).toContain('🛡️ [OP.GG ARAM Recommended Build]')
   })
 })
 

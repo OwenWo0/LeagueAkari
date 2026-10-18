@@ -158,19 +158,252 @@
           </NAlert>
 
           <template v-if="state.latestResult">
-            <div class="flex flex-wrap items-center gap-2">
-              <NTag
-                :type="state.latestResult.kind === 'augment-advice' ? 'success' : 'info'"
-                size="small"
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <NTag
+                  :type="state.latestResult.kind === 'augment-advice' ? 'success' : 'info'"
+                  size="small"
+                >
+                  {{ resultKindLabel(state.latestResult.kind) }}
+                </NTag>
+                <NTag size="small">{{ modeLabel(state.latestResult.mode) }}</NTag>
+                <NTag v-if="state.latestResult.championName" size="small">
+                  {{ state.latestResult.championName }}
+                </NTag>
+              </div>
+              <NButton
+                v-if="state.latestResult.structuredAdvice"
+                size="tiny"
+                quaternary
+                @click="showRawText = !showRawText"
               >
-                {{ resultKindLabel(state.latestResult.kind) }}
-              </NTag>
-              <NTag size="small">{{ modeLabel(state.latestResult.mode) }}</NTag>
-              <NTag v-if="state.latestResult.championName" size="small">
-                {{ state.latestResult.championName }}
-              </NTag>
+                {{
+                  showRawText
+                    ? t('aramAssistant.analysis.hideRawText')
+                    : t('aramAssistant.analysis.viewRawText')
+                }}
+              </NButton>
             </div>
+
             <div
+              v-if="state.latestResult.structuredAdvice && !showRawText"
+              class="flex-1 space-y-3 overflow-auto pr-1"
+            >
+              <!-- 1. Recommended Pick -->
+              <section
+                v-if="recommendedCandidate"
+                class="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-3.5 dark:border-emerald-400/30 dark:bg-emerald-400/5"
+              >
+                <div class="flex flex-wrap items-start justify-between gap-2">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-base font-bold text-emerald-600 dark:text-emerald-400">
+                      🎯 {{ t('aramAssistant.analysis.recommendedPick') }}
+                    </span>
+                    <NTag
+                      v-if="recommendedCandidate.tierName"
+                      size="small"
+                      type="success"
+                      :bordered="false"
+                    >
+                      {{ recommendedCandidate.tierName }} {{ t('aramAssistant.analysis.tier') }}
+                    </NTag>
+                    <NTag size="small" :bordered="false">
+                      {{ t(`aramAssistant.catalog.${recommendedCandidate.rarity}`) }}
+                    </NTag>
+                  </div>
+                  <NButton
+                    size="tiny"
+                    :type="isConfirmed(recommendedCandidate.cardId) ? 'success' : 'primary'"
+                    :disabled="isConfirmed(recommendedCandidate.cardId)"
+                    @click="confirmAugment(recommendedCandidate.cardId)"
+                  >
+                    {{
+                      isConfirmed(recommendedCandidate.cardId)
+                        ? t('aramAssistant.analysis.selected')
+                        : t('aramAssistant.analysis.confirmSelected')
+                    }}
+                  </NButton>
+                </div>
+
+                <div class="mt-2 text-base font-semibold">
+                  {{ localized(recommendedCandidate.name) }}
+                </div>
+                <div
+                  class="mt-1 flex flex-wrap items-center gap-3 text-xs text-black/65 dark:text-white/65"
+                >
+                  <span v-if="recommendedCandidate.performanceScore !== null">
+                    {{ t('aramAssistant.analysis.score') }}:
+                    <strong class="font-medium text-black/85 dark:text-white/85">
+                      {{ recommendedCandidate.performanceScore }}
+                    </strong>
+                  </span>
+                  <span v-if="recommendedCandidate.popularity !== null">
+                    {{ t('aramAssistant.analysis.pickRate') }}:
+                    <strong class="font-medium text-black/85 dark:text-white/85">
+                      {{
+                        (
+                          recommendedCandidate.popularity *
+                          (recommendedCandidate.popularity <= 1 ? 100 : 1)
+                        ).toFixed(1)
+                      }}%
+                    </strong>
+                  </span>
+                </div>
+                <p
+                  class="mt-2 text-sm leading-relaxed whitespace-pre-wrap text-black/80 dark:text-white/80"
+                >
+                  {{ localized(recommendedCandidate.effect) }}
+                </p>
+              </section>
+
+              <!-- 2. Candidate Augments Comparison -->
+              <section
+                v-if="candidateList.length > 0"
+                class="rounded-lg border border-black/10 bg-black/[0.02] p-3 dark:border-white/10 dark:bg-white/[0.02]"
+              >
+                <div
+                  class="mb-2 text-xs font-semibold tracking-wider text-black/60 uppercase dark:text-white/60"
+                >
+                  📊 {{ t('aramAssistant.analysis.candidateComparison') }}
+                </div>
+                <div class="space-y-2">
+                  <div
+                    v-for="candidate in candidateList"
+                    :key="candidate.cardId"
+                    class="flex flex-wrap items-center justify-between gap-2 rounded-md border border-black/5 bg-white/70 p-2.5 text-sm dark:border-white/5 dark:bg-black/30"
+                    :class="{
+                      'ring-1 ring-emerald-500/40 dark:ring-emerald-400/40': candidate.isRecommended
+                    }"
+                  >
+                    <div class="flex min-w-0 flex-1 items-center gap-2">
+                      <span class="font-medium">{{ localized(candidate.name) }}</span>
+                      <NTag v-if="candidate.tierName" size="tiny" :bordered="false">
+                        {{ candidate.tierName }} {{ t('aramAssistant.analysis.tier') }}
+                      </NTag>
+                      <NTag
+                        v-if="candidate.isRecommended"
+                        size="tiny"
+                        type="success"
+                        :bordered="false"
+                      >
+                        ⭐ {{ t('aramAssistant.analysis.topPick') }}
+                      </NTag>
+                    </div>
+                    <div class="flex items-center gap-3 text-xs opacity-75">
+                      <span>
+                        {{
+                          candidate.performanceScore !== null
+                            ? `${t('aramAssistant.analysis.score')}: ${candidate.performanceScore}`
+                            : t('aramAssistant.analysis.noScore')
+                        }}
+                      </span>
+                      <span v-if="candidate.popularity !== null">
+                        {{ t('aramAssistant.analysis.pickRate') }}:
+                        {{
+                          (candidate.popularity * (candidate.popularity <= 1 ? 100 : 1)).toFixed(1)
+                        }}%
+                      </span>
+                      <NButton
+                        size="tiny"
+                        quaternary
+                        :disabled="isConfirmed(candidate.cardId)"
+                        @click="confirmAugment(candidate.cardId)"
+                      >
+                        {{
+                          isConfirmed(candidate.cardId)
+                            ? t('aramAssistant.analysis.selected')
+                            : t('aramAssistant.analysis.confirmSelected')
+                        }}
+                      </NButton>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 3. OP.GG ARAM Build Recommendation -->
+              <section
+                v-if="itemBuild"
+                class="rounded-lg border border-black/10 bg-black/[0.02] p-3 dark:border-white/10 dark:bg-white/[0.02]"
+              >
+                <div
+                  class="mb-2 text-xs font-semibold tracking-wider text-black/60 uppercase dark:text-white/60"
+                >
+                  🛡️ {{ t('aramAssistant.analysis.recommendedBuild') }}
+                </div>
+
+                <!-- Starting Items -->
+                <div v-if="itemBuild.starterItems.length > 0" class="mb-3">
+                  <div class="mb-1 flex items-center gap-2 text-xs opacity-75">
+                    <span>{{ t('aramAssistant.analysis.starterItems') }}</span>
+                    <span
+                      v-if="itemBuild.starterWinRate !== null"
+                      class="text-emerald-600 dark:text-emerald-400"
+                    >
+                      ({{ t('aramAssistant.analysis.winRate') }}:
+                      {{ (itemBuild.starterWinRate * 100).toFixed(1) }}%)
+                    </span>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <div
+                      v-for="item in itemBuild.starterItems"
+                      :key="`starter-${item.id}`"
+                      class="flex items-center gap-1.5 rounded bg-black/5 px-2 py-1 dark:bg-white/5"
+                    >
+                      <ItemDisplay :item-id="item.id" :size="28" />
+                      <span class="text-xs">{{ item.name }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Core Items -->
+                <div v-if="itemBuild.coreItems.length > 0" class="mb-3">
+                  <div class="mb-1 flex items-center gap-2 text-xs opacity-75">
+                    <span>{{ t('aramAssistant.analysis.coreItems') }}</span>
+                    <span
+                      v-if="itemBuild.coreWinRate !== null"
+                      class="text-emerald-600 dark:text-emerald-400"
+                    >
+                      ({{ t('aramAssistant.analysis.winRate') }}:
+                      {{ (itemBuild.coreWinRate * 100).toFixed(1) }}%)
+                    </span>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <template v-for="(item, idx) in itemBuild.coreItems" :key="`core-${item.id}`">
+                      <div
+                        class="flex items-center gap-1.5 rounded bg-black/5 px-2 py-1 dark:bg-white/5"
+                      >
+                        <ItemDisplay :item-id="item.id" :size="28" />
+                        <span class="text-xs">{{ item.name }}</span>
+                      </div>
+                      <span v-if="idx < itemBuild.coreItems.length - 1" class="text-xs opacity-40">
+                        →
+                      </span>
+                    </template>
+                  </div>
+                </div>
+
+                <!-- Situational Items -->
+                <div v-if="itemBuild.lastItems.length > 0">
+                  <div class="mb-1 text-xs opacity-75">
+                    {{ t('aramAssistant.analysis.situationalItems') }}
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <div
+                      v-for="item in itemBuild.lastItems"
+                      :key="`last-${item.id}`"
+                      class="flex items-center gap-1.5 rounded bg-black/5 px-2 py-1 dark:bg-white/5"
+                    >
+                      <ItemDisplay :item-id="item.id" :size="24" />
+                      <span class="text-xs">{{ item.name }}</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <!-- Fallback to plain text output or when showRawText is true -->
+            <div
+              v-else
               class="flex-1 overflow-auto rounded-lg border border-black/10 bg-black/[0.03] p-4 text-[15px] leading-relaxed break-words whitespace-pre-wrap dark:border-white/10 dark:bg-white/[0.04]"
             >
               {{ state.latestResult.output }}
@@ -539,6 +772,7 @@
 
 <script setup lang="ts">
 import { useInstance } from '@renderer-shared/shards'
+import ItemDisplay from '@renderer-shared/components/widgets/ItemDisplay.vue'
 import { useAramAssistantStore } from '@main-window/shards/aram-assistant/store'
 import { AramAssistantRenderer } from '@main-window/shards/aram-assistant'
 import type {
@@ -605,8 +839,16 @@ const statsSource = ref<ChampionDataSourceId>(settings.statsSource)
 const probeRunning = ref(false)
 const probeResults = ref<AramVisionProbeImageResult[] | null>(null)
 const showProviderSettings = ref(false)
+const showRawText = ref(false)
 let searchTimer: ReturnType<typeof setTimeout> | undefined
 let searchGeneration = 0
+
+const structuredAdvice = computed(() => state.latestResult?.structuredAdvice ?? null)
+const candidateList = computed(() => structuredAdvice.value?.candidates ?? [])
+const recommendedCandidate = computed(
+  () => candidateList.value.find((c) => c.isRecommended) ?? candidateList.value[0] ?? null
+)
+const itemBuild = computed(() => structuredAdvice.value?.build ?? null)
 
 const providerOptions = computed(() => [
   { label: t('aramAssistant.provider.gemini'), value: 'gemini' },

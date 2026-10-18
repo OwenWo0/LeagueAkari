@@ -136,6 +136,20 @@ aramAssistant:
     noPreview: 选择显示器截图或图片文件后，可在此预览。
     selectThree: 选择三张不同且已核验的本地卡牌。文本请求只会发送这些卡牌。
     confirmed: 已记录为本局已选增益。
+    recommendedPick: 推荐选择
+    score: 评分
+    pickRate: 登场率
+    tier: 级
+    candidateComparison: 候选卡牌 OP.GG 数据对比
+    topPick: 最优推荐
+    noScore: 暂无评分
+    recommendedBuild: OP.GG 嚎哭深渊推荐出装
+    starterItems: 出门装
+    coreItems: 核心三件套
+    situationalItems: 备选后期装备
+    winRate: 胜率
+    viewRawText: 查看原始文本
+    hideRawText: 收起原始文本
   error:
     title: 助手请求失败
     CREDENTIAL_STORAGE_FAILED: 凭据无法安全保存或清除。
