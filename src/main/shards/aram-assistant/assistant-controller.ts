@@ -919,61 +919,77 @@ export class AramAssistantController {
     const catalog = this._requireCatalog()
     const locale = i18next.language.startsWith('zh') ? 'zh' : 'en'
     const localized = (text: { zh: string; en: string }) => text[locale]
-    const contextText = options.context
+    const championLine = options.championName
+      ? `Champion: ${options.championName}`
+      : 'Champion: unknown (still give general Mayhem advice).'
+    const lineupLines = options.context
       ? [
-          `Mode: ${options.context.mode}`,
           options.context.phase ? `Phase: ${options.context.phase}` : null,
-          options.championName ? `Selected champion: ${options.championName}` : null,
           options.context.allies.length
             ? `Allies: ${options.context.allies
                 .map((c) => c.name)
                 .filter(Boolean)
                 .join(', ')}`
-            : null,
+            : 'Allies: none shared',
           options.context.enemies.length
             ? `Visible enemies: ${options.context.enemies
                 .map((c) => c.name)
                 .filter(Boolean)
                 .join(', ')}`
-            : null
-        ]
-          .filter(Boolean)
-          .join('\n')
-      : options.championName
-        ? `Selected champion: ${options.championName}`
-        : 'No live match context was shared.'
+            : 'Visible enemies: none shared'
+        ].filter(Boolean)
+      : ['Lineup: no live match context was shared.']
     const cardText = options.cards
       .map(
         (card, index) =>
-          `${index + 1}. ${localized(card.name)} (${card.rarity}, ${card.kind}, ${card.scope}; text ${card.textStatus}; patch status ${card.currentPatchChange})\nEffect: ${localized(card.effect)}`
+          `${index + 1}. ${localized(card.name)} (${card.rarity}, ${card.kind}; text ${card.textStatus})\nEffect: ${localized(card.effect)}`
       )
       .join('\n\n')
     const confirmedText = options.confirmedCards
-      .map(
-        (card) =>
-          `- ${localized(card.name)} (${card.rarity}, ${card.kind}; ${card.textStatus} text)\nEffect: ${localized(card.effect)}`
-      )
-      .join('\n\n')
+      .map((card) => `- ${localized(card.name)}: ${localized(card.effect)}`)
+      .join('\n')
     const mayhemStats = this._formatMayhemStats(options.stats)
-    const sourceNote = `Offline card dataset: ${catalog.sourceName}; source patch ${catalog.sourcePatch} (not verified against the live game patch); ${catalog.cardCount} records include dynamic and special entries and are not all selectable. Source: ${catalog.sourcePageUrl}. Dataset SHA-256: ${catalog.rawSha256}.`
-    const purpose =
+    const catalogRecall = [
+      'Offline catalog recall:',
+      `- Source: ${catalog.sourceName}; source patch ${catalog.sourcePatch} (not verified against the live game patch).`,
+      '- When a visible or listed card name uniquely matches the offline catalog, prefer the catalog effect text over OCR guesses.',
+      '- If the name is unclear or ambiguous, say so; do not invent card text or dump the catalog.',
+      `- Catalog page: ${catalog.sourcePageUrl}`
+    ].join('\n')
+    const pickInput = options.input.screenshotToken
+      ? 'Pick input: one screenshot is attached. Identify only the three currently offered cards that are clearly legible.'
+      : cardText
+        ? `Pick input: exactly these three local cards:\n${cardText}`
+        : 'Pick input: no screenshot and no local cards were supplied.'
+    const task =
       options.input.kind === 'lineup-guide'
-        ? 'Give a concise ARAM lineup guide for champion role, team needs, and practical play priorities. Do not invent match results or augment synergy data.'
-        : options.input.screenshotToken
-          ? 'Identify only the augment names and effects that are visibly legible in the supplied screenshot, then compare those options for this champion and team. If any card text is unclear, say so and ask the player to retake the screenshot or choose three local cards; do not guess missing text.'
-          : 'Compare the effects of exactly the three supplied local cards for the selected champion and team context. Clearly state uncertainty and do not invent card text or synergies.'
+        ? [
+            'Task: short lineup plan for this champion.',
+            'Output ONLY these sections, in the UI language, plain text:',
+            '1) 定位 — one short line on role / job this game',
+            '2) 出装 — core items and optional situational buys',
+            '3) 打法 — 3-5 short bullets on how to play with this team',
+            'Do not add other sections. Keep the whole answer brief.'
+          ].join('\n')
+        : [
+            'Task: choose one offered card, then give build and play tips.',
+            'Output ONLY these sections, in the UI language, plain text:',
+            '1) 推荐 — one card name + one short reason',
+            '2) 出装 — core items and optional situational buys for that pick',
+            '3) 打法 — 3-5 short bullets for this champion with the pick',
+            'Do not write long OCR transcripts, full card encyclopedias, or extra essays. Prefer the recommended card that fits this champion role, OP.GG/QQ101 stats when mapped, and the current lineup.'
+          ].join('\n')
     return [
-      'You are a League of Legends ARAM Mayhem assistant. Return plain text only, in the user interface language. Keep advice practical and label evidence versus inference.',
-      purpose,
+      'You are a League of Legends ARAM Mayhem assistant.',
       `Mode: ${options.mode}`,
-      `Match context (only the fields below were shared):\n${contextText}`,
-      cardText ? `Selected local cards:\n${cardText}` : '',
+      `## Champion & role evidence\n${championLine}\n${mayhemStats}`,
+      `## Lineup\n${lineupLines.join('\n')}`,
       confirmedText
-        ? `Augments the player explicitly confirmed as already selected this match:\n${confirmedText}`
+        ? `## Already confirmed this match\nAugments the player explicitly confirmed as already selected this match:\n${confirmedText}`
         : '',
-      mayhemStats,
-      sourceNote,
-      'Never claim that the catalog patch was verified against a live game. Do not invent synergies. Do not call performanceScore, rank, or popularity a win rate. Do not infer game-wide champion win rates from augment data.'
+      `## Screenshot / cards & catalog\n${pickInput}\n\n${catalogRecall}`,
+      `## Output contract\n${task}`,
+      'Rules: never invent synergies; never call performanceScore, rank, or popularity a win rate; never claim the catalog patch was verified against the live game.'
     ]
       .filter(Boolean)
       .join('\n\n')
@@ -981,14 +997,14 @@ export class AramAssistantController {
 
   private _formatMayhemStats(details: ChampionDataDetails | null): string {
     if (!details || details.metadata.mode !== 'aram_mayhem')
-      return 'No compatible Mayhem champion statistics were available; continue without them.'
+      return 'Mayhem stats: none available for this champion; continue with role judgment only.'
     const lcuAugments = this._context.leagueClient.data.gameData.augments
     const mapped = mapAugmentStats(details, lcuAugments, this._requireCatalog())
     if (!mapped.length)
-      return 'No uniquely name-mapped Mayhem augment statistics were available; continue without them.'
+      return 'Mayhem stats: no uniquely name-mapped augment rows; continue with role judgment only.'
     const sourceLabel = details.metadata.source === 'opgg' ? 'OP.GG' : 'QQ101'
-    const attribution = `${sourceLabel} ChampionData, mode ${details.metadata.mode}, patch ${details.metadata.patch ?? 'unspecified'}, data date ${details.metadata.dataDate ?? 'unspecified'}. This source data is shown as attributed augment performance and rank only.`
-    return `Attributed Mayhem augment data:\n${attribution}\n${mapped
+    const attribution = `${sourceLabel} ChampionData, mode ${details.metadata.mode}, patch ${details.metadata.patch ?? 'unspecified'}, data date ${details.metadata.dataDate ?? 'unspecified'}. Use as attributed augment performance / rank / popularity only (not win rate).`
+    return `Mayhem stats for this champion (${attribution}):\n${mapped
       .map((row) => {
         const measures = [
           row.performanceScore !== null ? `performance score ${row.performanceScore}` : null,

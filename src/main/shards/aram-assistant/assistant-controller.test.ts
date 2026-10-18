@@ -1,5 +1,6 @@
 import { action, observable, reaction, runInAction } from 'mobx'
 import fs from 'node:fs/promises'
+import { createRequire } from 'node:module'
 import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -35,6 +36,12 @@ vi.mock('electron', () => ({
 vi.mock('@main/i18n', () => ({ i18next: { language: 'en' } }))
 
 const catalogPath = path.resolve('resources/aram-assistant/augment-catalog.json')
+const scenarioResponses = createRequire(import.meta.url)(
+  path.resolve('postman/mocks/aram-assistant/providers/scenario-responses.js')
+) as {
+  detectScenario: (text: string) => string
+  responseForScenario: (scenario: string) => string
+}
 const tempFolders: string[] = []
 
 afterEach(async () => {
@@ -65,7 +72,53 @@ describe('AramAssistantController flows', () => {
     const content = requests[0].body.messages[0].content
     expect(content[1]).toMatchObject({ type: 'image_url' })
     expect(content[1].image_url.url).toMatch(/^data:image\/jpeg;base64,/)
-    expect(content[0].text).not.toContain('Selected local cards:')
+    expect(content[0].text).toContain('Pick input: one screenshot is attached.')
+    expect(content[0].text).toContain('1) 推荐')
+    expect(content[0].text).toContain('2) 出装')
+    expect(content[0].text).toContain('3) 打法')
+    expect(content[0].text).not.toContain('exactly these three local cards')
+    expect(requests[0].body.max_tokens).toBeUndefined()
+    expect(requests[0].body.reasoning_effort).toBe('low')
+  })
+
+  it('routes the live prompt contract to the matching mock scenario', async () => {
+    const requests: CapturedProviderRequest[] = []
+    const fetch = createProviderFetch(requests)
+    const { controller, settings } = await createController({ fetch })
+    configureOpenAi(settings, 'http://127.0.0.1:1/v1')
+    const cards = recommendationCandidates(controller.getCatalog()).slice(0, 3)
+
+    await controller.analyze({ kind: 'lineup-guide', mode: 'aram_mayhem', championId: 1 })
+    await controller.analyze({
+      kind: 'augment-advice',
+      mode: 'aram',
+      cardIds: cards.map((entry) => entry.id)
+    })
+    await controller.probeVisionProvider()
+
+    const prompts = requests.map((request) => request.body.messages[0].content[0].text as string)
+    expect(requests).toHaveLength(4)
+
+    // The lineup prompt also contains "Pick input: no screenshot ..."; it must not route to augment.
+    expect(prompts[0]).toContain('## Output contract')
+    expect(prompts[0]).toContain('Task: short lineup plan for this champion.')
+    expect(prompts[0]).toContain('1) 定位')
+    expect(prompts[0]).not.toContain('1) 推荐')
+    expect(scenarioResponses.detectScenario(prompts[0])).toBe('opening-match')
+
+    expect(prompts[1]).toContain('Pick input: exactly these three local cards:')
+    expect(prompts[1]).toContain('1) 推荐')
+    expect(prompts[1]).not.toContain('Identify only the augment names')
+    expect(scenarioResponses.detectScenario(prompts[1])).toBe('augment-pick')
+
+    expect(scenarioResponses.detectScenario(prompts[2])).toBe('probe')
+
+    expect(scenarioResponses.responseForScenario('opening-match')).toMatch(
+      /1\) 定位[\s\S]*2\) 出装[\s\S]*3\) 打法/
+    )
+    expect(scenarioResponses.responseForScenario('augment-pick')).toMatch(
+      /1\) 推荐[\s\S]*2\) 出装[\s\S]*3\) 打法/
+    )
   })
 
   it('rejects an invalid provider URL before persisting settings', async () => {

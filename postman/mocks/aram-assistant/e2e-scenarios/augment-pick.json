@@ -10,6 +10,16 @@
     "fixtureImageHint": "~/Desktop/akari-aram-real-shots/00-wiki-official-augment-selection.png（可选；mock 不依赖真实识图）",
     "notes": "自动截屏分析开场三卡；也可走备用手动预览后发送。本 mock 按 prompt 关键字返回固定识图结果。"
   },
+  "promptDetection": {
+    "preferred": "x-akari-e2e-scenario: augment-pick",
+    "promptKeywords": [
+      "## Output contract",
+      "1) 推荐",
+      "Task: choose one offered card",
+      "Pick input: one screenshot is attached.",
+      "Pick input: exactly these three local cards:"
+    ]
+  },
   "visibleCards": [
     {
       "id": "symphonyof-war",
@@ -51,7 +61,7 @@
     "kind": "augment-advice",
     "mode": "aram_mayhem",
     "championName": "Veigar",
-    "outputIncludes": ["[e2e:augment-pick]", "秘术冲拳", "战争交响乐", "王中王，靴中靴", "推荐"]
+    "outputIncludes": ["[e2e:augment-pick]", "1) 推荐", "2) 出装", "3) 打法", "秘术冲拳"]
   },
-  "mockOutputZh": "[e2e:augment-pick]\n海克斯大乱斗 · 开场三选一（模拟识图）\n\n识别到的三张卡（仅基于可见文本，不猜测）：\n1. 战争交响乐（棱彩）— 获得致命节奏与征服者基石符文。\n2. 秘术冲拳（棱彩）— 普攻命中时缩短基础技能剩余冷却。\n3. 王中王，靴中靴（棱彩 / 任务）— 立即获得随机进阶鞋子，完成任务可再换一双。\n\n推荐：秘术冲拳\n理由：开场即可提升技能周转，对多数英雄都有稳定收益；「战争交响乐」更吃攻击节奏，「王中王，靴中靴」前期收益偏移动与任务进度。\n\n不确定项：若实际截图文字模糊，请重拍或改用本地三卡文本分析。本回复为 e2e 固定 mock。\n"
+  "mockOutputZh": "[e2e:augment-pick]\n1) 推荐\n秘术冲拳 — 普攻命中缩短基础技能冷却，开场就能把技能周转拉起来。\n\n2) 出装\n核心：卢登的伙伴 → 灭世者的死亡之帽；可选：中娅沙漏、影焰。\n\n3) 打法\n- 开局用技能清线，保持与队友同侧，别单独压过河道。\n- 团战站后排，等前排开团后再交控制与爆发。\n- 秘术冲拳靠高频普攻触发，技能间隙记得穿插平 A。\n"
 }

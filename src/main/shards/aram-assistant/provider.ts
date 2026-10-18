@@ -2,8 +2,14 @@ import type { ProviderProtocol } from '@shared/types/aram-assistant'
 
 export const PROVIDER_MAX_IMAGE_BYTES = 4 * 1024 * 1024
 export const PROVIDER_MAX_RESPONSE_BYTES = 2 * 1024 * 1024
-export const PROVIDER_MAX_OUTPUT_TOKENS = 4096
+/** Optional override only. Default requests omit max_tokens so the provider uses its own limit. */
+export const PROVIDER_MAX_OUTPUT_TOKENS = 32_768
 export const PROVIDER_MAX_TEXT_CHARS = 20_000
+
+export type ThinkingEffort = 'off' | 'low' | 'medium' | 'high'
+
+/** Default vision reasoning effort: keep advice fast; prompt already asks for short 推荐/出装/打法. */
+export const PROVIDER_DEFAULT_THINKING_EFFORT: ThinkingEffort = 'low'
 
 export type { ProviderProtocol } from '@shared/types/aram-assistant'
 export type ProviderCode =
@@ -49,6 +55,8 @@ export interface ProviderImage {
 export interface ProviderRequestOptions {
   temperature?: number
   maxOutputTokens?: number
+  /** Provider thinking / reasoning effort. Defaults to `low`. */
+  thinkingEffort?: ThinkingEffort
 }
 
 export type ProviderFetch = (input: string, init: RequestInit) => Promise<Response>
@@ -281,9 +289,11 @@ function buildRequest(
   options: ProviderRequestOptions = {}
 ): RequestBuild {
   const temperature = clamp(Number.isFinite(options.temperature) ? options.temperature! : 0.3, 0, 1)
-  const maxOutputTokens = Math.round(
-    clamp(options.maxOutputTokens ?? PROVIDER_MAX_OUTPUT_TOKENS, 1, PROVIDER_MAX_OUTPUT_TOKENS)
-  )
+  const maxOutputTokens =
+    options.maxOutputTokens === undefined
+      ? undefined
+      : Math.round(clamp(options.maxOutputTokens, 1, PROVIDER_MAX_OUTPUT_TOKENS))
+  const thinkingEffort = normalizeThinkingEffort(options.thinkingEffort)
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }
   if (protocol === 'gemini') {
     headers['x-goog-api-key'] = apiKey
@@ -296,12 +306,20 @@ function buildRequest(
         }
       })
     }
+    const generationConfig: Record<string, unknown> = {
+      temperature,
+      thinkingConfig: {
+        includeThoughts: false,
+        thinkingBudget: thinkingBudgetForEffort(thinkingEffort)
+      }
+    }
+    if (maxOutputTokens !== undefined) generationConfig.maxOutputTokens = maxOutputTokens
     return {
       url: `${baseUrl}/models/${encodeURIComponent(model)}:generateContent`,
       headers,
       body: JSON.stringify({
         contents: [{ role: 'user', parts }],
-        generationConfig: { temperature, maxOutputTokens }
+        generationConfig
       })
     }
   }
@@ -315,15 +333,37 @@ function buildRequest(
       }
     })
   }
+  const body: Record<string, unknown> = {
+    model,
+    messages: [{ role: 'user', content }],
+    temperature
+  }
+  if (maxOutputTokens !== undefined) body.max_tokens = maxOutputTokens
+  // OpenAI-compat / DeepSeek-style reasoning models. Gateways that reject the
+  // field should leave thinkingEffort at `off` via an explicit override later.
+  if (thinkingEffort !== 'off') body.reasoning_effort = thinkingEffort
   return {
     url: `${baseUrl}/chat/completions`,
     headers,
-    body: JSON.stringify({
-      model,
-      messages: [{ role: 'user', content }],
-      temperature,
-      max_tokens: maxOutputTokens
-    })
+    body: JSON.stringify(body)
+  }
+}
+
+function normalizeThinkingEffort(value: ThinkingEffort | undefined): ThinkingEffort {
+  if (value === 'off' || value === 'low' || value === 'medium' || value === 'high') return value
+  return PROVIDER_DEFAULT_THINKING_EFFORT
+}
+
+function thinkingBudgetForEffort(effort: ThinkingEffort): number {
+  switch (effort) {
+    case 'off':
+      return 0
+    case 'low':
+      return 512
+    case 'medium':
+      return 2_048
+    case 'high':
+      return 8_192
   }
 }
 

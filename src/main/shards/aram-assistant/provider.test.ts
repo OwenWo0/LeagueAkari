@@ -53,6 +53,71 @@ describe('vision provider HTTP handling', () => {
     expect(cancelled).toBe(true)
     expect(fetchImpl).toHaveBeenCalledTimes(2)
     expect(fetchImpl.mock.calls[0][1]).toMatchObject({ redirect: 'error' })
+    const body = JSON.parse(String(fetchImpl.mock.calls[1][1]?.body))
+    expect(body.max_tokens).toBeUndefined()
+    expect(body.temperature).toBe(0.3)
+    expect(body.reasoning_effort).toBe('low')
+  })
+
+  it('omits max_tokens by default, sends low thinking, and honors explicit overrides', async () => {
+    const fetchImpl = vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({
+            choices: [{ message: { content: 'ok' }, finish_reason: 'stop' }]
+          }),
+          { headers: { 'Content-Type': 'application/json' } }
+        )
+    )
+    const provider = createVisionProvider({
+      protocol: 'openai',
+      baseUrl: 'https://api.openai.com/v1',
+      model: 'test-model',
+      fetchImpl
+    })
+    await provider.generate({ prompt: 'short', timeoutMs: 5_000 })
+    const defaultBody = JSON.parse(String(fetchImpl.mock.calls[0][1]?.body))
+    expect(defaultBody.max_tokens).toBeUndefined()
+    expect(defaultBody.reasoning_effort).toBe('low')
+
+    await provider.generate({
+      prompt: 'short',
+      timeoutMs: 5_000,
+      options: { maxOutputTokens: 1200, thinkingEffort: 'off' }
+    })
+    const overrideBody = JSON.parse(String(fetchImpl.mock.calls[1][1]?.body))
+    expect(overrideBody.max_tokens).toBe(1200)
+    expect(overrideBody.reasoning_effort).toBeUndefined()
+  })
+
+  it('sends a low Gemini thinking budget and hides thoughts by default', async () => {
+    const fetchImpl = vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({
+            candidates: [
+              {
+                finishReason: 'STOP',
+                content: { parts: [{ text: 'ok' }] }
+              }
+            ]
+          }),
+          { headers: { 'Content-Type': 'application/json' } }
+        )
+    )
+    const provider = createVisionProvider({
+      protocol: 'gemini',
+      baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
+      model: 'gemini-2.5-flash',
+      apiKey: 'local-test-key',
+      fetchImpl
+    })
+    await provider.generate({ prompt: 'short', timeoutMs: 5_000 })
+    const body = JSON.parse(String(fetchImpl.mock.calls[0][1]?.body))
+    expect(body.generationConfig.thinkingConfig).toEqual({
+      includeThoughts: false,
+      thinkingBudget: 512
+    })
   })
 
   it('cancels an authorization error body and does not retry', async () => {

@@ -1,15 +1,41 @@
 openapi: 3.0.3
 info:
   title: ARAM Vision Provider Fixture Contract
-  version: 1.0.0
-  description: Local-only response fixtures for the public Gemini generateContent and OpenAI chat completions request shapes.
+  version: 1.1.0
+  description: |
+    Local-only response fixtures for the public Gemini generateContent and OpenAI chat completions
+    request shapes.
+
+    Scenario routing: `x-akari-e2e-scenario` header (opening-match | augment-pick | probe) wins over
+    prompt detection. The current main-process prompt uses `## Output contract` plus
+    `1) 推荐` (augment) or `1) 定位` (lineup); fixture bodies follow those short sections and include
+    a stable `[e2e:…]` anchor. Requests normally omit `max_tokens`.
 servers:
   - url: http://127.0.0.1:4900/providers
 paths:
+  /health:
+    get:
+      operationId: health
+      summary: Mock health and supported scenarios
+      responses:
+        '200':
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  scenarios:
+                    type: array
+                    items: { type: string, enum: [opening-match, augment-pick, probe] }
   /openai/v1/chat/completions:
     post:
       operationId: openaiChatCompletion
       summary: OpenAI-compatible multimodal chat completion fixture
+      parameters:
+        - $ref: '#/components/parameters/E2eScenario'
+        - $ref: '#/components/parameters/E2eLocale'
       requestBody:
         required: true
         content:
@@ -52,30 +78,52 @@ paths:
                                             description: Base64 image data URI.
                                           }
                 temperature: { type: number }
-                max_tokens: { type: integer }
+                max_tokens:
+                  type: integer
+                  description: Optional; current League Akari requests omit it.
       security:
         - BearerAuth: []
       responses:
         '200':
           description: Generated text
+          headers:
+            x-akari-e2e-scenario:
+              description: Scenario actually used by the fixture.
+              schema: { type: string, enum: [opening-match, augment-pick, probe] }
           content:
             application/json:
               schema:
                 type: object
+                required: [id, object, model, choices]
                 properties:
+                  id: { type: string }
+                  object: { type: string, enum: [chat.completion] }
+                  model:
+                    type: string
+                    description: Echoes the request model, or `e2e-mock` when absent.
                   choices:
                     type: array
                     items:
                       type: object
+                      required: [index, finish_reason, message]
                       properties:
+                        index: { type: integer }
+                        finish_reason: { type: string, enum: [stop] }
                         message:
                           type: object
                           properties:
+                            role: { type: string, enum: [assistant] }
                             content: { type: string }
               example:
+                id: chatcmpl-e2e-mock
+                object: chat.completion
+                model: e2e-augment-pick
                 choices:
-                  - message:
-                      content: Fixture OpenAI-compatible recommendation.
+                  - index: 0
+                    finish_reason: stop
+                    message:
+                      role: assistant
+                      content: "[e2e:augment-pick]\n1) 推荐\n秘术冲拳 — 开场即可提升技能周转。\n\n2) 出装\n核心：卢登的伙伴；可选：中娅沙漏。\n\n3) 打法\n- 站后排，等前排开团。\n"
   /gemini/v1beta/models/{model}:generateContent:
     post:
       operationId: geminiGenerateContent
@@ -85,6 +133,8 @@ paths:
           in: path
           required: true
           schema: { type: string }
+        - $ref: '#/components/parameters/E2eScenario'
+        - $ref: '#/components/parameters/E2eLocale'
       requestBody:
         required: true
         content:
@@ -122,6 +172,10 @@ paths:
       responses:
         '200':
           description: Generated text
+          headers:
+            x-akari-e2e-scenario:
+              description: Scenario actually used by the fixture.
+              schema: { type: string, enum: [opening-match, augment-pick, probe] }
           content:
             application/json:
               schema:
@@ -146,8 +200,25 @@ paths:
                   - finishReason: STOP
                     content:
                       parts:
-                        - text: Fixture Gemini recommendation.
+                        - text: "[e2e:opening-match]\n1) 定位\n后排法术输出与先手控制。\n\n2) 出装\n核心：卢登的伙伴。\n\n3) 打法\n- 站后排，等前排开团。\n"
 components:
+  parameters:
+    E2eScenario:
+      name: x-akari-e2e-scenario
+      in: header
+      required: false
+      description: Force a fixture scenario; wins over prompt detection.
+      schema:
+        type: string
+        enum: [opening-match, augment-pick, probe]
+    E2eLocale:
+      name: x-akari-e2e-locale
+      in: header
+      required: false
+      description: Fixture language; defaults to zh.
+      schema:
+        type: string
+        enum: [zh, en]
   securitySchemes:
     BearerAuth:
       type: http

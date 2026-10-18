@@ -41,10 +41,11 @@ function resolveLocale(req) {
   return header === 'en' ? 'en' : 'zh'
 }
 
-function openaiEnvelope(text) {
+function openaiEnvelope(text, model) {
   return {
     id: 'chatcmpl-e2e-mock',
     object: 'chat.completion',
+    model: typeof model === 'string' && model ? model : 'e2e-mock',
     choices: [
       {
         index: 0,
@@ -90,7 +91,7 @@ const server = http.createServer(async (req, res) => {
         'Content-Type': 'application/json',
         'x-akari-e2e-scenario': scenario
       })
-      return res.end(JSON.stringify(openaiEnvelope(text)))
+      return res.end(JSON.stringify(openaiEnvelope(text, payload.model)))
     }
 
     // @endpoint POST /gemini/v1beta/models/{{model}}:generateContent
