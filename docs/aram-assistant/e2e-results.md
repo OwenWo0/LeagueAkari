@@ -1,7 +1,7 @@
 # ARAM 海克斯助手 · E2E 执行结果
 
 日期：2026-10-18（Asia/Singapore）  
-仓库：`/Users/owenwu/codebase/personal/LeagueAkari`，分支 `dev`  
+仓库：本仓库（LeagueAkari），分支 `dev`  
 设计依据：`docs/aram-assistant/e2e-design.md`  
 范围：本地 mock（`127.0.0.1:4900`）驱动，不调用真实付费模型、不依赖真实对局、不测 Windows。
 
