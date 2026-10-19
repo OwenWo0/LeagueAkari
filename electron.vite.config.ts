@@ -11,6 +11,7 @@ const MAIN_EXTERNALS = [
   'electron',
   'typeorm',
   'better-sqlite3',
+  'onnxruntime-node',
   /^league-akari-native-win32(?:\/.*)?$/
 ]
 

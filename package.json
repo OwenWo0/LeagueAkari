@@ -39,6 +39,8 @@
     "luaparse": "^0.3.1",
     "mime-types": "^3.0.2",
     "mobx": "^7.0.0",
+    "onnxruntime-node": "^1.30.0",
+    "ppu-paddle-ocr": "^6.6.1",
     "reflect-metadata": "^0.2.2",
     "regedit": "^5.1.4",
     "typeorm": "^1.1.0",

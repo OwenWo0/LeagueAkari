@@ -1,4 +1,7 @@
 import catalogAssetPath from '@resources/aram-assistant/augment-catalog.json?asset&asarUnpack'
+import ocrDetPath from '@resources/aram-assistant/ocr/det.onnx?asset&asarUnpack'
+import ocrDictPath from '@resources/aram-assistant/ocr/dict.txt?asset&asarUnpack'
+import ocrRecPath from '@resources/aram-assistant/ocr/rec.onnx?asset&asarUnpack'
 import probeAPath from '@resources/aram-assistant/probe/probe-a.jpg?asset&asarUnpack'
 import probeBPath from '@resources/aram-assistant/probe/probe-b.jpg?asset&asarUnpack'
 import { IAkariShardInitDispose, Shard } from '@shared/akari-shard'
@@ -97,6 +100,11 @@ export class AramAssistantMain implements IAkariShardInitDispose {
         { id: 'probe-a', path: probeAPath },
         { id: 'probe-b', path: probeBPath }
       ],
+      bundledOcrPaths: {
+        detPath: ocrDetPath,
+        recPath: ocrRecPath,
+        dictPath: ocrDictPath
+      },
       userDataPath: app.getPath('userData')
     }
     this._controller = new AramAssistantController(context)

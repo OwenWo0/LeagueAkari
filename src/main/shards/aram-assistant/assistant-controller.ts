@@ -3,6 +3,7 @@ import type { ChampionDataDetails, ChampionDataSourceId } from '@shared/data-ada
 import type {
   AramAnalysisInput,
   AramAugmentStatComparison,
+  AramCardBoundingBox,
   AramCredentialStatus,
   AramItemBuildItem,
   AramItemBuildRecommendation,
@@ -27,12 +28,16 @@ import {
   assertUpdateAllowed,
   fetchCatalog,
   loadCatalog,
+  matchCardFromCatalog,
+  normalizeName,
   recommendationCandidates,
   searchCatalog,
+  stringSimilarity,
   writeCatalogAtomically
 } from './catalog-loader'
 import type { AramAssistantMainContext } from './context'
 import { AramCredentialStore, type CredentialStorageMode } from './credential-store'
+import { type CardWithBoundingBox, LocalOcrExecutor } from './local-ocr-executor'
 import {
   type AramMatchContext,
   deriveAramMatchContext,
@@ -94,15 +99,25 @@ export interface AramScreenshotPort {
   clear(): void
 }
 
+export interface AramLocalOcrPort {
+  recognizeCandidates(
+    imageBytes: Uint8Array,
+    catalog: AugmentCatalog
+  ): Promise<CardWithBoundingBox[]>
+  dispose?(): Promise<void>
+}
+
 export interface AramAssistantControllerOptions {
   credentials?: AramCredentialStorePort
   screenshot?: AramScreenshotPort
+  localOcr?: AramLocalOcrPort
 }
 
 export class AramAssistantController {
   readonly screenshot: AramScreenshotPort
 
   private readonly _credentials: AramCredentialStorePort
+  private readonly _localOcr: AramLocalOcrPort
   private readonly _overlayPath: string
   private readonly _statsCache = new Map<string, ChampionDataDetails | null>()
   private readonly _statsInFlight = new Map<string, InFlightChampionStats>()
@@ -131,6 +146,14 @@ export class AramAssistantController {
         folderPath: path.join(_context.userDataPath, 'aram-assistant', 'credentials')
       })
     this.screenshot = options.screenshot ?? new AramScreenshotController(_context.windowManager)
+    this._localOcr =
+      options.localOcr ??
+      new LocalOcrExecutor({
+        detPath: _context.bundledOcrPaths?.detPath ?? '',
+        recPath: _context.bundledOcrPaths?.recPath ?? '',
+        dictPath: _context.bundledOcrPaths?.dictPath ?? '',
+        logger: _context.logger
+      })
   }
 
   async initialize() {
@@ -165,6 +188,7 @@ export class AramAssistantController {
     this.screenshot.clear()
     this._statsCache.clear()
     this._statsInFlight.clear()
+    this._localOcr.dispose?.()
   }
 
   getCatalog(): AugmentCatalog {
@@ -689,40 +713,68 @@ export class AramAssistantController {
 
       if (input.kind === 'augment-advice') {
         let candidateCards: AugmentCatalogEntry[] = []
+        const candidateBoxes = new Map<string, AramCardBoundingBox>()
         let rawOcrText = ''
 
         if (input.screenshotToken) {
           const image = this.screenshot.consume(input.screenshotToken)
-          const ocrPrompt = [
-            'You are an OCR tool for League of Legends ARAM Mayhem augment selection.',
-            'Task: Read the 3 offered augment card titles visible on screen.',
-            'Pick input: one screenshot is attached. Identify only the three currently offered cards that are clearly legible.',
-            'Output ONLY a JSON array of the 3 card title strings, for example: ["Card 1", "Card 2", "Card 3"].',
-            'Do not output markdown code blocks, explanation, or any other text.'
-          ].join('\n')
-
-          const provider = createVisionProvider({
-            protocol,
-            baseUrl: providerSettings.baseUrl,
-            model: providerSettings.model,
-            apiKey,
-            fetchImpl: (url, init) => this._context.network.fetch(url, init)
-          })
-
-          rawOcrText = await provider.generate({
-            prompt: ocrPrompt,
-            image,
-            timeoutMs: this._context.settings.requestTimeoutMs,
-            signal: active.controller.signal
-          })
-          this._assertActive(active)
-
-          const parsedNames = parseOcrCardNames(rawOcrText)
           const catalog = this._requireCatalog()
-          for (const name of parsedNames) {
-            const matched = matchCardFromCatalog(name, catalog)
-            if (matched && !candidateCards.some((c) => c.id === matched.id)) {
-              candidateCards.push(matched)
+
+          // 1. Prioritize local fast ONNX OCR engine
+          try {
+            const localMatches = await this._localOcr.recognizeCandidates(image.bytes, catalog)
+            for (const item of localMatches) {
+              if (!candidateCards.some((c) => c.id === item.card.id)) {
+                candidateCards.push(item.card)
+                if (item.box) {
+                  candidateBoxes.set(item.card.id, item.box)
+                }
+              }
+            }
+            if (candidateCards.length > 0) {
+              this._context.logger.info(
+                `Local ONNX OCR recognized ${candidateCards.length} cards: ${candidateCards.map((c) => c.name.zh).join(', ')}`
+              )
+            }
+          } catch (err) {
+            this._context.logger.warn(
+              'Local ONNX OCR failed, checking vision provider fallback',
+              err
+            )
+          }
+
+          // 2. Fallback to configured vision provider only if local OCR found nothing and an API key is available
+          if (candidateCards.length === 0 && apiKey) {
+            const ocrPrompt = [
+              'You are an OCR tool for League of Legends ARAM Mayhem augment selection.',
+              'Task: Read the 3 offered augment card titles visible on screen.',
+              'Pick input: one screenshot is attached. Identify only the three currently offered cards that are clearly legible.',
+              'Output ONLY a JSON array of the 3 card title strings, for example: ["Card 1", "Card 2", "Card 3"].',
+              'Do not output markdown code blocks, explanation, or any other text.'
+            ].join('\n')
+
+            const provider = createVisionProvider({
+              protocol,
+              baseUrl: providerSettings.baseUrl,
+              model: providerSettings.model,
+              apiKey,
+              fetchImpl: (url, init) => this._context.network.fetch(url, init)
+            })
+
+            rawOcrText = await provider.generate({
+              prompt: ocrPrompt,
+              image,
+              timeoutMs: this._context.settings.requestTimeoutMs,
+              signal: active.controller.signal
+            })
+            this._assertActive(active)
+
+            const parsedNames = parseOcrCardNames(rawOcrText)
+            for (const name of parsedNames) {
+              const matched = matchCardFromCatalog(name, catalog)
+              if (matched && !candidateCards.some((c) => c.id === matched.id)) {
+                candidateCards.push(matched)
+              }
             }
           }
         } else if (input.cardIds) {
@@ -744,6 +796,7 @@ export class AramAssistantController {
 
           const structuredAdvice = this._buildStructuredRecommendation({
             candidateCards,
+            candidateBoxes,
             championId,
             championName,
             mayhemStats,
@@ -1050,6 +1103,7 @@ export class AramAssistantController {
 
   private _buildStructuredRecommendation(options: {
     candidateCards: AugmentCatalogEntry[]
+    candidateBoxes?: Map<string, AramCardBoundingBox>
     championId: number | null
     championName: string | null
     mayhemStats: ChampionDataDetails | null
@@ -1071,7 +1125,8 @@ export class AramAssistantController {
         performanceScore: stat?.performanceScore ?? null,
         rank: stat?.rank ?? null,
         popularity: stat?.popularity ?? null,
-        isRecommended: false
+        isRecommended: false,
+        box: options.candidateBoxes?.get(card.id)
       }
     })
 
@@ -1418,13 +1473,6 @@ function cleanModel(value: unknown): string {
   return model && !/[\u0000-\u001f\u007f]/.test(model) ? model : ''
 }
 
-function normalizeName(value: string) {
-  return value
-    .normalize('NFKC')
-    .toLocaleLowerCase()
-    .replace(/[\s\p{P}\p{S}]+/gu, '')
-}
-
 function finite(value: number | null | undefined): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null
 }
@@ -1469,76 +1517,7 @@ export function parseOcrCardNames(raw: string): string[] {
   return []
 }
 
-export function stringSimilarity(a: string, b: string): number {
-  if (a === b) return 1
-  if (!a || !b) return 0
-  if (a.length === 1 && b.length === 1) return a === b ? 1 : 0
-  if (a.includes(b) || b.includes(a)) {
-    return Math.min(a.length, b.length) / Math.max(a.length, b.length)
-  }
-  const bigramsA = new Map<string, number>()
-  for (let i = 0; i < a.length - 1; i++) {
-    const bigram = a.slice(i, i + 2)
-    bigramsA.set(bigram, (bigramsA.get(bigram) ?? 0) + 1)
-  }
-  let intersection = 0
-  for (let i = 0; i < b.length - 1; i++) {
-    const bigram = b.slice(i, i + 2)
-    const count = bigramsA.get(bigram) ?? 0
-    if (count > 0) {
-      bigramsA.set(bigram, count - 1)
-      intersection++
-    }
-  }
-  const total = a.length - 1 + (b.length - 1)
-  return total > 0 ? (2 * intersection) / total : 0
-}
-
-export function matchCardFromCatalog(
-  candidateName: string,
-  catalog: AugmentCatalog
-): AugmentCatalogEntry | null {
-  const norm = normalizeName(candidateName)
-  if (!norm) return null
-
-  for (const entry of catalog.entries) {
-    if (
-      normalizeName(entry.name.zh) === norm ||
-      normalizeName(entry.name.en) === norm ||
-      normalizeName(entry.id) === norm ||
-      normalizeName(entry.slug) === norm
-    ) {
-      return entry
-    }
-  }
-
-  for (const entry of catalog.entries) {
-    const zhNorm = normalizeName(entry.name.zh)
-    const enNorm = normalizeName(entry.name.en)
-    if (
-      (zhNorm.length >= 2 && norm.includes(zhNorm)) ||
-      (norm.length >= 2 && zhNorm.includes(norm)) ||
-      (enNorm.length >= 3 && norm.includes(enNorm)) ||
-      (norm.length >= 3 && enNorm.includes(norm))
-    ) {
-      return entry
-    }
-  }
-
-  let bestEntry: AugmentCatalogEntry | null = null
-  let bestScore = 0
-  for (const entry of catalog.entries) {
-    const scoreZh = stringSimilarity(norm, normalizeName(entry.name.zh))
-    const scoreEn = stringSimilarity(norm, normalizeName(entry.name.en))
-    const score = Math.max(scoreZh, scoreEn)
-    if (score > bestScore) {
-      bestScore = score
-      bestEntry = entry
-    }
-  }
-
-  return bestScore >= 0.45 ? bestEntry : null
-}
+export { matchCardFromCatalog, normalizeName, stringSimilarity }
 
 export function tierToName(tier: number | null | undefined): string | undefined {
   if (tier === null || tier === undefined) return undefined

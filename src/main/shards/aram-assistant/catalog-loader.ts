@@ -561,3 +561,81 @@ async function renameWithRetry(source: string, target: string): Promise<void> {
     }
   }
 }
+
+export function normalizeName(value: string): string {
+  return value
+    .normalize('NFKC')
+    .toLocaleLowerCase()
+    .replace(/[\s\p{P}\p{S}]+/gu, '')
+}
+
+export function stringSimilarity(a: string, b: string): number {
+  if (a === b) return 1
+  if (!a || !b) return 0
+  if (a.length === 1 && b.length === 1) return a === b ? 1 : 0
+  if (a.includes(b) || b.includes(a)) {
+    return Math.min(a.length, b.length) / Math.max(a.length, b.length)
+  }
+  const bigramsA = new Map<string, number>()
+  for (let i = 0; i < a.length - 1; i++) {
+    const bigram = a.slice(i, i + 2)
+    bigramsA.set(bigram, (bigramsA.get(bigram) ?? 0) + 1)
+  }
+  let intersection = 0
+  for (let i = 0; i < b.length - 1; i++) {
+    const bigram = b.slice(i, i + 2)
+    const count = bigramsA.get(bigram) ?? 0
+    if (count > 0) {
+      bigramsA.set(bigram, count - 1)
+      intersection++
+    }
+  }
+  const total = a.length - 1 + (b.length - 1)
+  return total > 0 ? (2 * intersection) / total : 0
+}
+
+export function matchCardFromCatalog(
+  candidateName: string,
+  catalog: AugmentCatalog
+): AugmentCatalogEntry | null {
+  const norm = normalizeName(candidateName)
+  if (!norm) return null
+
+  for (const entry of catalog.entries) {
+    if (
+      normalizeName(entry.name.zh) === norm ||
+      normalizeName(entry.name.en) === norm ||
+      normalizeName(entry.id) === norm ||
+      normalizeName(entry.slug) === norm
+    ) {
+      return entry
+    }
+  }
+
+  for (const entry of catalog.entries) {
+    const zhNorm = normalizeName(entry.name.zh)
+    const enNorm = normalizeName(entry.name.en)
+    if (
+      (zhNorm.length >= 2 && norm.includes(zhNorm)) ||
+      (norm.length >= 2 && zhNorm.includes(norm)) ||
+      (enNorm.length >= 3 && norm.includes(enNorm)) ||
+      (norm.length >= 3 && enNorm.includes(norm))
+    ) {
+      return entry
+    }
+  }
+
+  let bestEntry: AugmentCatalogEntry | null = null
+  let bestScore = 0
+  for (const entry of catalog.entries) {
+    const scoreZh = stringSimilarity(norm, normalizeName(entry.name.zh))
+    const scoreEn = stringSimilarity(norm, normalizeName(entry.name.en))
+    const score = Math.max(scoreZh, scoreEn)
+    if (score > bestScore) {
+      bestScore = score
+      bestEntry = entry
+    }
+  }
+
+  return bestScore >= 0.45 ? bestEntry : null
+}

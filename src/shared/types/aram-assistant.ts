@@ -88,6 +88,13 @@ export interface AramHistoryItem {
   confirmedAt: string
 }
 
+export interface AramCardBoundingBox {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
 export interface AramAugmentStatComparison {
   cardId: string
   name: BilingualText
@@ -98,6 +105,7 @@ export interface AramAugmentStatComparison {
   rank: number | null
   popularity: number | null
   isRecommended: boolean
+  box?: AramCardBoundingBox
 }
 
 export interface AramItemBuildItem {

@@ -21,5 +21,10 @@ export interface AramAssistantMainContext {
   logger: AkariLogger
   bundledCatalogPath: string
   bundledProbeImagePaths: ReadonlyArray<{ id: 'probe-a' | 'probe-b'; path: string }>
+  bundledOcrPaths: {
+    detPath: string
+    recPath: string
+    dictPath: string
+  }
   userDataPath: string
 }

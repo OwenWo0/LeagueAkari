@@ -67,20 +67,20 @@
 
 ## 3. 部署步骤（Windows 10/11 x64 + 4070 Ti Super）
 
-### 3.1 方案 A：轻量本地 ONNX 引擎集成
+### 3.1 方案 A：轻量本地 ONNX 引擎集成（代码库已原生内置，开箱即用）
 
-1. **依赖包引入**：
-   ```bash
-   # 安装 onnxruntime-node（DirectML 支持 DirectX 12 加速，完美适配 4070 Ti Super）
-   node .yarn/releases/yarn-4.18.0.cjs add onnxruntime-node
-   ```
-2. **模型文件放置**：
-   将精简优化的中英文识别模型放入资源目录：
-   - 检测模型：`resources/aram-assistant/ocr/det.onnx` (~4MB)
-   - 识别模型：`resources/aram-assistant/ocr/rec.onnx` (~10MB)
-   - 字典文件：`resources/aram-assistant/ocr/ppocr_keys_v1.txt`
-3. **加载配置**：
-   DirectML Execution Provider 会自动调度 4070 Ti Super 的 GPU 核心进行并行推理，CPU 占用率低于 1%。
+1. **依赖包与运行环境**：
+   - 已直接引入 `onnxruntime-node` 与 `ppu-paddle-ocr`，支持 N-API ABI 稳定调用。
+   - 在 Windows 环境下优先开启 `directml` 硬件加速，并在不可用时自动无缝降级到 CPU 推理。
+2. **静态权重资产已内置**：
+   位于 `resources/aram-assistant/ocr/`：
+   - 检测模型：`det.onnx` (~4.6MB)
+   - 识别模型：`rec.onnx` (~10MB)
+   - 字典文件：`dict.txt` (~26KB)
+     在应用构建打包时自动通过 `asarUnpack` 打包至资源目录，完全离线单机运行，不受海外网络或 HuggingFace 访问限制。
+3. **识别与匹配流**：
+   - 当截屏触发时，`LocalOcrExecutor` 毫秒级提取文本与像素边界框 `[x, y, w, h]`；
+   - 自动匹配本地海克斯卡库并结合 OP.GG 嚎哭深渊胜率出装，无需任何云端 API Key 或本地大模型服务。
 
 ### 3.2 方案 B：Ollama 本地大模型方式（零修改代码即可体验）
 
